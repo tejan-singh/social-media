@@ -1,10 +1,15 @@
-
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Mockman from "mockman-js";
+import Home from "./Pages/Home";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <h1>Social Media</h1>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/mockman" element={<Mockman />}/>
+      </Routes>
     </div>
   );
 }

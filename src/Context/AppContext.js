@@ -7,7 +7,7 @@ const AppProvider = ({ children }) => {
     loading: true,
     allPosts: [],
     errorMsg: "",
-    newPost: "",
+    loggedinUser: "",
   };
 
   const reducerFun = (state, action) => {
@@ -27,11 +27,25 @@ const AppProvider = ({ children }) => {
           ...state,
           loading: false,
         };
+      case "GET_USERNAME":
+        return {
+          ...state,
+          loggedinUser: action.payload.username,
+        };
       case "CREATE_POST":
         return {
           ...state,
-          newPost: action.payload,
-          allPosts: [...state.allPosts, action.payload],
+          allPosts: action.payload.posts,
+        };
+      case "LIKE_POST":
+        return {
+          ...state,
+          allPosts: action.payload.posts,
+        };
+      case "DISLIKE_POST":
+        return {
+          ...state,
+          allPosts: action.payload.posts,
         };
       default:
         return state;
@@ -66,11 +80,10 @@ const AppProvider = ({ children }) => {
         body: JSON.stringify(credentials),
       });
 
-      const { encodedToken } = await response.json();
-
+      const { foundUser, encodedToken } = await response.json();
+      dispatch({ type: "GET_USERNAME", payload: foundUser });
       //store the encoded token to use it globally in the app
-
-      // give input in key value pair
+      // store using in key value pair
       localStorage.setItem("encodedToken", encodedToken);
     } catch (error) {
       console.error(error.message);

@@ -12,6 +12,8 @@ const Home = () => {
   return (
     <div>
       <h1>Social Media</h1>
+      
+
       {allPosts.map(
         ({
           _id,

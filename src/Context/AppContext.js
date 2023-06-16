@@ -7,6 +7,7 @@ const AppProvider = ({ children }) => {
     loading: true,
     allPosts: [],
     errorMsg: "",
+    newPost: "",
   };
 
   const reducerFun = (state, action) => {
@@ -26,11 +27,17 @@ const AppProvider = ({ children }) => {
           ...state,
           loading: false,
         };
+      case "CREATE_POST":
+        return {
+          ...state,
+          newPost: action.payload,
+          allPosts: [...state.allPosts, action.payload],
+        };
       default:
         return state;
     }
   };
-  const [ appState, dispatch ] = useReducer(reducerFun, initialState);
+  const [appState, dispatch] = useReducer(reducerFun, initialState);
   console.log(appState);
 
   const getPost = async () => {
@@ -45,8 +52,34 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const getUserToken = async () => {
+    try {
+      const credentials = {
+        username: "adarshbalika",
+        password: "adarshBalika123",
+      };
+
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+
+        //convert the object to JSON to send to server
+        body: JSON.stringify(credentials),
+      });
+
+      const { encodedToken } = await response.json();
+
+      //store the encoded token to use it globally in the app
+
+      // give input in key value pair
+      localStorage.setItem("encodedToken", encodedToken);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getPost();
+    getUserToken();
   }, []);
 
   return (

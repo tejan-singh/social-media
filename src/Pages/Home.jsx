@@ -37,17 +37,19 @@ const Home = () => {
     dispatch({ type: "DISLIKE_POST", payload: data });
   };
 
-  const deletePost = async (_id) => {
-    const response = await fetch(`/api/posts/${_id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: localStorage.getItem("encodedToken"),
-      },
-      method: 'DELETE'
-    });
+  const deletePost = async (_id, username) => {
+    
+      const response = await fetch(`/api/posts/${_id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("encodedToken"),
+        },
+        method: "DELETE",
+      });
 
-    const data = await response.json()
-    dispatch({type: "DELETE_POST", payload:data})
+      const data = await response.json();
+      dispatch({ type: "DELETE_POST", payload: data });
+    
   };
 
   return (
@@ -82,7 +84,13 @@ const Home = () => {
               >
                 {isLiked ? "unlike" : "Like"}
               </button>
-              <button onClick={() => deletePost(_id)}>Delete</button>
+
+              {/*show delete button only for user logged in created posts*/}
+              {loggedinUser === username && (
+                <button onClick={() => deletePost(_id, username)}>
+                  Delete
+                </button>
+              )}
               <p>Liked by:</p>
               {likedBy.map((person, index) => (
                 <span key={index}>{person.username}</span>

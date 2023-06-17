@@ -37,6 +37,19 @@ const Home = () => {
     dispatch({ type: "DISLIKE_POST", payload: data });
   };
 
+  const deletePost = async (_id) => {
+    const response = await fetch(`/api/posts/${_id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("encodedToken"),
+      },
+      method: 'DELETE'
+    });
+
+    const data = await response.json()
+    dispatch({type: "DELETE_POST", payload:data})
+  };
+
   return (
     <div>
       <h1>Social Media</h1>
@@ -69,7 +82,7 @@ const Home = () => {
               >
                 {isLiked ? "unlike" : "Like"}
               </button>
-
+              <button onClick={() => deletePost(_id)}>Delete</button>
               <p>Liked by:</p>
               {likedBy.map((person, index) => (
                 <span key={index}>{person.username}</span>

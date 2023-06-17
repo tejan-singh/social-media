@@ -47,6 +47,11 @@ const AppProvider = ({ children }) => {
           ...state,
           allPosts: action.payload.posts,
         };
+      case "DELETE_POST":
+        return {
+          ...state,
+          allPosts: action.payload.posts
+        }  
       default:
         return state;
     }

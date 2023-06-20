@@ -51,7 +51,12 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload.posts
-        }  
+        }
+      case "EDIT_POST":
+        return {
+          ...state,
+          allPosts: action.payload.posts
+        }    
       default:
         return state;
     }

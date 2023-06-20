@@ -10,7 +10,7 @@ const CreatePost = () => {
   };
 
   const createPost = async () => {
-    const request = { postData: { content: userInput } };
+    const requestBody = { postData: { content: userInput } };
 
     const response = await fetch("/api/posts", {
       headers:{
@@ -18,7 +18,7 @@ const CreatePost = () => {
         authorization: localStorage.getItem("encodedToken")
       },
       method: "POST",
-      body: JSON.stringify(request),
+      body: JSON.stringify(requestBody),
     });
 
     const data = await response.json();

@@ -62,7 +62,7 @@ const AppProvider = ({ children }) => {
           return {
             ...state,
             bookmarks: action.payload
-          }      
+        }      
       default:
         return state;
     }

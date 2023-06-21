@@ -6,13 +6,12 @@ import NavBar from "../Components/NavBar";
 
 const Home = () => {
   const {
-    appState: { allPosts, loading, errorMsg, loggedinUser },
+    appState: { allPosts, loading, errorMsg, loggedinUser, bookmarks },
     dispatch,
   } = useContext(AppContext);
 
   const [editId, setEditId] = useState(null);
   const [updatedContent, setUpdatedContent] = useState({ content: "" });
-  const [isBookmark, setIsBookmark] = useState(false)
 
   if (loading) return <p>Loading...</p>;
   if (errorMsg) return <p>{errorMsg}</p>;
@@ -107,8 +106,7 @@ const Home = () => {
       });
 
       const {bookmarks} = await response.json();
-      dispatch({type: 'BOOKMARK_POST', payload: bookmarks})
-      setIsBookmark(true)
+      dispatch({type: 'BOOKMARK_POST', payload:{data: bookmarks, id: _id}})
     } catch (error) {
       console.error(error.message);
     }
@@ -122,8 +120,7 @@ const Home = () => {
       });
 
       const {bookmarks} = await response.json();
-      dispatch({type: 'BOOKMARK_POST', payload: bookmarks})
-      setIsBookmark(false)
+      dispatch({type: 'REMOVE_BOOKMARK_POST', payload:{data: bookmarks, id: _id}})
     } catch (error) {
       console.error(error.message);
     }
@@ -143,6 +140,7 @@ const Home = () => {
           username,
           createdAt,
           updatedAt,
+          isBookmark
         }) => {
           /* on liking a post, it stores data of user who liked the post in likedBy array,
             you check whether the loggedin username is stored in the liked user array to toggle like button
@@ -150,6 +148,7 @@ const Home = () => {
           const isLiked = likedBy.find(
             (person) => person.username === loggedinUser
           );
+
           return (
             <article key={id}>
               {_id === editId ? (

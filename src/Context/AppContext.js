@@ -8,7 +8,8 @@ const AppProvider = ({ children }) => {
     allPosts: [],
     errorMsg: "",
     loggedinUser: "",
-    bookmarks:[]
+    bookmarks: [],
+    allBookmarks: [],
   };
 
   const reducerFun = (state, action) => {
@@ -51,18 +52,36 @@ const AppProvider = ({ children }) => {
       case "DELETE_POST":
         return {
           ...state,
-          allPosts: action.payload.posts
-        }
+          allPosts: action.payload.posts,
+        };
       case "EDIT_POST":
         return {
           ...state,
-          allPosts: action.payload.posts
-        }
-        case "BOOKMARK_POST":
-          return {
-            ...state,
-            bookmarks: action.payload
-        }      
+          allPosts: action.payload.posts,
+        };
+      case "BOOKMARK_POST":
+        const updateAllPosts = state.allPosts.map((post) =>
+          post._id === action.payload.id ? { ...post, isBookmark: true } : post
+        );
+        return {
+          ...state,
+          bookmarks: action.payload.data,
+          allPosts: updateAllPosts,
+        };
+      case "REMOVE_BOOKMARK_POST":
+        const updateAllPostsAfterRemove = state.allPosts.map((post) =>
+          post._id === action.payload.id ? { ...post, isBookmark: false } : post
+        );
+        return {
+          ...state,
+          bookmarks: action.payload.data,
+          allPosts: updateAllPostsAfterRemove,
+        };
+      case "SHOW_ALL_BOOKMARKS":
+        return {
+          ...state,
+          allBookmarks: action.payload,
+        };
       default:
         return state;
     }
@@ -102,9 +121,31 @@ const AppProvider = ({ children }) => {
       // store using in key value pair
       localStorage.setItem("encodedToken", encodedToken);
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
     }
   };
+
+  const getBookmarkPosts = async () => {
+    try {
+      const response = await fetch(`/api/users/bookmark`, {
+        method: "GET",
+        headers: {
+          authorization: localStorage.getItem("encodedToken"),
+        },
+      });
+
+      const { bookmarks } = await response.json();
+      dispatch({ type: "SHOW_ALL_BOOKMARKS", payload: bookmarks });
+    } catch (error) {
+      dispatch({ type: "SHOW_ERROR", payload: error.message });
+    } finally {
+      dispatch({ type: "HIDE_LOADING" });
+    }
+  };
+
+  useEffect(() => {
+    getBookmarkPosts();
+  }, [appState.bookmark]);
 
   useEffect(() => {
     getPost();

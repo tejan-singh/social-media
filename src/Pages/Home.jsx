@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 import CreatePost from "../Components/CreatePost";
 import { useState } from "react";
+import NavBar from "../Components/NavBar";
 
 const Home = () => {
   const {
@@ -131,6 +132,7 @@ const Home = () => {
   return (
     <div>
       <h1>Social Media</h1>
+      <NavBar/>
       <CreatePost />
       {allPosts.map(
         ({

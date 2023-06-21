@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
     allPosts: [],
     errorMsg: "",
     loggedinUser: "",
+    bookmarks:[]
   };
 
   const reducerFun = (state, action) => {
@@ -56,7 +57,12 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload.posts
-        }    
+        }
+        case "BOOKMARK_POST":
+          return {
+            ...state,
+            bookmarks: action.payload
+          }      
       default:
         return state;
     }

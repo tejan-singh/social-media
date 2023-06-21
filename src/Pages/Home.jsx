@@ -11,6 +11,7 @@ const Home = () => {
 
   const [editId, setEditId] = useState(null);
   const [updatedContent, setUpdatedContent] = useState({ content: "" });
+  const [isBookmark, setIsBookmark] = useState(false)
 
   if (loading) return <p>Loading...</p>;
   if (errorMsg) return <p>{errorMsg}</p>;
@@ -19,7 +20,6 @@ const Home = () => {
     try {
       const response = await fetch(`/api/posts/like/${_id}`, {
         headers: {
-          "Content-Type": "application/json",
           authorization: localStorage.getItem("encodedToken"),
         },
         method: "POST",
@@ -36,7 +36,6 @@ const Home = () => {
     try {
       const response = await fetch(`/api/posts/dislike/${_id}`, {
         headers: {
-          "Content-Type": "application/json",
           authorization: localStorage.getItem("encodedToken"),
         },
         method: "POST",
@@ -53,7 +52,6 @@ const Home = () => {
     try {
       const response = await fetch(`/api/posts/${_id}`, {
         headers: {
-          "Content-Type": "application/json",
           authorization: localStorage.getItem("encodedToken"),
         },
         method: "DELETE",
@@ -86,7 +84,9 @@ const Home = () => {
       const requestBody = { postData: updatedContent };
       const response = await fetch(`/api/posts/edit/${editId}`, {
         method: "POST",
-        headers: { authorization: localStorage.getItem("encodedToken") },
+        headers: {
+          authorization: localStorage.getItem("encodedToken"),
+        },
         body: JSON.stringify(requestBody),
       });
 
@@ -95,6 +95,36 @@ const Home = () => {
       setEditId(null);
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const bookmarkPost = async (_id) => {
+    try {
+      const response = await fetch(`/api/users/bookmark/${_id}`, {
+        method: "POST",
+        headers: { authorization: localStorage.getItem("encodedToken") },
+      });
+
+      const {bookmarks} = await response.json();
+      dispatch({type: 'BOOKMARK_POST', payload: bookmarks})
+      setIsBookmark(true)
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const removeBookmark = async (_id) => {
+    try {
+      const response = await fetch(`/api/users/remove-bookmark/${_id}`, {
+        method: "POST",
+        headers: { authorization: localStorage.getItem("encodedToken") },
+      });
+
+      const {bookmarks} = await response.json();
+      dispatch({type: 'BOOKMARK_POST', payload: bookmarks})
+      setIsBookmark(false)
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
@@ -151,6 +181,9 @@ const Home = () => {
                   )}
                   {loggedinUser === username && (
                     <button onClick={() => handleEditPost(_id)}>Edit</button>
+                  )}
+                  {loggedinUser !== username && (
+                    <button onClick={() => {isBookmark ? removeBookmark(_id): bookmarkPost(_id)}}>{isBookmark ? "remove bookmark" : "bookmark"}</button>
                   )}
                   <p>Liked by:</p>
                   {likedBy.map((person, index) => (

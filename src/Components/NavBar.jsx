@@ -18,9 +18,6 @@ const NavBar = () => {
       <NavLink to="/login" style={getActiveStyle}>
         Login ||
       </NavLink>
-      <NavLink to="/profile" style={getActiveStyle}>
-        User Profile ||
-      </NavLink>
     </nav>
   );
 };

@@ -10,12 +10,10 @@ const Home = () => {
   } = useContext(AppContext);
 
   if (loading) return <p>Loading...</p>;
-
   if (errorMsg) return <p>{errorMsg}</p>;
 
   return (
     <div>
-      <h1>Social Media</h1>
       <NavBar />
       <CreatePost />
       {allPosts.map((post) => (

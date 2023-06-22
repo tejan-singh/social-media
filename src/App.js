@@ -6,8 +6,12 @@ import Bookmarks from "./Pages/Bookmarks";
 import Explore from "./Pages/Explore";
 import Login from "./Pages/Login";
 import UserProfile from "./Pages/UserProfile";
+import { useContext } from "react";
+import { AppContext } from "./Context/AppContext";
 
 function App() {
+  const {appState: {loggedinUser}} = useContext(AppContext)
+
   return (
     <div className="App">
       <Routes>
@@ -16,7 +20,9 @@ function App() {
         <Route path="/bookmarks" element={<Bookmarks />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route path='/profile/:profileName' element={<UserProfile />} />
+        
+        {/* <Route path={`/profile/:${loggedinUser ? loggedinUser : ':profileName'}`} element={<UserProfile />} /> */}
       </Routes>
     </div>
   );

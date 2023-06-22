@@ -6,10 +6,12 @@ const AppProvider = ({ children }) => {
   const initialState = {
     loading: true,
     allPosts: [],
+    allUsers: [],
     errorMsg: "",
     loggedinUser: "",
     bookmarks: [],
     allBookmarks: [],
+    userProfile:{}
   };
 
   const reducerFun = (state, action) => {
@@ -78,11 +80,24 @@ const AppProvider = ({ children }) => {
           allPosts: updateAllPostsAfterRemove,
         };
       case "SHOW_ALL_BOOKMARKS":
-        const allBookmarksWithToggle = action.payload.map( (post) => ({...post, isBookmark:true}) )
+        const allBookmarksWithToggle = action.payload.map((post) => ({
+          ...post,
+          isBookmark: true,
+        }));
         return {
           ...state,
           allBookmarks: allBookmarksWithToggle,
         };
+      case "SET_ALL_USERS":
+        return {
+          ...state,
+          allUsers: action.payload,
+        };
+      case "SET_USER":
+        return {
+          ...state,
+          userProfile: action.payload
+        }  
       default:
         return state;
     }
@@ -97,6 +112,19 @@ const AppProvider = ({ children }) => {
       dispatch({ type: "SHOW_ALL_POSTS", payload: posts });
     } catch (error) {
       dispatch({ type: "SHOW_ERROR", payload: error.message });
+    } finally {
+      dispatch({ type: "HIDE_LOADING" });
+    }
+  };
+
+  const getAllUsers = async () => {
+    try {
+      const response = await fetch("/api/users", { method: "GET" });
+      const { users } = await response.json();
+
+      dispatch({ type: "SET_ALL_USERS", payload: users });
+    } catch (error) {
+      console.error(error);
     } finally {
       dispatch({ type: "HIDE_LOADING" });
     }
@@ -151,6 +179,7 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     getPost();
     getUserToken();
+    getAllUsers();
   }, []);
 
   return (

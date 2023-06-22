@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
+import { Link, useParams } from "react-router-dom";
 
 const Post = ({
   _id,
@@ -13,12 +14,14 @@ const Post = ({
   fromHomePage,
 }) => {
   const {
-    appState: { allPosts, loggedinUser },
+    appState: { allPosts, loggedinUser, allUsers },
     dispatch,
   } = useContext(AppContext);
 
   const [editId, setEditId] = useState(null);
   const [updatedContent, setUpdatedContent] = useState({ content: "" });
+
+
 
   const likePost = async (_id) => {
     try {
@@ -136,6 +139,8 @@ const Post = ({
     }
   };
 
+
+
   //on liking a post, it stores data of user who liked the post in likedBy array, you check whether the loggedin username is stored in the liked user array to toggle like button
 
   // liked is not getting passed for bookmarks, so we use optional chaining to check if likes not present then return undefined
@@ -159,7 +164,7 @@ const Post = ({
         </>
       ) : (
         <>
-          <p>{username}</p>
+          <Link to = {`/profile/${username}`}>{username}</Link>
           <p>{content}</p>
           {fromHomePage && (
             <>

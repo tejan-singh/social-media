@@ -78,9 +78,10 @@ const AppProvider = ({ children }) => {
           allPosts: updateAllPostsAfterRemove,
         };
       case "SHOW_ALL_BOOKMARKS":
+        const allBookmarksWithToggle = action.payload.map( (post) => ({...post, isBookmark:true}) )
         return {
           ...state,
-          allBookmarks: action.payload,
+          allBookmarks: allBookmarksWithToggle,
         };
       default:
         return state;
@@ -145,7 +146,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     getBookmarkPosts();
-  }, [appState.bookmark]);
+  }, [appState.bookmarks]);
 
   useEffect(() => {
     getPost();

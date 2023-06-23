@@ -11,6 +11,7 @@ const UserProfile = () => {
       allUsers,
       userProfile: { _id, username, firstName, lastName, followers, following },
       loggedInUserProfile,
+      loggedinUser,
       loading,
     },
     dispatch,
@@ -18,13 +19,16 @@ const UserProfile = () => {
 
   const getUser = async () => {
     try {
+      dispatch({ type: "SHOW_LOADING" });
       const { _id } = allUsers.find((user) => user.username === profileName);
       const response = await fetch(`/api/users/${_id}`, { method: "GET" });
       const { user } = await response.json();
       //this will set data in userProfile state which you will get from context and use in jsx
       dispatch({ type: "SET_USER", payload: user });
+
     } catch (error) {
       console.error(error);
+
     } finally {
       dispatch({ type: "HIDE_LOADING" });
     }
@@ -68,7 +72,6 @@ const UserProfile = () => {
     loggedInUserProfile.following &&
     loggedInUserProfile.following.some((user) => user._id === _id);
 
-  console.log(isFollowing);
   useEffect(() => {
     getUser();
   }, [allUsers]);
@@ -81,9 +84,9 @@ const UserProfile = () => {
       <p>@{username}</p>
       <p>Followers: {followers?.length}</p>
       <p>Following: {following?.length}</p>
-      <button onClick={isFollowing ? handleUnFollowUser : handleFollowUser}>
+      {loggedinUser !== username && <button onClick={isFollowing ? handleUnFollowUser : handleFollowUser}>
         {isFollowing ? "Unfollow" : "Follow"}
-      </button>
+      </button>}
     </div>
   );
 };

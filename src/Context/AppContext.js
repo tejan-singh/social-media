@@ -8,11 +8,10 @@ const AppProvider = ({ children }) => {
     allPosts: [],
     allUsers: [],
     errorMsg: "",
-    loggedinUser: "",
     bookmarks: [],
     allBookmarks: [],
     userProfile: {},
-    loggedInUserProfile: {},
+    loggedinUser: {},
   };
 
   const reducerFun = (state, action) => {
@@ -37,10 +36,10 @@ const AppProvider = ({ children }) => {
           ...state,
           loading: true,
         };
-      case "GET_USERNAME":
+      case "SET_LOGGEDIN_USERPROFILE":
         return {
           ...state,
-          loggedinUser: action.payload.username,
+          loggedinUser: action.payload,
         };
       case "CREATE_POST":
         return {
@@ -107,7 +106,7 @@ const AppProvider = ({ children }) => {
       case "UPDATE_LOGGEDIN_USER_DETAILS":
         return {
           ...state,
-          loggedInUserProfile: action.payload,
+          loggedinUser: action.payload,
         };
       default:
         return state;
@@ -156,7 +155,7 @@ const AppProvider = ({ children }) => {
       });
 
       const { foundUser, encodedToken } = await response.json();
-      dispatch({ type: "GET_USERNAME", payload: foundUser });
+      dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
       //store the encoded token to use it globally in the app
       // store using in key value pair
       localStorage.setItem("encodedToken", encodedToken);

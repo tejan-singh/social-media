@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import NavBar from "../Components/NavBar";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
@@ -10,7 +10,6 @@ const UserProfile = () => {
     appState: {
       allUsers,
       userProfile: { _id, username, firstName, lastName, followers, following },
-      loggedInUserProfile,
       loggedinUser,
       loading,
     },
@@ -25,10 +24,8 @@ const UserProfile = () => {
       const { user } = await response.json();
       //this will set data in userProfile state which you will get from context and use in jsx
       dispatch({ type: "SET_USER", payload: user });
-
     } catch (error) {
       console.error(error);
-
     } finally {
       dispatch({ type: "HIDE_LOADING" });
     }
@@ -69,8 +66,8 @@ const UserProfile = () => {
   // to check whether uses is present in following array
   // some method will return true/false
   const isFollowing =
-    loggedInUserProfile.following &&
-    loggedInUserProfile.following.some((user) => user._id === _id);
+    loggedinUser.following &&
+    loggedinUser.following.some((user) => user._id === _id);
 
   useEffect(() => {
     getUser();
@@ -84,9 +81,11 @@ const UserProfile = () => {
       <p>@{username}</p>
       <p>Followers: {followers?.length}</p>
       <p>Following: {following?.length}</p>
-      {loggedinUser !== username && <button onClick={isFollowing ? handleUnFollowUser : handleFollowUser}>
-        {isFollowing ? "Unfollow" : "Follow"}
-      </button>}
+      {loggedinUser.username !== username && (
+        <button onClick={isFollowing ? handleUnFollowUser : handleFollowUser}>
+          {isFollowing ? "Unfollow" : "Follow"}
+        </button>
+      )}
     </div>
   );
 };

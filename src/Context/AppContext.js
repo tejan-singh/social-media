@@ -11,7 +11,8 @@ const AppProvider = ({ children }) => {
     loggedinUser: "",
     bookmarks: [],
     allBookmarks: [],
-    userProfile:{}
+    userProfile:{},
+    loggedInUserProfile:{}
   };
 
   const reducerFun = (state, action) => {
@@ -97,7 +98,12 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           userProfile: action.payload
-        }  
+        }
+      case "UPDATE_LOGGEDIN_USER_DETAILS":
+        return {
+          ...state,
+          loggedInUserProfile: action.payload
+        }    
       default:
         return state;
     }
@@ -179,8 +185,11 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     getPost();
     getUserToken();
-    getAllUsers();
   }, []);
+
+  useEffect( () => {
+    getAllUsers();
+  }, [] )
 
   return (
     <AppContext.Provider value={{ appState, dispatch }}>

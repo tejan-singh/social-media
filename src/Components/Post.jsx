@@ -14,7 +14,7 @@ const Post = ({
   fromHomePage,
 }) => {
   const {
-    appState: { allPosts, loggedinUser, allUsers },
+    appState: { allPosts, loggedinUser },
     dispatch,
   } = useContext(AppContext);
 

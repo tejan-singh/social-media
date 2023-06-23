@@ -1,9 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext} from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { AppContext } from "../Context/AppContext";
 
 const NavBar = () => {
+  const {appState: {loggedinUser:{username}}} = useContext(AppContext)
   const getActiveStyle = ({ isActive }) => ({ color: isActive ? "red" : "" });
-
   return (
     <nav>
       <NavLink to={"/"} style={getActiveStyle}>
@@ -17,6 +18,9 @@ const NavBar = () => {
       </NavLink>
       <NavLink to="/login" style={getActiveStyle}>
         Login ||
+      </NavLink>
+      <NavLink to={`/profile/${username}`} style={getActiveStyle}>
+        My Profile ||
       </NavLink>
     </nav>
   );

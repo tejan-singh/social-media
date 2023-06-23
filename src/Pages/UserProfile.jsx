@@ -5,7 +5,7 @@ import { AppContext } from "../Context/AppContext";
 
 const UserProfile = () => {
   const { profileName } = useParams();
-
+  console.log(profileName);
   const {
     appState: {
       allUsers,
@@ -71,7 +71,10 @@ const UserProfile = () => {
 
   useEffect(() => {
     getUser();
-  }, [allUsers]);
+
+    // allUsers dependency is required to load data when profile url is directly accessed
+    // profileName dependency is required to replace currenct data to show loggedin user profile
+  }, [allUsers, profileName]);
 
   if (loading) return <p>Loading...</p>;
   return (

@@ -10,11 +10,10 @@ const Post = ({
   username,
   createdAt,
   updatedAt,
-  isBookmark,
   fromHomePage,
 }) => {
   const {
-    appState: { allPosts, loggedinUser },
+    appState: { allPosts, loggedinUser, bookmarks },
     dispatch,
   } = useContext(AppContext);
 
@@ -143,6 +142,9 @@ const Post = ({
   const isLiked = likes?.likedBy.find(
     (person) => person.username === loggedinUser.username
   );
+
+  const isBookmark =
+    bookmarks.length > 0 && bookmarks.some((post) => post._id === _id);
 
   return (
     <article key={id}>

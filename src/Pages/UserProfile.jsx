@@ -1,33 +1,31 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavBar from "../Components/NavBar";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 
 const UserProfile = () => {
   const { profileName } = useParams();
-  console.log(profileName);
   const {
     appState: {
       allUsers,
       userProfile: { _id, username, firstName, lastName, followers, following },
       loggedinUser,
-      loading,
     },
     dispatch,
   } = useContext(AppContext);
 
+  const [profileLoading, setProfileLoading] = useState(true);
+
   const getUser = async () => {
     try {
-      dispatch({ type: "SHOW_LOADING" });
       const { _id } = allUsers.find((user) => user.username === profileName);
       const response = await fetch(`/api/users/${_id}`, { method: "GET" });
       const { user } = await response.json();
       //this will set data in userProfile state which you will get from context and use in jsx
       dispatch({ type: "SET_USER", payload: user });
+      setProfileLoading(false);
     } catch (error) {
       console.error(error);
-    } finally {
-      dispatch({ type: "HIDE_LOADING" });
     }
   };
 
@@ -73,10 +71,10 @@ const UserProfile = () => {
     getUser();
 
     // allUsers dependency is required to load data when profile url is directly accessed
-    // profileName dependency is required to replace currenct data to show loggedin user profile
+    // profileName dependency is required to replace currenct user data to show loggedin user profile
   }, [allUsers, profileName]);
 
-  if (loading) return <p>Loading...</p>;
+  if (profileLoading) return <p>Loading...</p>;
   return (
     <div>
       <NavBar />

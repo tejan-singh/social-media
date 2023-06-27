@@ -28,7 +28,7 @@ const Login = () => {
 
     const { foundUser, encodedToken } = await response.json();
     if (foundUser) {
-      localStorage.setItem("token", encodedToken);
+      localStorage.setItem("encodedToken", encodedToken);
       dispatch({ type: "USER_LOGIN", payload: foundUser });
     } else {
       console.error("invalid user");
@@ -36,7 +36,10 @@ const Login = () => {
   };
 
   const handleGuestLogin = async () => {
-    const guestUserCredentials = {username: "adarshbalika", password: "adarshBalika123"}
+    const guestUserCredentials = {
+      username: "adarshbalika",
+      password: "adarshBalika123",
+    };
     const response = await fetch("/api/auth/login", {
       method: "POST",
       body: JSON.stringify(guestUserCredentials),
@@ -44,12 +47,12 @@ const Login = () => {
 
     const { foundUser, encodedToken } = await response.json();
     if (foundUser) {
-      localStorage.setItem("token", encodedToken);
+      localStorage.setItem("encodedToken", encodedToken);
       dispatch({ type: "USER_LOGIN", payload: foundUser });
     } else {
       console.error("invalid user");
     }
-  }
+  };
 
   return (
     <>

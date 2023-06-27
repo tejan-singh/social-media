@@ -17,6 +17,8 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch({ type: "USER_LOGOUT" });
+    //this will delete token from local storage
+    localStorage.removeItem("encodedToken");
   };
 
   return (

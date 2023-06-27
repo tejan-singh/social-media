@@ -4,13 +4,15 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const initialState = {
-    isLoggedIn: false,
+    //if token is already stored then default state will be true
+    isLoggedIn: localStorage.getItem("encodedToken") ? true : false,
     loggedinUser: {},
   };
 
   const authReducer = (state, action) => {
     switch (action.type) {
       case "USER_LOGIN":
+
         return {
           ...state,
           isLoggedIn: true,

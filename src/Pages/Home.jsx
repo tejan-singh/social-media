@@ -6,7 +6,7 @@ import Post from "../Components/Post";
 
 const Home = () => {
   const {
-    appState: { allPosts, loading, errorMsg },
+    appState: { homeFeed, loading, errorMsg },
   } = useContext(AppContext);
 
   if (loading) return <p>Loading...</p>;
@@ -16,7 +16,7 @@ const Home = () => {
     <div>
       <NavBar />
       <CreatePost />
-      {allPosts.map((post) => (
+      {homeFeed.map((post) => (
         <Post {...post} key={post._id} fromHomePage />
       ))}
     </div>

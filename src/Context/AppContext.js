@@ -6,6 +6,7 @@ const AppProvider = ({ children }) => {
   const initialState = {
     loading: true,
     allPosts: [],
+    homeFeed:[],
     allUsers: [],
     errorMsg: "",
     bookmarks: [],
@@ -20,6 +21,7 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload,
+          homeFeed: action.payload.filter( post => state.loggedinUser.following.some(user => user.username === post.username) || post.username === state.loggedinUser.username )
         };
       case "SHOW_ERROR":
         return {
@@ -187,8 +189,8 @@ const AppProvider = ({ children }) => {
   }, [appState.bookmarks]);
 
   useEffect(() => {
-    getPost();
     getUserToken();
+    getPost();
   }, []);
 
   useEffect(() => {

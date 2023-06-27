@@ -6,7 +6,7 @@ const AppProvider = ({ children }) => {
   const initialState = {
     loading: true,
     allPosts: [],
-    homeFeed:[],
+    homeFeed: [],
     allUsers: [],
     errorMsg: "",
     bookmarks: [],
@@ -21,7 +21,12 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload,
-          homeFeed: action.payload.filter( post => state.loggedinUser.following?.some(user => user.username === post.username) || post.username === state.loggedinUser.username )
+          homeFeed: action.payload.filter(
+            (post) =>
+              state.loggedinUser.following?.some(
+                (user) => user.username === post.username
+              ) || post.username === state.loggedinUser.username
+          ),
         };
       case "SHOW_ERROR":
         return {
@@ -117,7 +122,7 @@ const AppProvider = ({ children }) => {
   const [appState, dispatch] = useReducer(reducerFun, initialState);
   console.log(appState);
 
-  const getPost = async () => {
+  const getPosts = async () => {
     try {
       const response = await fetch("/api/posts");
       const { posts } = await response.json();
@@ -185,17 +190,20 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getBookmarkPosts();
-  }, [appState.bookmarks]);
-
-  useEffect(() => {
     getUserToken();
-    getPost();
   }, []);
 
   useEffect(() => {
     getAllUsers();
   }, []);
+
+  useEffect(() => {
+    getPosts();
+  }, [appState.loggedinUser]);
+
+  useEffect(() => {
+    getBookmarkPosts();
+  }, [appState.bookmarks]);
 
   return (
     <AppContext.Provider value={{ appState, dispatch }}>

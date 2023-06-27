@@ -10,7 +10,6 @@ const AppProvider = ({ children }) => {
     allUsers: [],
     errorMsg: "",
     bookmarks: [],
-    allBookmarks: [],
     userProfile: {},
     loggedinUser: {},
   };
@@ -112,11 +111,6 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           bookmarks: action.payload.data,
-        };
-      case "SHOW_ALL_BOOKMARKS":
-        return {
-          ...state,
-          allBookmarks: action.payload
         };
       case "SET_ALL_USERS":
         return {

@@ -5,7 +5,7 @@ import Post from "../Components/Post";
 
 const Bookmarks = () => {
   const {
-    appState: { allBookmarks, loading, errorMsg },
+    appState: { bookmarks, loading, errorMsg },
   } = useContext(AppContext);
 
   if (loading) return <p>Loading...</p>;
@@ -14,8 +14,8 @@ const Bookmarks = () => {
   return (
     <div>
       <NavBar />
-      {allBookmarks.length === 0 && <p>No bookmarked posts</p>}
-      {allBookmarks.map( (post) => <Post {...post} key={post._id}/>)}
+      {bookmarks.length === 0 && <p>No bookmarked posts</p>}
+      {bookmarks.map( (post) => <Post {...post} key={post._id}/>)}
 
     </div>
   );

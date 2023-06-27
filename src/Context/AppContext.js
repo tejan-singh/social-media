@@ -22,9 +22,9 @@ const AppProvider = ({ children }) => {
           allPosts: action.payload,
           homeFeed: action.payload.filter(
             (post) =>
-              state.loggedinUser.following?.some(
+              state.loggedinUser?.following?.some(
                 (user) => user.username === post.username
-              ) || post.username === state.loggedinUser.username
+              ) || post.username === state.loggedinUser?.username
           ),
         };
       case "SHOW_ERROR":
@@ -132,7 +132,6 @@ const AppProvider = ({ children }) => {
     }
   };
   const [appState, dispatch] = useReducer(reducerFun, initialState);
-  console.log(appState);
 
   const getPosts = async () => {
     try {

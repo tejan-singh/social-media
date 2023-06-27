@@ -6,17 +6,46 @@ import Bookmarks from "./Pages/Bookmarks";
 import Explore from "./Pages/Explore";
 import Login from "./Pages/Login";
 import UserProfile from "./Pages/UserProfile";
+import RequiresAuth from "./Components/RequiresAuth";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <RequiresAuth>
+              <Home />
+            </RequiresAuth>
+          }
+        />
         <Route path="/mockman" element={<Mockman />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
-        <Route path="/explore" element={<Explore />} />
+        <Route
+          path="/bookmarks"
+          element={
+            <RequiresAuth>
+              <Bookmarks />
+            </RequiresAuth>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <RequiresAuth>
+              <Explore />
+            </RequiresAuth>
+          }
+        />
         <Route path="/login" element={<Login />} />
-        <Route path='/profile/:profileName' element={<UserProfile />} />
+        <Route
+          path="/profile/:profileName"
+          element={
+            <RequiresAuth>
+              <UserProfile />
+            </RequiresAuth>
+          }
+        />
       </Routes>
     </div>
   );

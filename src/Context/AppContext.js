@@ -52,53 +52,71 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload.posts,
+          homeFeed: action.payload.posts.filter(
+            (post) =>
+              state.loggedinUser.following?.some(
+                (user) => user.username === post.username
+              ) || post.username === state.loggedinUser.username
+          ),
         };
       case "LIKE_POST":
         return {
           ...state,
           allPosts: action.payload.posts,
+          homeFeed: action.payload.posts.filter(
+            (post) =>
+              state.loggedinUser.following?.some(
+                (user) => user.username === post.username
+              ) || post.username === state.loggedinUser.username
+          ),
         };
       case "DISLIKE_POST":
         return {
           ...state,
           allPosts: action.payload.posts,
+          homeFeed: action.payload.posts.filter(
+            (post) =>
+              state.loggedinUser.following?.some(
+                (user) => user.username === post.username
+              ) || post.username === state.loggedinUser.username
+          ),
         };
       case "DELETE_POST":
         return {
           ...state,
           allPosts: action.payload.posts,
+          homeFeed: action.payload.posts.filter(
+            (post) =>
+              state.loggedinUser.following?.some(
+                (user) => user.username === post.username
+              ) || post.username === state.loggedinUser.username
+          ),
         };
       case "EDIT_POST":
         return {
           ...state,
           allPosts: action.payload.posts,
+          homeFeed: action.payload.posts.filter(
+            (post) =>
+              state.loggedinUser.following?.some(
+                (user) => user.username === post.username
+              ) || post.username === state.loggedinUser.username
+          ),
         };
       case "BOOKMARK_POST":
-        const updateAllPosts = state.allPosts.map((post) =>
-          post._id === action.payload.id ? { ...post, isBookmark: true } : post
-        );
         return {
           ...state,
           bookmarks: action.payload.data,
-          allPosts: updateAllPosts,
         };
       case "REMOVE_BOOKMARK_POST":
-        const updateAllPostsAfterRemove = state.allPosts.map((post) =>
-          post._id === action.payload.id ? { ...post, isBookmark: false } : post
-        );
         return {
           ...state,
           bookmarks: action.payload.data,
-          allPosts: updateAllPostsAfterRemove,
         };
       case "SHOW_ALL_BOOKMARKS":
-        const allBookmarksWithToggle = action.payload.map((post) => ({
-          ...post,
-          isBookmark: true,
-        }));
         return {
           ...state,
-          allBookmarks: allBookmarksWithToggle,
+          allBookmarks: action.payload
         };
       case "SET_ALL_USERS":
         return {

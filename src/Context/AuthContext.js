@@ -4,25 +4,35 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const initialState = {
-    isLoggedIn: true,
-    loggedinUser: {}
+    isLoggedIn: false,
+    loggedinUser: {},
   };
 
   const authReducer = (state, action) => {
-    switch(action.type){
-        case "SET_LOGGEDIN_USER":
-            return {
-                ...state,
-                loggedinUser: action.payload
-            }
-        default:
-            return state 
-        }
+    switch (action.type) {
+      case "USER_LOGIN":
+        return {
+          ...state,
+          isLoggedIn: true,
+          loggedinUser: action.payload,
+        };
+      case "USER_LOGOUT":
+        return {
+          ...state,
+          isLoggedIn: false,
+        };
+      default:
+        return state;
+    }
   };
 
   const [authState, dispatch] = useReducer(authReducer, initialState);
-  console.log(authState)
-  return <AuthContext.Provider value={{authState, dispatch}}>{children}</AuthContext.Provider>;
+  console.log(authState);
+  return (
+    <AuthContext.Provider value={{ authState, dispatch }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export { AuthProvider };

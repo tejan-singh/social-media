@@ -3,12 +3,18 @@ import NavBar from "../Components/NavBar";
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
+import { AppProvider } from "../Context/AppContext";
 
 const Login = () => {
   const {
     authState: { isLoggedIn },
-    dispatch,
+    authDispatch,
   } = useContext(AuthContext);
+
+  const {
+    // authDispatch
+  } = useContext(AppProvider)
+
   const [userCredentials, setUserCredentials] = useState({
     username: "",
     password: "",
@@ -29,7 +35,7 @@ const Login = () => {
     const { foundUser, encodedToken } = await response.json();
     if (foundUser) {
       localStorage.setItem("encodedToken", encodedToken);
-      dispatch({ type: "USER_LOGIN", payload: foundUser });
+      authDispatch({ type: "USER_LOGIN", payload: foundUser });
     } else {
       console.error("invalid user");
     }
@@ -48,7 +54,7 @@ const Login = () => {
     const { foundUser, encodedToken } = await response.json();
     if (foundUser) {
       localStorage.setItem("encodedToken", encodedToken);
-      dispatch({ type: "USER_LOGIN", payload: foundUser });
+      authDispatch({ type: "USER_LOGIN", payload: foundUser });
     } else {
       console.error("invalid user");
     }
@@ -91,8 +97,8 @@ const Login = () => {
           <button className={styles["login-button"]} onClick={handleGuestLogin}>
             Login as guest
           </button>
-          <Link className={styles["login-forget"]} to="#">
-            Forget Password?
+          <Link className={styles["signup-message"]} to="/signup">
+            Don't have an account ? Sign up!
           </Link>
         </div>
       )}

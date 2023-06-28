@@ -25,7 +25,7 @@ export const users = [
     _id: "fe479b4a-1d1c-4b1d-8a6a-837b3f2907cb",
     firstName: "Tejan",
     lastName: "Singh",
-    email: "test@gmail.com",
+    email: "tejan@gmail.com",
     username: "tejansingh",
     password: "tejansingh123",
     createdAt: formatDate(),

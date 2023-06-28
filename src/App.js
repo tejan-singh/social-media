@@ -7,6 +7,7 @@ import Explore from "./Pages/Explore";
 import Login from "./Pages/Login";
 import UserProfile from "./Pages/UserProfile";
 import RequiresAuth from "./Components/RequiresAuth";
+import Signup from "./Pages/Signup";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
         <Route
           path="/profile/:profileName"
           element={

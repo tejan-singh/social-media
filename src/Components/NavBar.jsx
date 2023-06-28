@@ -11,14 +11,14 @@ const NavBar = () => {
   } = useContext(AppContext);
   const {
     authState: { isLoggedIn },
-    dispatch,
+    authDispatch,
   } = useContext(AuthContext);
   const getActiveStyle = ({ isActive }) => ({ color: isActive ? "red" : "" });
 
   const handleLogout = () => {
-    dispatch({ type: "USER_LOGOUT" });
+    authDispatch({ type: "USER_LOGOUT" });
     //this will delete token from local storage
-    localStorage.removeItem("encodedToken");
+    localStorage.removeItem('encodedToken')
   };
 
   return (

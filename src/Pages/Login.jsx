@@ -55,6 +55,7 @@ const Login = () => {
     if (foundUser) {
       localStorage.setItem("encodedToken", encodedToken);
       authDispatch({ type: "USER_LOGIN", payload: foundUser });
+      dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
     } else {
       console.error("invalid user");
     }

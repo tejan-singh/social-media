@@ -61,7 +61,7 @@ const Login = () => {
 
   return (
     <>
-      <h1>Welcome to Social Media</h1>
+      <h1>Login to Circle</h1>
       <NavBar />
       {isLoggedIn && <p>You are logged in</p>}
       {!isLoggedIn && (
@@ -96,7 +96,7 @@ const Login = () => {
           <button className={styles["login-button"]} onClick={handleGuestLogin}>
             Login as guest
           </button>
-          <Link className={styles["signup-message"]} to="/signup">
+          <Link className={styles["message"]} to="/signup">
             Don't have an account ? Sign up!
           </Link>
         </div>

@@ -11,9 +11,7 @@ const Login = () => {
     authDispatch,
   } = useContext(AuthContext);
 
-  const {
-    dispatch,
-  } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
 
   const [userCredentials, setUserCredentials] = useState({
     username: "",

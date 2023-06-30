@@ -24,7 +24,7 @@ const NavBar = () => {
   return (
     <nav>
       {isLoggedIn && (
-        <NavLink to={"/"} style={getActiveStyle}>
+        <NavLink to={"/home"} style={getActiveStyle}>
           Home ||
         </NavLink>
       )}

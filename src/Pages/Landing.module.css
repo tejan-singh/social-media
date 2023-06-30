@@ -1,0 +1,61 @@
+:root {
+  --primary: #ff3b30;
+  --seconday: #ffffff;
+  --grey-color: #9a9a9a;
+}
+
+.landing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 8rem;
+}
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 25rem;
+}
+
+.heading {
+  font-size: 3rem;
+}
+
+.heading span {
+  color: var(--primary);
+}
+
+.banner {
+  width: 30rem;
+}
+
+.banner img {
+  width: 100%;
+}
+
+.features {
+  font-size: 0.7rem;
+}
+
+.features span {
+  color: var(--grey-color);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.link-primary {
+  background-color: var(--primary);
+  color: var(--seconday);
+  display: block;
+  margin: 3rem 0 1rem 0;
+  padding: 1rem;
+  text-decoration: none;
+  width: 100%;
+}
+
+.link-secondary {
+  text-decoration: none;
+  color: var(--primary);
+  align-self: center;
+}

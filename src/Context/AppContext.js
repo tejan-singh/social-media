@@ -132,7 +132,7 @@ const AppProvider = ({ children }) => {
     }
   };
   const [appState, dispatch] = useReducer(reducerFun, initialState);
-
+  console.log("appState" ,appState)
   const getPosts = async () => {
     try {
       const response = await fetch("/api/posts");
@@ -200,9 +200,9 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    getUserToken();
-  }, []);
+  // useEffect(() => {
+  //   getUserToken();
+  // }, []);
 
   useEffect(() => {
     getAllUsers();

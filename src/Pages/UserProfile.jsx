@@ -5,6 +5,7 @@ import { AppContext } from "../Context/AppContext";
 
 const UserProfile = () => {
   const { profileName } = useParams();
+  console.log(profileName)
   const {
     appState: {
       allUsers,

@@ -7,7 +7,6 @@ const RequiresAuth = ({ children }) => {
   const {
     authState: { isLoggedIn },
   } = useContext(AuthContext);
-  console.log(isLoggedIn);
   //current route
   const location = useLocation();
 

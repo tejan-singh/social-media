@@ -3,7 +3,7 @@ import NavBar from "../Components/NavBar";
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
-import { AppProvider } from "../Context/AppContext";
+import { AppContext } from "../Context/AppContext";
 
 const Login = () => {
   const {
@@ -12,8 +12,8 @@ const Login = () => {
   } = useContext(AuthContext);
 
   const {
-    // authDispatch
-  } = useContext(AppProvider)
+    dispatch,
+  } = useContext(AppContext);
 
   const [userCredentials, setUserCredentials] = useState({
     username: "",
@@ -26,7 +26,6 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    setUserCredentials((prev) => ({ ...prev, username: "", password: "" }));
     const response = await fetch("/api/auth/login", {
       method: "POST",
       body: JSON.stringify(userCredentials),
@@ -36,6 +35,7 @@ const Login = () => {
     if (foundUser) {
       localStorage.setItem("encodedToken", encodedToken);
       authDispatch({ type: "USER_LOGIN", payload: foundUser });
+      dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
     } else {
       console.error("invalid user");
     }

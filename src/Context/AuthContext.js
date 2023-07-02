@@ -6,7 +6,9 @@ const AuthProvider = ({ children }) => {
   const initialState = {
     //if token is already stored then default state will be true
     isLoggedIn: localStorage.getItem("encodedToken") ? true : false,
-    loggedinUser: {},
+
+    // inside local storage value is stored as json string. Convert it to object
+    loggedinUser:JSON.parse(localStorage.getItem("loggedInUserDetails")),
   };
 
   const authReducer = (state, action) => {
@@ -22,6 +24,7 @@ const AuthProvider = ({ children }) => {
         return {
           ...state,
           isLoggedIn: false,
+          loggedinUser:{}
         };
       default:
         return state;

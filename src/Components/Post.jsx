@@ -143,9 +143,22 @@ const Post = ({
     (person) => person.username === loggedinUser.username
   );
 
+  const formattedDate = () => {
+    const dateString = updatedAt
+    const date = new Date(dateString)
+    const result = date.toLocaleDateString()
+    return result
+  }
+
   const isBookmark =
     bookmarks.length > 0 && bookmarks.some((post) => post._id === _id);
 
+  const getFormattedDate = () => {
+    const dateString = updatedAt && updatedAt;
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString();
+    return formattedDate
+  }  
   return (
     <article key={id}>
       {_id === editId ? (
@@ -197,13 +210,15 @@ const Post = ({
             <>
               <p>Liked by:</p>
               {likes.likedBy.map((person, index) => (
-                <span key={index}>{person.username}</span>
+                <p key={index}>{person.username}</p>
               ))}
             </>
           )}
 
-          <p>{createdAt}</p>
-          <p>{updatedAt}</p>
+          {/* <p>{createdAt}</p> */}
+          
+          {/** to get date in proper format call and render the function */}
+          <p>{getFormattedDate()}</p>
         </>
       )}
     </article>

@@ -3,6 +3,7 @@ import { AppContext } from "../Context/AppContext";
 import CreatePost from "../Components/CreatePost";
 import NavBar from "../Components/NavBar";
 import Post from "../Components/Post";
+import Filter from "../Components/Filter";
 
 const Home = () => {
   const {
@@ -16,6 +17,7 @@ const Home = () => {
     <div>
       <NavBar />
       <CreatePost />
+      <Filter/>
       {homeFeed.map((post) => (
         <Post {...post} key={post._id} fromHomePage />
       ))}

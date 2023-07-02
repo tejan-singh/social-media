@@ -32,6 +32,7 @@ const Login = () => {
     const { foundUser, encodedToken } = await response.json();
     if (foundUser) {
       localStorage.setItem("encodedToken", encodedToken);
+      localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
       authDispatch({ type: "USER_LOGIN", payload: foundUser });
       dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
     } else {
@@ -52,6 +53,7 @@ const Login = () => {
     const { foundUser, encodedToken } = await response.json();
     if (foundUser) {
       localStorage.setItem("encodedToken", encodedToken);
+      localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
       authDispatch({ type: "USER_LOGIN", payload: foundUser });
       dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
     } else {

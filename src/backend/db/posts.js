@@ -17,8 +17,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "adarshbalika",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2023-03-21T10:12:12+05:30",
+    updatedAt: "2023-07-21T10:12:12+05:30",
   },
   {
     _id: uuid(),
@@ -30,8 +30,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "tejansingh",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2023-01-25T10:38:12+05:30",
+    updatedAt: "2023-07-16T18:11:33+05:30",
   },
   {
     _id: uuid(),
@@ -43,9 +43,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "seedhaBaalak",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: "2023-02-10T09:30:12+05:30",
+    updatedAt: "2023-05-16T18:11:01+05:30",
   },
-
-  
 ];

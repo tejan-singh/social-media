@@ -40,6 +40,9 @@ export const signupHandler = function (schema, request) {
       followers: [],
       following: [],
       bookmarks: [],
+      profilePic: "https://i.postimg.cc/fLKk8MWH/29213195-male-silhouette-avatar-profile-picture.webp",
+      bio : "add your bio here",
+      portfolio: "add your portfolio link here",
     };
     const createdUser = schema.users.create(newUser);
     const encodedToken = sign(

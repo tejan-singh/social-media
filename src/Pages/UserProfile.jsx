@@ -5,17 +5,43 @@ import { AppContext } from "../Context/AppContext";
 
 const UserProfile = () => {
   const { profileName } = useParams();
-  console.log(profileName)
+  console.log(profileName);
   const {
     appState: {
       allUsers,
-      userProfile: { _id, username, firstName, lastName, followers, following },
+      userProfile: {
+        _id,
+        username,
+        firstName,
+        lastName,
+        followers,
+        following,
+        profilePic,
+        bio,
+        portfolio,
+      },
       loggedinUser,
     },
     dispatch,
   } = useContext(AppContext);
 
   const [profileLoading, setProfileLoading] = useState(true);
+  const [editProfile, setEditProfile] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    bio: bio,
+    portfolio: portfolio,
+  });
+  const [showEditPic, setShowEditPic] = useState(false);
+  const [profilePicture, setProfilePicture] = useState(null);
+
+  const profileAvatars = [
+    "https://i.postimg.cc/T3rpT00b/woman-3.png",
+    "https://i.postimg.cc/d1DsZj24/woman-2.png",
+    "https://i.postimg.cc/zXTgfqX3/woman-1.png",
+    "https://i.postimg.cc/MKJnNgbw/hacker.png",
+    "https://i.postimg.cc/k405rYZL/SAVE-20230702-183141.jpg",
+    "https://i.postimg.cc/y8ZvsDk5/SAVE-20230702-183147.jpg",
+  ];
 
   const getUser = async () => {
     try {
@@ -62,6 +88,53 @@ const UserProfile = () => {
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserDetails((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleEdit = () => {
+    setEditProfile(!editProfile);
+  };
+
+  const handleSave = async (hasEdited) => {
+    const userData = {
+      _id,
+      username,
+      firstName,
+      lastName,
+      followers,
+      following,
+      profilePic:profilePicture,
+      ...userDetails,
+    };
+    const response = await fetch("/api/users/edit", {
+      method: "POST",
+      headers: {
+        authorization: localStorage.getItem("encodedToken"),
+      },
+      body: JSON.stringify({ userData: userData }),
+    });
+    const { user } = await response.json();
+    dispatch({ type: "SET_USER", payload: user });
+
+    if (hasEdited === "bio"){
+      setEditProfile(!editProfile);
+      return;
+    }
+
+    if (hasEdited === "pic"){
+      setShowEditPic(!showEditPic)
+      return;
+    }
+    
+  };
+
+  const handleCancelEdit = () => {
+    setEditProfile(!editProfile);
+  };
+
+
   // to check whether uses is present in following array
   // some method will return true/false
   const isFollowing =
@@ -80,6 +153,54 @@ const UserProfile = () => {
     <div>
       <NavBar />
       <p>{`${firstName} ${lastName}`}</p>
+      <img src={profilePic} alt="profile" />
+      {!showEditPic && (
+        <button onClick={() => setShowEditPic(!showEditPic)}>
+          Change picture
+        </button>
+      )}
+      {showEditPic && (
+        <section>
+        
+          {profileAvatars.map((avatar) => (
+            <img
+              src={avatar}
+              alt="avatar"
+              onClick={() => setProfilePicture(avatar)}
+            />
+          ))}
+          <button onClick={() => handleSave("pic")}>Save</button>
+        </section>
+      )}
+      {!editProfile && (
+        <>
+          <p>{bio}</p>
+          <p>{portfolio}</p>
+          <button onClick={handleEdit}>Edit profile</button>
+        </>
+      )}
+
+      {editProfile && (
+        <>
+          <label htmlFor="">Bio:</label>
+          <input
+            type="text"
+            value={userDetails.bio}
+            name="bio"
+            onChange={handleChange}
+          />
+          <label htmlFor="">Portfolio</label>
+          <input
+            type="text"
+            value={userDetails.portfolio}
+            name="portfolio"
+            onChange={handleChange}
+          />
+          <button onClick={() => handleSave("bio")}>Save</button>
+          <button onClick={handleCancelEdit}>Cancel</button>
+        </>
+      )}
+
       <p>@{username}</p>
       <p>Followers: {followers?.length}</p>
       <p>Following: {following?.length}</p>

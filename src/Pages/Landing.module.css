@@ -20,6 +20,7 @@
 
 .heading {
   font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
 .heading span {
@@ -36,6 +37,7 @@
 
 .features {
   font-size: 0.7rem;
+  margin: 1rem 0;
 }
 
 .features span {

@@ -1,5 +1,6 @@
 :root {
   --primary: #ff3b30;
+  --bg-color: #f7f7f7;
 }
 
 .main {
@@ -8,22 +9,22 @@
   height: 100vh;
   align-items: center;
   justify-content: center;
+  background-color: var(--bg-color);
 }
 
 .login {
   display: flex;
   flex-direction: column;
-  width: 20rem;
-  border: 1px solid #cccccc;
-  padding: 2rem;
+  width: 30rem;
+  padding: 2rem 4rem;
   align-items: flex-start;
   border-radius: 5px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  background-color: #ffffff;
 }
 
 .heading {
-  margin-top: 0;
+  margin-bottom: 1rem;
   font-size: 2rem;
 }
 .heading span {
@@ -43,7 +44,6 @@
 }
 
 .login-input {
-  box-sizing: border-box;
   margin-bottom: 16px;
   padding: 0.5rem;
   border: 1px solid #cccccc;

@@ -206,7 +206,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [appState.loggedinUser]);
 
   useEffect(() => {
     getPosts();

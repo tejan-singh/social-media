@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import { Link } from "react-router-dom";
-
+import {format} from 'date-fns'
 const Post = ({
   _id,
   id,
@@ -143,22 +143,16 @@ const Post = ({
     (person) => person.username === loggedinUser.username
   );
 
-  const formattedDate = () => {
+  const getFormattedDate = () => {
     const dateString = updatedAt
     const date = new Date(dateString)
-    const result = date.toLocaleDateString()
+    const result = format(date, 'dd-MMM-yyyy')
     return result
   }
 
   const isBookmark =
     bookmarks.length > 0 && bookmarks.some((post) => post._id === _id);
 
-  const getFormattedDate = () => {
-    const dateString = updatedAt && updatedAt;
-    const date = new Date(dateString);
-    const formattedDate = date.toLocaleDateString();
-    return formattedDate
-  }  
   return (
     <article key={id}>
       {_id === editId ? (

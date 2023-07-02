@@ -11,7 +11,11 @@ const AppProvider = ({ children }) => {
     errorMsg: "",
     bookmarks: [],
     userProfile: {},
-    loggedinUser: {},
+
+    //to get loggedIn user details after page refresh, you need to get from local storage
+    loggedinUser: {
+      ...JSON.parse(localStorage.getItem("loggedInUserDetails")),
+    },
   };
 
   const reducerFun = (state, action) => {
@@ -132,7 +136,7 @@ const AppProvider = ({ children }) => {
     }
   };
   const [appState, dispatch] = useReducer(reducerFun, initialState);
-  console.log("appState" ,appState)
+  console.log("appState", appState);
   const getPosts = async () => {
     try {
       const response = await fetch("/api/posts");

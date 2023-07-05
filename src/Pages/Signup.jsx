@@ -40,6 +40,7 @@ const Signup = () => {
           name="firstName"
           onChange={handleChange}
           value={userDetails.firstName}
+          placeholder="enter you first name"
         />
 
         <label htmlFor="text" className={styles["login-label"]}>
@@ -51,6 +52,7 @@ const Signup = () => {
           name="lastName"
           onChange={handleChange}
           value={userDetails.lastName}
+          placeholder="enter your last name"
         />
 
         <label htmlFor="email" className={styles["login-label"]}>
@@ -62,6 +64,7 @@ const Signup = () => {
           name="username"
           onChange={handleChange}
           value={userDetails.username}
+          placeholder="enter your username"
         />
 
         <label htmlFor="email" className={styles["login-label"]}>
@@ -73,6 +76,7 @@ const Signup = () => {
           name="email"
           onChange={handleChange}
           value={userDetails.email}
+          placeholder="enter your email"
         />
 
         <label className={styles["login-label"]} htmlFor="password">
@@ -84,6 +88,7 @@ const Signup = () => {
           name="password"
           onChange={handleChange}
           value={userDetails.password}
+          placeholder="enter your password"
         />
 
         <Link className={styles["link-primary"]} onClick={handleSignup}>

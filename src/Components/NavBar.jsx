@@ -18,15 +18,14 @@ const NavBar = () => {
   const handleLogout = () => {
     authDispatch({ type: "USER_LOGOUT" });
     //this will delete token from local storage
-    localStorage.removeItem('encodedToken')
-    localStorage.removeItem('loggedInUserDetails')
-
+    localStorage.removeItem("encodedToken");
+    localStorage.removeItem("loggedInUserDetails");
   };
 
   return (
     <nav>
       {isLoggedIn && (
-        <NavLink to={"/home"} style={getActiveStyle}>
+        <NavLink to={"/"} style={getActiveStyle}>
           Home ||
         </NavLink>
       )}

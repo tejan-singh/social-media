@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Mockman from "mockman-js";
 import Home from "./Pages/Home";
 import "./App.css";
@@ -9,17 +9,20 @@ import UserProfile from "./Pages/UserProfile";
 import RequiresAuth from "./Components/RequiresAuth";
 import Signup from "./Pages/Signup";
 import Landing from "./Pages/Landing";
+import { useContext } from "react";
+import { AuthContext } from "./Context/AuthContext";
 
 function App() {
+
   return (
     <div className="App">
       <Routes>
         <Route
-          path="/home"
+          path="/"
           element={
-            <RequiresAuth>
+            
               <Home />
-            </RequiresAuth>
+            
           }
         />
         <Route path="/mockman" element={<Mockman />} />

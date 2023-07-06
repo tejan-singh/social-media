@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import NavBar from "../Components/NavBar";
 import styles from "./Login.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import { AppContext } from "../Context/AppContext";
 
@@ -17,6 +17,9 @@ const Login = () => {
     username: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,21 +59,31 @@ const Login = () => {
       localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
       authDispatch({ type: "USER_LOGIN", payload: foundUser });
       dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
+
+      // if no previous path then state is null then redirect to home else redirect to previous path
+      if (!location?.state) {
+        navigate("/");
+        return;
+      } else {
+        navigate(location?.state?.from?.pathname)
+      }
     } else {
       console.error("invalid user");
     }
   };
 
   return (
-    <>
-      <h1>Login to Circle</h1>
+    <section className={styles.main}>
+      <h1 className={styles.heading}>
+        Welcome to <span>Circle!</span>
+      </h1>
       <NavBar />
       {isLoggedIn && <p>You are logged in</p>}
       {!isLoggedIn && (
         <div className={styles.login}>
           <h3>Login</h3>
           <label htmlFor="email" className={styles["login-label"]}>
-            username:
+            Username:
           </label>
           <input
             className={styles["login-input"]}
@@ -79,6 +92,7 @@ const Login = () => {
             id=""
             onChange={handleChange}
             value={userCredentials.username}
+            placeholder="Enter your username"
           />
 
           <label className={styles["login-label"]} htmlFor="password">
@@ -90,12 +104,19 @@ const Login = () => {
             name="password"
             onChange={handleChange}
             value={userCredentials.password}
+            placeholder="Enter your password"
           />
 
-          <button className={styles["login-button"]} onClick={handleLogin}>
+          <button
+            className={`${styles["link-primary"]} ${styles["login-button"]}`}
+            onClick={handleLogin}
+          >
             Login
           </button>
-          <button className={styles["login-button"]} onClick={handleGuestLogin}>
+          <button
+            className={`${styles["link-primary"]} ${styles["login-button"]}`}
+            onClick={handleGuestLogin}
+          >
             Login as guest
           </button>
           <Link className={styles["message"]} to="/signup">
@@ -103,7 +124,7 @@ const Login = () => {
           </Link>
         </div>
       )}
-    </>
+    </section>
   );
 };
 

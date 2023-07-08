@@ -17,8 +17,8 @@ export const posts = [
       dislikedBy: [],
     },
     username: "adarshbalika",
-    createdAt: "2023-03-21T10:12:12+05:30",
-    updatedAt: "2023-07-21T10:12:12+05:30",
+    createdAt: "2023-03-14T10:12:12+05:30",
+    updatedAt: "2023-07-15T10:12:12+05:30",
   },
   {
     _id: uuid(),

@@ -131,10 +131,37 @@ const AppProvider = ({ children }) => {
           ...state,
           loggedinUser: action.payload,
         };
+      case "SORT_BY_LATEST":
+        return {
+          ...state,
+          homeFeed: applyFilter(state.homeFeed, "latest"),
+        };
+
+      case "SORT_BY_TRENDING":
+        return {
+          ...state,
+          homeFeed: applyFilter(state.homeFeed, "trending"),
+        };
       default:
         return state;
     }
   };
+
+  const applyFilter = (data, sortBy) => {
+    const result = [...data];
+
+    if (sortBy === "latest") {
+      return result.sort(
+        //Date.parse will convert date string to a numeric value of time passed in milliseconds since Jan 1970
+        (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt)
+      );
+    }
+
+    if (sortBy === "trending") {
+      return result.sort((a, b) => b.likes.likeCount - a.likes.likeCount);
+    }
+  };
+
   const [appState, dispatch] = useReducer(reducerFun, initialState);
   console.log("appState", appState);
   const getPosts = async () => {

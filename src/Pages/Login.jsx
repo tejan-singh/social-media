@@ -63,7 +63,6 @@ const Login = () => {
       // if no previous path then state is null then redirect to home else redirect to previous path
       if (!location?.state) {
         navigate("/");
-        return;
       } else {
         navigate(location?.state?.from?.pathname)
       }

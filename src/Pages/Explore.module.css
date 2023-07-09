@@ -1,0 +1,26 @@
+.layout {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav main aside";
+}
+
+.navigation {
+  grid-area: nav;
+  background-color: var(--bg-color);
+}
+
+.main {
+  grid-area: main;
+  background-color: var(--bg-color);
+  padding-right: 4rem;
+}
+
+.aside {
+  grid-area: aside;
+  background-color: var(--bg-color);
+}
+
+.header {
+  grid-area: header;
+}

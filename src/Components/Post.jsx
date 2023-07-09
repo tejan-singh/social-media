@@ -182,10 +182,12 @@ const Post = ({
           <Link className={styles.username} to={`/profile/${username}`}>
             @{username}
           </Link>
-          <p>{content}</p>
+          <p className={styles.content}>{content}</p>
           {fromHomePage && (
             <>
-              <p>{`Likes: ${likes.likeCount}`}</p>
+              <p className={styles.like} >
+                {`Likes: ${likes.likeCount}`}
+              </p>
               <i
                 onClick={() => {
                   isLiked ? dislikePost(_id) : likePost(_id);

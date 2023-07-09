@@ -9,7 +9,7 @@
 }
 
 i {
-  margin: 1.5rem 5rem;
+  margin: 1rem 5rem;
   cursor: pointer;
   display: inline-block;
 }
@@ -43,13 +43,14 @@ i {
 
 .box textarea {
   border: none;
+  background-color: var(--bg-color);
 }
 
 .box textarea:focus {
   outline: none;
 }
 
-.box button{
+.box button {
   display: inline-block;
   text-align: right;
   right: 0;
@@ -59,4 +60,8 @@ i {
   background-color: var(--primary);
   border: none;
   color: white;
+}
+
+.like {
+  margin: 1rem;
 }

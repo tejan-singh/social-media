@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import NavBar from "../Components/NavBar";
 import { AppContext } from "../Context/AppContext";
 import Post from "../Components/Post";
+import styles from "./Bookmarks.module.css";
+import Header from "../Components/Header";
 
 const Bookmarks = () => {
   const {
@@ -9,14 +11,23 @@ const Bookmarks = () => {
   } = useContext(AppContext);
 
   if (loading) return <p>Loading...</p>;
-  if (errorMsg) return <p>{errorMsg}</p>
-  
-  return (
-    <div>
-      <NavBar />
-      {bookmarks.length === 0 && <p>No bookmarked posts</p>}
-      {bookmarks.map( (post) => <Post {...post} key={post._id}/>)}
+  if (errorMsg) return <p>{errorMsg}</p>;
 
+  return (
+    <div className={styles.layout}>
+      <div className={styles.header}>
+        <Header />
+      </div>
+      <div className={styles.navigation}>
+        <NavBar />
+      </div>
+      <div className={styles.main}>
+        {bookmarks.length === 0 && <p>No bookmarked posts</p>}
+        {bookmarks.map((post) => (
+          <Post {...post} key={post._id} />
+        ))}
+      </div>
+      <div className={styles.aside}></div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-# Social media App
+# Circle - a social media app
 
 ## Features
 

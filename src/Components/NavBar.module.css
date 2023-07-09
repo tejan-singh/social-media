@@ -1,0 +1,19 @@
+.nav-bar {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 4rem 0 4rem;
+  text-align: left;
+}
+
+.nav-link {
+  text-decoration: none;
+  padding: 1rem;
+  color: black;
+  width: 12rem;
+}
+
+.logout-btn {
+  background-color: var(--primary);
+  color: white;
+  text-align: center;
+}

@@ -1,7 +1,15 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import { Link } from "react-router-dom";
-import {format} from 'date-fns'
+import { format } from "date-fns";
+import styles from "./Post.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHeart,
+  faTrash,
+  faFilePen,
+  faBookmark,
+} from "@fortawesome/free-solid-svg-icons";
 const Post = ({
   _id,
   id,
@@ -144,17 +152,17 @@ const Post = ({
   );
 
   const getFormattedDate = () => {
-    const dateString = updatedAt
-    const date = new Date(dateString)
-    const result = format(date, 'dd-MMM-yyyy')
-    return result
-  }
+    const dateString = updatedAt;
+    const date = new Date(dateString);
+    const result = format(date, "dd-MMM-yyyy");
+    return result;
+  };
 
   const isBookmark =
     bookmarks.length > 0 && bookmarks.some((post) => post._id === _id);
 
   return (
-    <article key={id}>
+    <article key={id} className={styles["post-container"]}>
       {_id === editId ? (
         <>
           <p>{username}</p>
@@ -169,48 +177,68 @@ const Post = ({
         </>
       ) : (
         <>
-          <Link to={`/profile/${username}`}>{username}</Link>
+          <Link className={styles.username} to={`/profile/${username}`}>
+            @{username}
+          </Link>
           <p>{content}</p>
           {fromHomePage && (
             <>
-              <p>{likes.likeCount}</p>
-              <button
+              <p>{`Likes: ${likes.likeCount}`}</p>
+              <i
                 onClick={() => {
                   isLiked ? dislikePost(_id) : likePost(_id);
                 }}
               >
-                {isLiked ? "unlike" : "Like"}
-              </button>
+                {isLiked ? (
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    className={styles.highlight}
+                  />
+                ) : (
+                  <FontAwesomeIcon icon={faHeart} />
+                )}
+              </i>
             </>
           )}
 
           {/*show delete button only for user logged in created posts*/}
           {loggedinUser.username === username && (
-            <button onClick={() => deletePost(_id)}>Delete</button>
+            <i onClick={() => deletePost(_id)}>
+              <FontAwesomeIcon icon={faTrash} />
+            </i>
           )}
           {loggedinUser.username === username && (
-            <button onClick={() => handleEditPost(_id)}>Edit</button>
+            <i onClick={() => handleEditPost(_id)}>
+              <FontAwesomeIcon icon={faFilePen} />
+            </i>
           )}
           {loggedinUser.username !== username && (
-            <button
+            <i
               onClick={() => {
                 isBookmark ? removeBookmark(_id) : bookmarkPost(_id);
               }}
             >
-              {isBookmark ? "remove bookmark" : "bookmark"}
-            </button>
+              {isBookmark ? (
+                <FontAwesomeIcon
+                  icon={faBookmark}
+                  className={styles.highlight}
+                />
+              ) : (
+                <FontAwesomeIcon icon={faBookmark} />
+              )}
+            </i>
           )}
-          {fromHomePage && (
+          {/* {fromHomePage && (
             <>
               <p>Liked by:</p>
               {likes.likedBy.map((person, index) => (
                 <p key={index}>{person.username}</p>
               ))}
             </>
-          )}
+          )} */}
 
           {/* <p>{createdAt}</p> */}
-          
+
           {/** to get date in proper format call and render the function */}
           <p>{getFormattedDate()}</p>
         </>

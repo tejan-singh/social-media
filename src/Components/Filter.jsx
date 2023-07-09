@@ -1,6 +1,8 @@
 import React from "react";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
+import styles from "./Filter.module.css";
+import { useState } from "react";
 
 const Filter = () => {
   const { dispatch } = useContext(AppContext);
@@ -14,9 +16,13 @@ const Filter = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleLatestPost}>Latest</button>
-      <button onClick={handleTrendingPost}>Trending</button>
+    <div className={styles["filter-container"]}>
+      <p onClick={handleLatestPost} className={styles.filter}>
+        Latest
+      </p>
+      <p onClick={handleTrendingPost} className={styles.filter}>
+        Trending
+      </p>
     </div>
   );
 };

@@ -164,17 +164,19 @@ const Post = ({
   return (
     <article key={id} className={styles["post-container"]}>
       {_id === editId ? (
-        <>
-          <p>{username}</p>
-          <input
-            type="text"
-            value={updatedContent.content}
-            onChange={handleChange}
-            name="content"
-          />
-          <button onClick={editPost}>Save</button>
-          <button onClick={handleCancel}>Cancel</button>
-        </>
+        <div className={styles["popup-box"]}>
+          <div className={styles.box}>
+            <p>Edit your post</p>
+            <textarea
+              type="text"
+              value={updatedContent.content}
+              onChange={handleChange}
+              name="content"
+            />
+            <button onClick={editPost}>Save</button>
+            <button onClick={handleCancel}>Cancel</button>
+          </div>
+        </div>
       ) : (
         <>
           <Link className={styles.username} to={`/profile/${username}`}>

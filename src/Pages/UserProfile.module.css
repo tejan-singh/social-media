@@ -1,0 +1,105 @@
+.layout {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "nav main";
+  grid-template-columns: auto 1fr; /* this will make nav to take only defined width and remaining is used by main. Not defining auto would stretch to available space*/
+}
+
+.navigation {
+  grid-area: nav;
+  background-color: var(--bg-color);
+}
+
+.main {
+  grid-area: main;
+  background-color: var(--bg-color);
+  padding-right: 4rem;
+  min-height: 100vh;
+  padding-top: 2rem;
+  width: 100%;
+}
+
+.aside {
+  grid-area: aside;
+  background-color: var(--bg-color);
+}
+
+.header {
+  grid-area: header;
+}
+
+.profile-pic {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+}
+
+.fullname {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 1rem 0 0.2rem 0;
+}
+
+.username {
+  color: #999;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  border: 1px solid #ccc;
+  background-color: var(--bg-color);
+  padding: 0.5rem;
+  font-weight: 700;
+  margin: 1rem;
+}
+
+.follow-section {
+  padding: 0.5rem;
+  background-color: white;
+  width: max-content;
+  margin: 1rem auto;
+}
+
+.follow-section p {
+  display: inline-block;
+  margin: 1rem;
+}
+
+.popup-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(204, 204, 204, 0.5);
+  width: 100%;
+  min-height: 100vh;
+}
+
+.box {
+  width: 30rem;
+  border: 1px solid var(--primary);
+  margin: 0 auto;
+  margin-top: 50px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.box textarea {
+  border: none;
+  background-color: var(--bg-color);
+}
+
+.box textarea:focus {
+  outline: none;
+}
+
+.profileAvatar {
+  width: 7rem;
+  border-radius: 50%;
+  margin: 1rem;
+}
+
+.selected {
+  border: 10px solid black;
+}

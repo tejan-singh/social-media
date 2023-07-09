@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import NavBar from "../Components/NavBar";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
+import styles from "./UserProfile.module.css";
+import Header from "../Components/Header";
 
 const UserProfile = () => {
   const { profileName } = useParams();
@@ -32,8 +34,7 @@ const UserProfile = () => {
     portfolio: portfolio,
   });
   const [showEditPic, setShowEditPic] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(null);
-
+  const [profilePicture, setProfilePicture] = useState(profilePic);
   const profileAvatars = [
     "https://i.postimg.cc/T3rpT00b/woman-3.png",
     "https://i.postimg.cc/d1DsZj24/woman-2.png",
@@ -105,7 +106,7 @@ const UserProfile = () => {
       lastName,
       followers,
       following,
-      profilePic:profilePicture,
+      profilePic: profilePicture,
       ...userDetails,
     };
     const response = await fetch("/api/users/edit", {
@@ -118,16 +119,15 @@ const UserProfile = () => {
     const { user } = await response.json();
     dispatch({ type: "SET_USER", payload: user });
 
-    if (hasEdited === "bio"){
+    if (hasEdited === "bio") {
       setEditProfile(!editProfile);
       return;
     }
 
-    if (hasEdited === "pic"){
-      setShowEditPic(!showEditPic)
+    if (hasEdited === "pic") {
+      setShowEditPic(!showEditPic);
       return;
     }
-    
   };
 
   const handleCancelEdit = () => {
@@ -150,65 +150,86 @@ const UserProfile = () => {
 
   if (profileLoading) return <p>Loading...</p>;
   return (
-    <div>
-      <NavBar />
-      <p>{`${firstName} ${lastName}`}</p>
-      <img src={profilePic} alt="profile" />
-      {!showEditPic && (
-        <button onClick={() => setShowEditPic(!showEditPic)}>
-          Change picture
-        </button>
-      )}
-      {showEditPic && (
-        <section>
-        
-          {profileAvatars.map((avatar) => (
-            <img
-              src={avatar}
-              alt="avatar"
-              onClick={() => setProfilePicture(avatar)}
-            />
-          ))}
-          <button onClick={() => handleSave("pic")}>Save</button>
-        </section>
-      )}
-      {!editProfile && (
-        <>
-          <p>{bio}</p>
-          <p>{portfolio}</p>
-          <button onClick={handleEdit}>Edit profile</button>
-        </>
-      )}
+    <div className={styles.layout}>
+      <div className={styles.header}>
+        <Header />
+      </div>
 
-      {editProfile && (
-        <>
-          <label htmlFor="">Bio:</label>
-          <input
-            type="text"
-            value={userDetails.bio}
-            name="bio"
-            onChange={handleChange}
-          />
-          <label htmlFor="">Portfolio</label>
-          <input
-            type="text"
-            value={userDetails.portfolio}
-            name="portfolio"
-            onChange={handleChange}
-          />
-          <button onClick={() => handleSave("bio")}>Save</button>
-          <button onClick={handleCancelEdit}>Cancel</button>
-        </>
-      )}
+      <div className={styles.navigation}>
+        <NavBar />
+      </div>
 
-      <p>@{username}</p>
-      <p>Followers: {followers?.length}</p>
-      <p>Following: {following?.length}</p>
-      {loggedinUser.username !== username && (
-        <button onClick={isFollowing ? handleUnFollowUser : handleFollowUser}>
-          {isFollowing ? "Unfollow" : "Follow"}
-        </button>
-      )}
+      <div className={styles.main}>
+        <img className={styles["profile-pic"]} src={profilePic} alt="profile" />
+        <p className={styles.fullname}>{`${firstName} ${lastName}`}</p>
+        <p className={styles.username}>@{username}</p>
+
+        {!showEditPic && (
+          <button onClick={() => setShowEditPic(!showEditPic)}>
+            Change picture
+          </button>
+        )}
+        {!editProfile && <button onClick={handleEdit}>Edit profile</button>}
+        {showEditPic && (
+          <section className={styles["popup-box"]}>
+            <div className={styles["box"]}>
+              <div className={styles.avatars}>
+                {profileAvatars.map((avatar) => (
+                  <img
+                    src={avatar}
+                    alt="avatar"
+                    onClick={() => {
+                      setProfilePicture(avatar);
+                    }}
+                    // this will check if selected rendered image equals selected image and apply selection border to it
+                    className={`${styles.profileAvatar} ${
+                      avatar === profilePicture ? styles.selected : ""
+                    }`}
+                  />
+                ))}
+              </div>
+              <button onClick={() => handleSave("pic")}>Save</button>
+              <button onClick={() => setShowEditPic(false)}>Cancel</button>
+            </div>
+          </section>
+        )}
+
+        <p>{bio}</p>
+        <p>{portfolio}</p>
+
+        {editProfile && (
+          <div className={styles["popup-box"]}>
+            <div className={styles.box}>
+              <label htmlFor="">Bio:</label>
+              <textarea
+                type="text"
+                value={userDetails.bio}
+                name="bio"
+                onChange={handleChange}
+              />
+              <label htmlFor="">Portfolio</label>
+              <textarea
+                type="text"
+                value={userDetails.portfolio}
+                name="portfolio"
+                onChange={handleChange}
+              />
+              <button onClick={() => handleSave("bio")}>Save</button>
+              <button onClick={handleCancelEdit}>Cancel</button>
+            </div>
+          </div>
+        )}
+
+        <div className={styles["follow-section"]}>
+          <p>Followers: {followers?.length}</p>
+          <p>Following: {following?.length}</p>
+        </div>
+        {loggedinUser.username !== username && (
+          <button onClick={isFollowing ? handleUnFollowUser : handleFollowUser}>
+            {isFollowing ? "Unfollow" : "Follow"}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

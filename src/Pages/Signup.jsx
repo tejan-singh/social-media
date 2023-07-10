@@ -24,11 +24,20 @@ const Signup = () => {
 
     const data = await response.json();
     console.log(data);
+    setUserDetails(() => ({
+      firstName: "",
+      lastName: "",
+      email: "",
+      username: "",
+      password: "",
+    }));
   };
 
   return (
     <section className={styles.main}>
-    <h2 className={styles.heading}>Join in <span>Circle</span></h2>
+      <h2 className={styles.heading}>
+        Join in <span>Circle</span>
+      </h2>
       <div className={styles.login}>
         <h3>Sign up</h3>
         <label htmlFor="text" className={styles["login-label"]}>

@@ -38,6 +38,11 @@ const Login = () => {
       localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
       authDispatch({ type: "USER_LOGIN", payload: foundUser });
       dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
+      if (!location?.state) {
+        navigate("/");
+      } else {
+        navigate(location?.state?.from?.pathname);
+      }
     } else {
       console.error("invalid user");
     }

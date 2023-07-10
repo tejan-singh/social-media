@@ -64,7 +64,7 @@ const Login = () => {
       if (!location?.state) {
         navigate("/");
       } else {
-        navigate(location?.state?.from?.pathname)
+        navigate(location?.state?.from?.pathname);
       }
     } else {
       console.error("invalid user");
@@ -106,18 +106,18 @@ const Login = () => {
             placeholder="Enter your password"
           />
 
-          <button
+          <Link
             className={`${styles["link-primary"]} ${styles["login-button"]}`}
             onClick={handleLogin}
           >
             Login
-          </button>
-          <button
+          </Link>
+          <Link
             className={`${styles["link-primary"]} ${styles["login-button"]}`}
             onClick={handleGuestLogin}
           >
             Login as guest
-          </button>
+          </Link>
           <Link className={styles["message"]} to="/signup">
             Don't have an account ? Sign up!
           </Link>

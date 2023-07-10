@@ -49,7 +49,6 @@
 }
 
 .link-primary {
-  box-sizing: border-box;
   background-color: var(--primary);
   color: var(--seconday);
   display: block;
@@ -60,7 +59,7 @@
 
 .login-button {
   border: none;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .message {

@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+
+.aside {
+  margin-top: 3rem;
+  margin-right: 3rem;
+}
+
+.heading {
+  background-color: white;
+  padding: 1rem;
+  border-bottom: 1px solid var(--grey-color-text);
+}
+
+.aside-container {
+  background-color: white;
+  width: 18rem;
+}
+
+.suggestions {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: 700;
+}
+
+.username {
+  color: var(--grey-color-text);
+}
+
+.suggestions button {
+  margin: 0;
+}
+
+.suggestions img {
+  max-width: 2rem;
+  border-radius: 50%;
+}

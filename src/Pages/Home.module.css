@@ -8,6 +8,8 @@
 .navigation {
   grid-area: nav;
   background-color: var(--bg-color);
+  /* position: fixed;
+  height: 100vh; */
 }
 
 .main {

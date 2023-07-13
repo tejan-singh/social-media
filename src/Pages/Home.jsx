@@ -8,6 +8,7 @@ import { AuthContext } from "../Context/AuthContext";
 import Landing from "./Landing";
 import styles from "./Home.module.css";
 import Header from "../Components/Header";
+import Aside from "../Components/Aside";
 
 const Home = () => {
   const {
@@ -36,7 +37,9 @@ const Home = () => {
           <Post {...post} key={post._id} fromHomePage />
         ))}
       </div>
-      <div className={styles.aside}></div>
+      <div className={styles.aside}>
+        <Aside />
+      </div>
     </div>
   );
 };

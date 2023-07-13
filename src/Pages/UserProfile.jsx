@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 import styles from "./UserProfile.module.css";
 import Header from "../Components/Header";
+import Aside from "../Components/Aside";
 
 const UserProfile = () => {
   const { profileName } = useParams();
@@ -134,7 +135,6 @@ const UserProfile = () => {
     setEditProfile(!editProfile);
   };
 
-
   // to check whether uses is present in following array
   // some method will return true/false
   const isFollowing =
@@ -229,6 +229,9 @@ const UserProfile = () => {
             {isFollowing ? "Unfollow" : "Follow"}
           </button>
         )}
+      </div>
+      <div className={styles.aside}>
+        <Aside />
       </div>
     </div>
   );

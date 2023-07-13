@@ -19,6 +19,8 @@ const Post = ({
   createdAt,
   updatedAt,
   fromHomePage,
+  firstName,
+  lastName,
 }) => {
   const {
     appState: { allPosts, loggedinUser, bookmarks },
@@ -179,15 +181,15 @@ const Post = ({
         </div>
       ) : (
         <>
-          <Link className={styles.username} to={`/profile/${username}`}>
-            @{username}
+          <Link to={`/profile/${username}`} className={styles["user-details"]}>
+            <p className={styles["full-name"]}>{`${firstName} ${lastName}`}</p>
+            <p className={styles.username}>{`@${username}`}</p>
+            <p>{getFormattedDate()}</p>
           </Link>
+
           <p className={styles.content}>{content}</p>
           {fromHomePage && (
             <>
-              <p className={styles.like} >
-                {`Likes: ${likes.likeCount}`}
-              </p>
               <i
                 onClick={() => {
                   isLiked ? dislikePost(_id) : likePost(_id);
@@ -201,6 +203,10 @@ const Post = ({
                 ) : (
                   <FontAwesomeIcon icon={faHeart} />
                 )}
+
+                <span className={styles.likes}>
+                  {likes.likeCount > 0 && likes.likeCount}
+                </span>
               </i>
             </>
           )}
@@ -244,7 +250,6 @@ const Post = ({
           {/* <p>{createdAt}</p> */}
 
           {/** to get date in proper format call and render the function */}
-          <p>{getFormattedDate()}</p>
         </>
       )}
     </article>

@@ -1,8 +1,8 @@
 .layout {
   display: grid;
   grid-template-areas:
-    "header header"
-    "nav main";
+    "header header header"
+    "nav main aside";
   grid-template-columns: auto 1fr; /* this will make nav to take only defined width and remaining is used by main. Not defining auto would stretch to available space*/
 }
 
@@ -14,10 +14,10 @@
 .main {
   grid-area: main;
   background-color: var(--bg-color);
-  padding-right: 4rem;
+  padding: 1rem;
   min-height: 100vh;
   padding-top: 2rem;
-  width: 100%;
+  text-align: center;
 }
 
 .aside {

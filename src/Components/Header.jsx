@@ -3,9 +3,9 @@ import styles from "./Header.module.css";
 
 const Header = () => {
   return (
-    <>
-      <h1 className={styles.heading}>Circle</h1>
-    </>
+    <section className={styles.heading}>
+      <h1>Circle</h1>
+    </section>
   );
 };
 

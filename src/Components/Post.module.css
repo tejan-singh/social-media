@@ -10,16 +10,23 @@
 
 i {
   margin: 1rem 5rem;
+  max-width: 5rem;
   cursor: pointer;
   display: inline-block;
 }
 
-.username {
+.user-details {
   text-decoration: none;
   color: #999;
-  font-size: 1.2rem;
   display: inline-block;
   margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.full-name {
+  color: black;
+  font-weight: 600;
 }
 
 .popup-box {
@@ -62,6 +69,10 @@ i {
   color: white;
 }
 
-.like {
-  margin: 1rem;
+.likes {
+  margin: 0 0.5rem;
+}
+
+.content {
+  line-height: 1.5;
 }

@@ -6,6 +6,7 @@ import styles from "./UserProfile.module.css";
 import Header from "../Components/Header";
 import Aside from "../Components/Aside";
 import Post from "../Components/Post";
+import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
 
 const UserProfile = () => {
   const { profileName } = useParams();
@@ -60,37 +61,37 @@ const UserProfile = () => {
     }
   };
 
-  const handleFollowUser = async () => {
-    try {
-      const response = await fetch(`/api/users/follow/${_id}`, {
-        method: "POST",
-        headers: {
-          authorization: localStorage.getItem("encodedToken"),
-        },
-      });
-      const { followUser, user } = await response.json();
-      dispatch({ type: "SET_USER", payload: followUser });
-      dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleFollowUser = async () => {
+  //   try {
+  //     const response = await fetch(`/api/users/follow/${_id}`, {
+  //       method: "POST",
+  //       headers: {
+  //         authorization: localStorage.getItem("encodedToken"),
+  //       },
+  //     });
+  //     const { followUser, user } = await response.json();
+  //     dispatch({ type: "SET_USER", payload: followUser });
+  //     dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const handleUnFollowUser = async () => {
-    try {
-      const response = await fetch(`/api/users/unfollow/${_id}`, {
-        method: "POST",
-        headers: {
-          authorization: localStorage.getItem("encodedToken"),
-        },
-      });
-      const { followUser, user } = await response.json();
-      dispatch({ type: "SET_USER", payload: followUser });
-      dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleUnFollowUser = async () => {
+  //   try {
+  //     const response = await fetch(`/api/users/unfollow/${_id}`, {
+  //       method: "POST",
+  //       headers: {
+  //         authorization: localStorage.getItem("encodedToken"),
+  //       },
+  //     });
+  //     const { followUser, user } = await response.json();
+  //     dispatch({ type: "SET_USER", payload: followUser });
+  //     dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -231,7 +232,17 @@ const UserProfile = () => {
           <p>Following: {following?.length}</p>
         </div>
         {loggedinUser.username !== username && (
-          <button onClick={isFollowing ? handleUnFollowUser : handleFollowUser}>
+          <button
+            onClick={
+              isFollowing
+                ? () => {
+                    handleUnFollowUser(dispatch, _id);
+                  }
+                : () => {
+                    handleFollowUser(dispatch, _id);
+                  }
+            }
+          >
             {isFollowing ? "Unfollow" : "Follow"}
           </button>
         )}

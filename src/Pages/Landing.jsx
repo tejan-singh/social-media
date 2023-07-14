@@ -7,7 +7,7 @@ const Landing = () => {
     <div className={styles.landing}>
       <section className={styles.intro}>
         <h2 className={styles.heading}>
-          Join <span>Circle</span> today.
+          Join <span>Circle,</span> today.
         </h2>
         <p className={styles.features}>
           <span>FOLLOW</span> PEOPLE AROUND THE GLOBE

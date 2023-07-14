@@ -189,30 +189,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const getUserToken = async () => {
-    try {
-      const credentials = {
-        username: "adarshbalika",
-        password: "adarshBalika123",
-      };
-
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-
-        //convert the object to JSON to send to server
-        body: JSON.stringify(credentials),
-      });
-
-      const { foundUser, encodedToken } = await response.json();
-      dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
-      //store the encoded token to use it globally in the app
-      // store using in key value pair
-      localStorage.setItem("encodedToken", encodedToken);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const getBookmarkPosts = async () => {
     try {
       const response = await fetch(`/api/users/bookmark`, {
@@ -231,9 +207,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   getUserToken();
-  // }, []);
 
   useEffect(() => {
     getAllUsers();

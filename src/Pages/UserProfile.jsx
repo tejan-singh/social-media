@@ -5,6 +5,7 @@ import { AppContext } from "../Context/AppContext";
 import styles from "./UserProfile.module.css";
 import Header from "../Components/Header";
 import Aside from "../Components/Aside";
+import Post from "../Components/Post";
 
 const UserProfile = () => {
   const { profileName } = useParams();
@@ -24,6 +25,7 @@ const UserProfile = () => {
         portfolio,
       },
       loggedinUser,
+      allPosts,
     },
     dispatch,
   } = useContext(AppContext);
@@ -141,6 +143,10 @@ const UserProfile = () => {
     loggedinUser.following &&
     loggedinUser.following.some((user) => user._id === _id);
 
+  const loggedInUserPosts = allPosts?.filter(
+    ({ username }) => username === profileName
+  );
+
   useEffect(() => {
     getUser();
 
@@ -229,6 +235,10 @@ const UserProfile = () => {
             {isFollowing ? "Unfollow" : "Follow"}
           </button>
         )}
+
+        {loggedInUserPosts.map((post) => (
+          <Post {...post} key={post._id} fromHomePage />
+        ))}
       </div>
       <div className={styles.aside}>
         <Aside />

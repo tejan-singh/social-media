@@ -5,11 +5,10 @@ import { AuthContext } from "../Context/AuthContext";
 import styles from "./NavBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBookmark,
   faHouse,
   faRocket,
-  faShuttleSpace,
   faUser,
+  faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {

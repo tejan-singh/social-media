@@ -8,11 +8,17 @@
   color: red;
 }
 
-i {
+/* i {
   margin: 1rem 5rem;
   max-width: 5rem;
   cursor: pointer;
   display: inline-block;
+} */
+
+.buttons-container{
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
 }
 
 .user-details {

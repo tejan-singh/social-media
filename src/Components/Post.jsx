@@ -184,61 +184,64 @@ const Post = ({
           <Link to={`/profile/${username}`} className={styles["user-details"]}>
             <p className={styles["full-name"]}>{`${firstName} ${lastName}`}</p>
             <p className={styles.username}>{`@${username}`}</p>
+            {/** to get date in proper format call and render the function */}
             <p>{getFormattedDate()}</p>
           </Link>
 
           <p className={styles.content}>{content}</p>
-          {fromHomePage && (
-            <>
+
+          <div className={styles["buttons-container"]}>
+            {fromHomePage && (
+              <>
+                <i
+                  onClick={() => {
+                    isLiked ? dislikePost(_id) : likePost(_id);
+                  }}
+                >
+                  {isLiked ? (
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      className={styles.highlight}
+                    />
+                  ) : (
+                    <FontAwesomeIcon icon={faHeart} />
+                  )}
+
+                  <span className={styles.likes}>
+                    {likes.likeCount > 0 && likes.likeCount}
+                  </span>
+                </i>
+              </>
+            )}
+
+            {/*show delete button only for user logged in created posts*/}
+            {loggedinUser.username === username && (
+              <i onClick={() => deletePost(_id)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </i>
+            )}
+            {loggedinUser.username === username && (
+              <i onClick={() => handleEditPost(_id)}>
+                <FontAwesomeIcon icon={faFilePen} />
+              </i>
+            )}
+            {loggedinUser.username !== username && (
               <i
                 onClick={() => {
-                  isLiked ? dislikePost(_id) : likePost(_id);
+                  isBookmark ? removeBookmark(_id) : bookmarkPost(_id);
                 }}
               >
-                {isLiked ? (
+                {isBookmark ? (
                   <FontAwesomeIcon
-                    icon={faHeart}
+                    icon={faBookmark}
                     className={styles.highlight}
                   />
                 ) : (
-                  <FontAwesomeIcon icon={faHeart} />
+                  <FontAwesomeIcon icon={faBookmark} />
                 )}
-
-                <span className={styles.likes}>
-                  {likes.likeCount > 0 && likes.likeCount}
-                </span>
               </i>
-            </>
-          )}
-
-          {/*show delete button only for user logged in created posts*/}
-          {loggedinUser.username === username && (
-            <i onClick={() => deletePost(_id)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </i>
-          )}
-          {loggedinUser.username === username && (
-            <i onClick={() => handleEditPost(_id)}>
-              <FontAwesomeIcon icon={faFilePen} />
-            </i>
-          )}
-          {loggedinUser.username !== username && (
-            <i
-              onClick={() => {
-                isBookmark ? removeBookmark(_id) : bookmarkPost(_id);
-              }}
-            >
-              {isBookmark ? (
-                <FontAwesomeIcon
-                  icon={faBookmark}
-                  className={styles.highlight}
-                />
-              ) : (
-                <FontAwesomeIcon icon={faBookmark} />
-              )}
-            </i>
-          )}
-          {/* {fromHomePage && (
+            )}
+            {/* {fromHomePage && (
             <>
               <p>Liked by:</p>
               {likes.likedBy.map((person, index) => (
@@ -247,9 +250,8 @@ const Post = ({
             </>
           )} */}
 
-          {/* <p>{createdAt}</p> */}
-
-          {/** to get date in proper format call and render the function */}
+            {/* <p>{createdAt}</p> */}
+          </div>
         </>
       )}
     </article>

@@ -3,6 +3,14 @@ import { NavLink } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 import { AuthContext } from "../Context/AuthContext";
 import styles from "./NavBar.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBookmark,
+  faHouse,
+  faRocket,
+  faShuttleSpace,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
   const {
@@ -27,7 +35,10 @@ const NavBar = () => {
     <nav className={styles["nav-bar"]}>
       {isLoggedIn && (
         <NavLink to={"/"} style={getActiveStyle} className={styles["nav-link"]}>
-          Home 
+          <i>
+            <FontAwesomeIcon icon={faHouse} />
+          </i>
+          Home
         </NavLink>
       )}
       {isLoggedIn && (
@@ -36,7 +47,10 @@ const NavBar = () => {
           style={getActiveStyle}
           className={styles["nav-link"]}
         >
-          Explore 
+          <i>
+            <FontAwesomeIcon icon={faRocket} rotation={270} />
+          </i>
+          Explore
         </NavLink>
       )}
       {isLoggedIn && (
@@ -45,7 +59,10 @@ const NavBar = () => {
           style={getActiveStyle}
           className={styles["nav-link"]}
         >
-          Bookmarks 
+          <i>
+            <FontAwesomeIcon icon={faBookmark} />
+          </i>
+          Bookmarks
         </NavLink>
       )}
       {isLoggedIn && (
@@ -54,12 +71,18 @@ const NavBar = () => {
           style={getActiveStyle}
           className={styles["nav-link"]}
         >
-          My Profile 
+          <i>
+            <FontAwesomeIcon icon={faUser} />
+          </i>
+          My Profile
         </NavLink>
       )}
       {isLoggedIn && (
-        <NavLink onClick={handleLogout} className={`${styles["nav-link"]} ${styles["logout-btn"]}`}>
-          Logout 
+        <NavLink
+          onClick={handleLogout}
+          className={`${styles["nav-link"]} ${styles["logout-btn"]}`}
+        >
+          Logout
         </NavLink>
       )}
     </nav>

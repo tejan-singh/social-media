@@ -15,8 +15,6 @@ const Home = () => {
     appState: { homeFeed, latestPosts, trendingPosts, filter, loading, errorMsg },
   } = useContext(AppContext);
 
-  console.log("filter", filter)
-  console.log("trending", trendingPosts)
 
   const {
     authState: { isLoggedIn },

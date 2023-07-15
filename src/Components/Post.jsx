@@ -241,16 +241,6 @@ const Post = ({
                 )}
               </i>
             )}
-            {/* {fromHomePage && (
-            <>
-              <p>Liked by:</p>
-              {likes.likedBy.map((person, index) => (
-                <p key={index}>{person.username}</p>
-              ))}
-            </>
-          )} */}
-
-            {/* <p>{createdAt}</p> */}
           </div>
         </>
       )}

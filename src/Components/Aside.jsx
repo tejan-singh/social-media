@@ -15,11 +15,6 @@ const Aside = () => {
     getAllUsers();
   }, [loggedinUser]);
 
-  // const isFollowing = allUsers?.some(({ following }) =>
-  //   following.map(({ _id }) => _id === loggedinUser._id)
-  // );
-  // console.log(isFollowing);
-
   return (
     <aside className={styles.aside}>
       <div>
@@ -28,43 +23,47 @@ const Aside = () => {
             <b>Who to follow ?</b>
           </p>
         </div>
-        <div className={styles["aside-container"]}>
-          {allUsers.map(
-            ({
-              id,
-              firstName,
-              lastName,
-              username,
-              profilePic,
-              _id,
-              following,
-            }) =>
-              loggedinUser.username !== username && (
-                <article className={styles.suggestions} key={id}>
-                  <img src={profilePic} alt="" />
-                  <div>
-                    <p className={styles.title}>{`${firstName} ${lastName}`}</p>
-                    <p className={styles.username}>{`@${username}`}</p>
-                  </div>
-                  <button
-                    onClick={
-                      following?.some(({ _id }) => _id === loggedinUser._id)
-                        ? () => {
-                            handleUnFollowUser(dispatch, _id);
-                          }
-                        : () => {
-                            handleFollowUser(dispatch, _id);
-                          }
-                    }
-                  >
-                    {following?.some(({ _id }) => _id === loggedinUser._id)
-                      ? "Unfollow"
-                      : "Follow"}
-                  </button>
-                </article>
-              )
-          )}
-        </div>
+        {
+          <div className={styles["aside-container"]}>
+            {allUsers.map(
+              ({
+                id,
+                firstName,
+                lastName,
+                username,
+                profilePic,
+                _id,
+                followers,
+              }) =>
+                loggedinUser.username !== username && (
+                  <article className={styles.suggestions} key={id}>
+                    <img src={profilePic} alt="" />
+                    <div>
+                      <p
+                        className={styles.title}
+                      >{`${firstName} ${lastName}`}</p>
+                      <p className={styles.username}>{`@${username}`}</p>
+                    </div>
+                    <button
+                      onClick={
+                        followers?.some(({ _id }) => _id === loggedinUser._id)
+                          ? () => {
+                              handleUnFollowUser(dispatch, _id);
+                            }
+                          : () => {
+                              handleFollowUser(dispatch, _id);
+                            }
+                      }
+                    >
+                      {followers?.some(({ _id }) => _id === loggedinUser._id)
+                        ? "Unfollow"
+                        : "Follow"}
+                    </button>
+                  </article>
+                )
+            )}
+          </div>
+        }
       </div>
     </aside>
   );

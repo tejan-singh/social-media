@@ -3,6 +3,7 @@
   grid-template-areas:
     "header header header"
     "nav main aside";
+    grid-template-columns: auto 1fr auto;
 }
 
 .navigation {

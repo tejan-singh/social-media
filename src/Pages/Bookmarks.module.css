@@ -1,8 +1,9 @@
 .layout {
   display: grid;
   grid-template-areas:
-    "header header header"
-    "nav main aside";
+    "header header "
+    "nav main ";
+    grid-template-columns: auto 1fr;
 }
 
 .navigation {
@@ -25,4 +26,8 @@
 
 .header {
   grid-area: header;
+}
+
+.message{
+  text-align: center;
 }

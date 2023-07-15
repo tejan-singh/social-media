@@ -9,6 +9,7 @@
   background-color: white;
   padding: 1rem;
   border-bottom: 1px solid var(--grey-color-text);
+  width: 18rem;
 }
 
 .aside-container {

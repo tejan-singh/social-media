@@ -22,7 +22,7 @@ const Bookmarks = () => {
         <NavBar />
       </div>
       <div className={styles.main}>
-        {bookmarks.length === 0 && <p>No bookmarked posts</p>}
+        {bookmarks.length === 0 && <p className={styles.message}>No bookmarked posts</p>}
         {bookmarks.map((post) => (
           <Post {...post} key={post._id} />
         ))}

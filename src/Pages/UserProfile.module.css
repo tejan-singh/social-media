@@ -3,7 +3,7 @@
   grid-template-areas:
     "header header header"
     "nav main aside";
-  grid-template-columns: auto 1fr; /* this will make nav to take only defined width and remaining is used by main. Not defining auto would stretch to available space*/
+  grid-template-columns: auto 1fr auto; /* this will make nav to take only defined width and remaining is used by main. Not defining auto would stretch to available space*/
 }
 
 .navigation {

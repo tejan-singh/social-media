@@ -10,7 +10,7 @@ import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
 
 const UserProfile = () => {
   const { profileName } = useParams();
-  console.log(profileName);
+
   const {
     appState: {
       allUsers,
@@ -60,38 +60,6 @@ const UserProfile = () => {
       console.error(error);
     }
   };
-
-  // const handleFollowUser = async () => {
-  //   try {
-  //     const response = await fetch(`/api/users/follow/${_id}`, {
-  //       method: "POST",
-  //       headers: {
-  //         authorization: localStorage.getItem("encodedToken"),
-  //       },
-  //     });
-  //     const { followUser, user } = await response.json();
-  //     dispatch({ type: "SET_USER", payload: followUser });
-  //     dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const handleUnFollowUser = async () => {
-  //   try {
-  //     const response = await fetch(`/api/users/unfollow/${_id}`, {
-  //       method: "POST",
-  //       headers: {
-  //         authorization: localStorage.getItem("encodedToken"),
-  //       },
-  //     });
-  //     const { followUser, user } = await response.json();
-  //     dispatch({ type: "SET_USER", payload: followUser });
-  //     dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;

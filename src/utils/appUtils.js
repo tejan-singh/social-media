@@ -7,7 +7,7 @@ export const handleFollowUser = async (dispatch, _id) => {
       },
     });
     const { followUser, user } = await response.json();
-    dispatch({ type: "SET_USER", payload: followUser });
+    // dispatch({ type: "SET_USER", payload: followUser });
     dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
   } catch (error) {
     console.error(error);
@@ -23,7 +23,7 @@ export const handleUnFollowUser = async (dispatch, _id) => {
       },
     });
     const { followUser, user } = await response.json();
-    dispatch({ type: "SET_USER", payload: followUser });
+    // dispatch({ type: "SET_USER", payload: followUser });
     dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
   } catch (error) {
     console.error(error);

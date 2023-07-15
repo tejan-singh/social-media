@@ -21,6 +21,7 @@ const Post = ({
   fromHomePage,
   firstName,
   lastName,
+  profilePic
 }) => {
   const {
     appState: { allPosts, loggedinUser, bookmarks },

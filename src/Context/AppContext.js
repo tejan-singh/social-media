@@ -27,15 +27,16 @@ const AppProvider = ({ children }) => {
   const reducerFun = (state, action) => {
     switch (action.type) {
       case "SHOW_ALL_POSTS":
+        const homePosts = action.payload.filter(
+          (post) =>
+            state.loggedinUser?.following?.some(
+              (user) => user.username === post.username
+            ) || post.username === state.loggedinUser?.username
+        );
         return {
           ...state,
           allPosts: action.payload,
-          homeFeed: action.payload.filter(
-            (post) =>
-              state.loggedinUser?.following?.some(
-                (user) => user.username === post.username
-              ) || post.username === state.loggedinUser?.username
-          ),
+          homeFeed: applyFilter(homePosts, "latest"),
         };
       case "SHOW_ERROR":
         return {
@@ -94,7 +95,7 @@ const AppProvider = ({ children }) => {
           allPosts: action.payload.posts,
           homeFeed: updatedHomeFeedAfterDislike,
           latestPosts: updatedHomeFeedAfterDislike,
-          trendingPosts: updatedHomeFeedAfterDislike
+          trendingPosts: updatedHomeFeedAfterDislike,
         };
       case "DELETE_POST":
         const updatedHomefeedAfterDelete = action.payload.posts.filter(
@@ -108,7 +109,7 @@ const AppProvider = ({ children }) => {
           allPosts: action.payload.posts,
           homeFeed: updatedHomefeedAfterDelete,
           latestPosts: updatedHomefeedAfterDelete,
-          trendingPosts: updatedHomefeedAfterDelete
+          trendingPosts: updatedHomefeedAfterDelete,
         };
       case "EDIT_POST":
         const updatedHomefeedAfterEditPost = action.payload.posts.filter(
@@ -122,7 +123,7 @@ const AppProvider = ({ children }) => {
           allPosts: action.payload.posts,
           homeFeed: updatedHomefeedAfterEditPost,
           latestPosts: updatedHomefeedAfterEditPost,
-          trendingPosts: updatedHomefeedAfterEditPost
+          trendingPosts: updatedHomefeedAfterEditPost,
         };
       case "BOOKMARK_POST":
         return {

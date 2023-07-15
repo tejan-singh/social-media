@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./Signup.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash, faEye } from "@fortawesome/free-regular-svg-icons";
 
 const Signup = () => {
   const [userDetails, setUserDetails] = useState({
@@ -11,6 +13,8 @@ const Signup = () => {
     username: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,15 +95,19 @@ const Signup = () => {
         <label className={styles["login-label"]} htmlFor="password">
           Password:
         </label>
-        <input
-          className={styles["login-input"]}
-          type="password"
-          name="password"
-          onChange={handleChange}
-          value={userDetails.password}
-          placeholder="enter your password"
-        />
-
+        <div className={styles["login-input"]}>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            onChange={handleChange}
+            value={userDetails.password}
+            placeholder="enter your password"
+          />
+          <FontAwesomeIcon
+            icon={showPassword ? faEye : faEyeSlash}
+            onClick={() => setShowPassword(!showPassword)}
+          />
+        </div>
         <Link className={styles["link-primary"]} onClick={handleSignup}>
           Create new account
         </Link>

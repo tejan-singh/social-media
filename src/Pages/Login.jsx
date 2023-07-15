@@ -4,6 +4,8 @@ import styles from "./Login.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import { AppContext } from "../Context/AppContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash, faEye } from "@fortawesome/free-regular-svg-icons";
 
 const Login = () => {
   const {
@@ -17,6 +19,8 @@ const Login = () => {
     username: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -102,14 +106,19 @@ const Login = () => {
           <label className={styles["login-label"]} htmlFor="password">
             Password:
           </label>
-          <input
-            className={styles["login-input"]}
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={userCredentials.password}
-            placeholder="Enter your password"
-          />
+          <div className={styles["login-input"]}>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              onChange={handleChange}
+              value={userCredentials.password}
+              placeholder="Enter your password"
+            />
+            <FontAwesomeIcon
+              icon={showPassword ? faEye : faEyeSlash}
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          </div>
 
           <Link
             className={`${styles["link-primary"]} ${styles["login-button"]}`}

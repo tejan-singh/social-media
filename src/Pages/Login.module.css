@@ -46,6 +46,18 @@
   border: 1px solid #cccccc;
   border-radius: 5px;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-input:focus {
+  outline: none;
+}
+
+.login-input input {
+  width: 100%;
+  border: none;
+  outline: none;
 }
 
 .link-primary {

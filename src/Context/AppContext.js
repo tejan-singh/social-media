@@ -248,7 +248,7 @@ const AppProvider = ({ children }) => {
   }, [appState.bookmarks]);
 
   return (
-    <AppContext.Provider value={{ appState, dispatch }}>
+    <AppContext.Provider value={{ appState, dispatch, getAllUsers }}>
       {children}
     </AppContext.Provider>
   );

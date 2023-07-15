@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Aside.module.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
 import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
 
@@ -8,12 +8,18 @@ const Aside = () => {
   const {
     appState: { allUsers, loggedinUser },
     dispatch,
+    getAllUsers,
   } = useContext(AppContext);
+
+  useEffect(() => {
+    getAllUsers();
+  }, [loggedinUser]);
 
   // const isFollowing = allUsers?.some(({ following }) =>
   //   following.map(({ _id }) => _id === loggedinUser._id)
   // );
   // console.log(isFollowing);
+
   return (
     <aside className={styles.aside}>
       <div>
@@ -51,7 +57,9 @@ const Aside = () => {
                           }
                     }
                   >
-                    {following?.some(({ _id }) => _id === loggedinUser._id) ? "Unfollow" : "Follow"}
+                    {following?.some(({ _id }) => _id === loggedinUser._id)
+                      ? "Unfollow"
+                      : "Follow"}
                   </button>
                 </article>
               )

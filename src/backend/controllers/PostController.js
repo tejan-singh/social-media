@@ -202,7 +202,7 @@ export const likePostHandler = function (schema, request) {
       followers,
       following,
     });
-    this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
+    this.db.posts.update({ _id: postId }, { ...post });
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {
     return new Response(
@@ -256,7 +256,7 @@ export const dislikePostHandler = function (schema, request) {
     );
     post.likes.dislikedBy.push(user);
     post = { ...post, likes: { ...post.likes, likedBy: updatedLikedBy } };
-    this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
+    this.db.posts.update({ _id: postId }, { ...post });
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {
     return new Response(

@@ -2,7 +2,6 @@ import React from "react";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 import styles from "./Filter.module.css";
-import { useState } from "react";
 
 const Filter = () => {
   const { dispatch } = useContext(AppContext);

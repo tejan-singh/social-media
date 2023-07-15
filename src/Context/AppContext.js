@@ -11,7 +11,13 @@ const AppProvider = ({ children }) => {
     errorMsg: "",
     bookmarks: [],
     userProfile: {},
-
+    latestPosts: [],
+    trendingPosts: [],
+    filter: {
+      showLatestPosts: false,
+      showTrendingPosts: false,
+      showDefault: true,
+    },
     //to get loggedIn user details after page refresh, you need to get from local storage
     loggedinUser: {
       ...JSON.parse(localStorage.getItem("loggedInUserDetails")),
@@ -63,48 +69,60 @@ const AppProvider = ({ children }) => {
           ),
         };
       case "LIKE_POST":
+        const updatedHomeFeedAfterLike = action.payload.posts.filter(
+          (post) =>
+            state.loggedinUser.following?.some(
+              (user) => user.username === post.username
+            ) || post.username === state.loggedinUser.username
+        );
         return {
           ...state,
           allPosts: action.payload.posts,
-          homeFeed: action.payload.posts.filter(
-            (post) =>
-              state.loggedinUser.following?.some(
-                (user) => user.username === post.username
-              ) || post.username === state.loggedinUser.username
-          ),
+          homeFeed: updatedHomeFeedAfterLike,
+          latestPosts: updatedHomeFeedAfterLike,
+          trendingPosts: updatedHomeFeedAfterLike,
         };
       case "DISLIKE_POST":
+        const updatedHomeFeedAfterDislike = action.payload.posts.filter(
+          (post) =>
+            state.loggedinUser.following?.some(
+              (user) => user.username === post.username
+            ) || post.username === state.loggedinUser.username
+        );
         return {
           ...state,
           allPosts: action.payload.posts,
-          homeFeed: action.payload.posts.filter(
-            (post) =>
-              state.loggedinUser.following?.some(
-                (user) => user.username === post.username
-              ) || post.username === state.loggedinUser.username
-          ),
+          homeFeed: updatedHomeFeedAfterDislike,
+          latestPosts: updatedHomeFeedAfterDislike,
+          trendingPosts: updatedHomeFeedAfterDislike
         };
       case "DELETE_POST":
+        const updatedHomefeedAfterDelete = action.payload.posts.filter(
+          (post) =>
+            state.loggedinUser.following?.some(
+              (user) => user.username === post.username
+            ) || post.username === state.loggedinUser.username
+        );
         return {
           ...state,
           allPosts: action.payload.posts,
-          homeFeed: action.payload.posts.filter(
-            (post) =>
-              state.loggedinUser.following?.some(
-                (user) => user.username === post.username
-              ) || post.username === state.loggedinUser.username
-          ),
+          homeFeed: updatedHomefeedAfterDelete,
+          latestPosts: updatedHomefeedAfterDelete,
+          trendingPosts: updatedHomefeedAfterDelete
         };
       case "EDIT_POST":
+        const updatedHomefeedAfterEditPost = action.payload.posts.filter(
+          (post) =>
+            state.loggedinUser.following?.some(
+              (user) => user.username === post.username
+            ) || post.username === state.loggedinUser.username
+        );
         return {
           ...state,
           allPosts: action.payload.posts,
-          homeFeed: action.payload.posts.filter(
-            (post) =>
-              state.loggedinUser.following?.some(
-                (user) => user.username === post.username
-              ) || post.username === state.loggedinUser.username
-          ),
+          homeFeed: updatedHomefeedAfterEditPost,
+          latestPosts: updatedHomefeedAfterEditPost,
+          trendingPosts: updatedHomefeedAfterEditPost
         };
       case "BOOKMARK_POST":
         return {
@@ -134,13 +152,23 @@ const AppProvider = ({ children }) => {
       case "SORT_BY_LATEST":
         return {
           ...state,
-          homeFeed: applyFilter(state.homeFeed, "latest"),
+          latestPosts: applyFilter(state.homeFeed, "latest"),
+          filter: {
+            showTrendingPosts: false,
+            showLatestPosts: true,
+            showDefault: false,
+          },
         };
 
       case "SORT_BY_TRENDING":
         return {
           ...state,
-          homeFeed: applyFilter(state.homeFeed, "trending"),
+          trendingPosts: applyFilter(state.homeFeed, "trending"),
+          filter: {
+            showTrendingPosts: true,
+            showLatestPosts: false,
+            showDefault: false,
+          },
         };
       default:
         return state;
@@ -206,7 +234,6 @@ const AppProvider = ({ children }) => {
       dispatch({ type: "HIDE_LOADING" });
     }
   };
-
 
   useEffect(() => {
     getAllUsers();

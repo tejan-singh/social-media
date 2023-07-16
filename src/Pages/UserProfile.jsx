@@ -139,12 +139,12 @@ const UserProfile = () => {
         <p className={styles.fullname}>{`${firstName} ${lastName}`}</p>
         <p className={styles.username}>@{username}</p>
 
-        {!showEditPic && (
+        {(!showEditPic && loggedinUser.username === username) && (
           <button onClick={() => setShowEditPic(!showEditPic)}>
             Change picture
           </button>
         )}
-        {!editProfile && <button onClick={handleEdit}>Edit profile</button>}
+        {(!editProfile && loggedinUser.username === username ) && <button onClick={handleEdit}>Edit profile</button>}
         {showEditPic && (
           <section className={styles["popup-box"]}>
             <div className={styles["box"]}>

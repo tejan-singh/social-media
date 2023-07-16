@@ -3,6 +3,7 @@ import styles from "./Aside.module.css";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
 import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
+import { Link } from "react-router-dom";
 
 const Aside = () => {
   const {
@@ -38,12 +39,12 @@ const Aside = () => {
                 loggedinUser.username !== username && (
                   <article className={styles.suggestions} key={id}>
                     <img src={profilePic} alt="" />
-                    <div>
+                    <Link to={`/profile/${username}`} className={styles['user-profile']}>
                       <p
                         className={styles.title}
                       >{`${firstName} ${lastName}`}</p>
                       <p className={styles.username}>{`@${username}`}</p>
-                    </div>
+                    </Link>
                     <button
                       onClick={
                         followers?.some(({ _id }) => _id === loggedinUser._id)

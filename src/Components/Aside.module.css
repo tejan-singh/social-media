@@ -24,8 +24,13 @@
   justify-content: space-between;
 }
 
+.user-profile{
+  text-decoration: none;
+}
+
 .title {
   font-weight: 700;
+  color: black;
 }
 
 .username {

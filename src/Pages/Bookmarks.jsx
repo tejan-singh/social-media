@@ -23,6 +23,7 @@ const Bookmarks = () => {
         <NavBar />
       </div>
       <div className={styles.main}>
+        <h2>Your Bookmarks</h2>
         {bookmarks.length === 0 && (
           <p className={styles.message}>No bookmarked posts</p>
         )}

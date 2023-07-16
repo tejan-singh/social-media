@@ -23,12 +23,13 @@ const Explore = () => {
         <NavBar />
       </div>
       <div className={styles.main}>
+        <h2>Expore</h2>
         {allPosts.map((post) => (
           <Post {...post} key={post._id} fromHomePage />
         ))}
       </div>
       <div className={styles.aside}>
-        <Aside/>
+        <Aside />
       </div>
     </div>
   );

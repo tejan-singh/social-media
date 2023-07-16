@@ -152,6 +152,7 @@ export const bookmarkPostHandler = function (schema, request) {
       updatedAt: post.updatedAt,
       firstName: post.firstName,
       lastName: post.lastName,
+      profilePic: post.profilePic
     });
     // this.db.users.update(
     //   { _id: user._id },

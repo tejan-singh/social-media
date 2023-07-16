@@ -183,6 +183,7 @@ const Post = ({
       ) : (
         <>
           <Link to={`/profile/${username}`} className={styles["user-details"]}>
+          <img className={styles.profilePic} src={profilePic} alt="" />
             <p className={styles["full-name"]}>{`${firstName} ${lastName}`}</p>
             <p className={styles.username}>{`@${username}`}</p>
             {/** to get date in proper format call and render the function */}

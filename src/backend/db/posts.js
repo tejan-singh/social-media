@@ -23,7 +23,7 @@ export const posts = [
     lastName: "Balika",
     createdAt: "2023-03-14T10:12:12+05:30",
     updatedAt: "2023-07-15T10:12:12+05:30",
-    profilePic: "https://i.postimg.cc/26V87hJ5/female-avatar.jpg"
+    profilePic: "https://i.postimg.cc/26V87hJ5/female-avatar.jpg",
   },
   {
     _id: uuid(),
@@ -45,6 +45,7 @@ export const posts = [
     lastName: "Singh",
     createdAt: "2023-01-25T10:38:12+05:30",
     updatedAt: "2023-07-16T18:11:33+05:30",
+    profilePic: "https://i.postimg.cc/8z6Rtf2t/50990883.jpg",
   },
   {
     _id: uuid(),
@@ -60,6 +61,8 @@ export const posts = [
     lastName: "Baalak",
     createdAt: "2023-02-10T09:30:12+05:30",
     updatedAt: "2023-05-16T18:11:01+05:30",
+    profilePic:
+      "https://i.postimg.cc/zfLGnT4G/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg",
   },
   {
     _id: uuid(),
@@ -74,7 +77,7 @@ export const posts = [
     lastName: "Balika",
     createdAt: "2023-02-10T09:30:12+05:30",
     updatedAt: "2023-07-21T18:11:01+05:30",
-    profilePic: "https://i.postimg.cc/26V87hJ5/female-avatar.jpg"
+    profilePic: "https://i.postimg.cc/26V87hJ5/female-avatar.jpg",
   },
   {
     _id: uuid(),
@@ -90,5 +93,6 @@ export const posts = [
     lastName: "Singh",
     createdAt: "2023-02-10T09:30:12+05:30",
     updatedAt: "2023-07-22T18:11:01+05:30",
+    profilePic: "https://i.postimg.cc/8z6Rtf2t/50990883.jpg",
   },
 ];

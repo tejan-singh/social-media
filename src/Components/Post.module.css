@@ -83,3 +83,8 @@
   line-height: 1.5;
   text-align: left;
 }
+
+.profilePic{
+  max-width: 2rem;
+  border-radius: 50%;
+}

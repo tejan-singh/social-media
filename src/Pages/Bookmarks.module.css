@@ -1,8 +1,8 @@
 .layout {
   display: grid;
   grid-template-areas:
-    "header header "
-    "nav main ";
+    "header header header"
+    "nav main aside";
     grid-template-columns: auto 1fr;
 }
 

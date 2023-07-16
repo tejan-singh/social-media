@@ -91,6 +91,7 @@ export const createPostHandler = function (schema, request) {
       updatedAt: formatDate(),
       firstName: user.firstName,
       lastName: user.lastName,
+      profilePic: user.profilePic
     };
     this.db.posts.insert(post);
     return new Response(201, {}, { posts: this.db.posts });

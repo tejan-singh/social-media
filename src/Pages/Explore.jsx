@@ -5,6 +5,7 @@ import CreatePost from "../Components/CreatePost";
 import Post from "../Components/Post";
 import styles from "./Explore.module.css";
 import Header from "../Components/Header";
+import Aside from "../Components/Aside";
 
 const Explore = () => {
   const {
@@ -26,7 +27,9 @@ const Explore = () => {
           <Post {...post} key={post._id} fromHomePage />
         ))}
       </div>
-      <div className={styles.aside}></div>
+      <div className={styles.aside}>
+        <Aside/>
+      </div>
     </div>
   );
 };

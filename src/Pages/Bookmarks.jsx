@@ -4,6 +4,7 @@ import { AppContext } from "../Context/AppContext";
 import Post from "../Components/Post";
 import styles from "./Bookmarks.module.css";
 import Header from "../Components/Header";
+import Aside from "../Components/Aside";
 
 const Bookmarks = () => {
   const {
@@ -22,12 +23,16 @@ const Bookmarks = () => {
         <NavBar />
       </div>
       <div className={styles.main}>
-        {bookmarks.length === 0 && <p className={styles.message}>No bookmarked posts</p>}
+        {bookmarks.length === 0 && (
+          <p className={styles.message}>No bookmarked posts</p>
+        )}
         {bookmarks.map((post) => (
           <Post {...post} key={post._id} />
         ))}
       </div>
-      <div className={styles.aside}></div>
+      <div className={styles.aside}>
+        <Aside />
+      </div>
     </div>
   );
 };

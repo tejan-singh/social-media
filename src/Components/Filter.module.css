@@ -1,8 +1,20 @@
+.filter-container {
+  display: flex;
+  margin-top: 1rem;
+}
+
 .filter {
-  color: var(--primary);
+  width: 100%;
+  color: black;
   display: inline-block;
-  padding: 1rem;
-  font-size: 1.5rem;
+  padding: 0.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  text-decoration: underline;
+  text-align: center;
+  margin: 1rem;
+  background-color: white;
+}
+
+.active {
+  background-color: #fecaca;
 }

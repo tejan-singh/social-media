@@ -121,8 +121,8 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload.posts,
-          latestPosts: updatedHomefeedAfterEditPost,
-          trendingPosts: updatedHomefeedAfterEditPost,
+          latestPosts: applyFilter(updatedHomefeedAfterEditPost, "latest"),
+          trendingPosts: applyFilter(updatedHomefeedAfterEditPost, "trending"),
         };
       case "BOOKMARK_POST":
         return {

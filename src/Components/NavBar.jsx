@@ -9,6 +9,7 @@ import {
   faRocket,
   faUser,
   faBookmark,
+  faArrowCircleLeft
 } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
@@ -77,10 +78,10 @@ const NavBar = () => {
         </NavLink>
       )}
       {isLoggedIn && (
-        <NavLink
-          onClick={handleLogout}
-          className={`${styles["nav-link"]} ${styles["logout-btn"]}`}
-        >
+        <NavLink onClick={handleLogout} className={styles["nav-link"]}>
+          <i>
+            <FontAwesomeIcon icon={faArrowCircleLeft} />
+          </i>
           Logout
         </NavLink>
       )}

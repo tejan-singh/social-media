@@ -12,7 +12,7 @@ import Aside from "../Components/Aside";
 
 const Home = () => {
   const {
-    appState: { homeFeed, latestPosts, trendingPosts, filter, loading, errorMsg },
+    appState: { latestPosts, trendingPosts, filter, loading, errorMsg },
   } = useContext(AppContext);
 
 
@@ -34,9 +34,6 @@ const Home = () => {
       <div className={styles.main}>
         <CreatePost />
         <Filter />
-        {filter.showDefault && homeFeed.map((post) => (
-          <Post {...post} key={post._id} fromHomePage />
-        ))}
         {filter.showLatestPosts && latestPosts.map((post) => (
           <Post {...post} key={post._id} fromHomePage />
         ))}

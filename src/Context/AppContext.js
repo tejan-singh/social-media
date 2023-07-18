@@ -6,7 +6,6 @@ const AppProvider = ({ children }) => {
   const initialState = {
     loading: true,
     allPosts: [],
-    homeFeed: [],
     allUsers: [],
     errorMsg: "",
     bookmarks: [],
@@ -16,7 +15,6 @@ const AppProvider = ({ children }) => {
     filter: {
       showLatestPosts: false,
       showTrendingPosts: false,
-      showDefault: true,
     },
     //to get loggedIn user details after page refresh, you need to get from local storage
     loggedinUser: {
@@ -27,7 +25,7 @@ const AppProvider = ({ children }) => {
   const reducerFun = (state, action) => {
     switch (action.type) {
       case "SHOW_ALL_POSTS":
-        const homePosts = action.payload.filter(
+        const homeFeedPosts = action.payload.filter(
           (post) =>
             state.loggedinUser?.following?.some(
               (user) => user.username === post.username
@@ -36,7 +34,11 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload,
-          homeFeed: applyFilter(homePosts, "latest"),
+          latestPosts: applyFilter(homeFeedPosts, "latest"),
+          filter: {
+            showLatestPosts: true,
+            showTrendingPosts: false,
+          },
         };
       case "SHOW_ERROR":
         return {
@@ -59,15 +61,16 @@ const AppProvider = ({ children }) => {
           loggedinUser: action.payload,
         };
       case "CREATE_POST":
+        const updatedPostsAfterNew = action.payload.posts.filter(
+          (post) =>
+            state.loggedinUser.following?.some(
+              (user) => user.username === post.username
+            ) || post.username === state.loggedinUser.username
+        );
         return {
           ...state,
           allPosts: action.payload.posts,
-          homeFeed: action.payload.posts.filter(
-            (post) =>
-              state.loggedinUser.following?.some(
-                (user) => user.username === post.username
-              ) || post.username === state.loggedinUser.username
-          ),
+          latestPosts: applyFilter(updatedPostsAfterNew, "latest"),
         };
       case "LIKE_POST":
         const updatedHomeFeedAfterLike = action.payload.posts.filter(
@@ -79,9 +82,8 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload.posts,
-          homeFeed: updatedHomeFeedAfterLike,
-          latestPosts: updatedHomeFeedAfterLike,
-          trendingPosts: updatedHomeFeedAfterLike,
+          latestPosts: applyFilter(updatedHomeFeedAfterLike, "latest"),
+          trendingPosts: applyFilter(updatedHomeFeedAfterLike, "trending"),
         };
       case "DISLIKE_POST":
         const updatedHomeFeedAfterDislike = action.payload.posts.filter(
@@ -93,9 +95,8 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload.posts,
-          homeFeed: updatedHomeFeedAfterDislike,
-          latestPosts: updatedHomeFeedAfterDislike,
-          trendingPosts: updatedHomeFeedAfterDislike,
+          latestPosts: applyFilter(updatedHomeFeedAfterDislike, "latest"),
+          trendingPosts: applyFilter(updatedHomeFeedAfterDislike, "trending"),
         };
       case "DELETE_POST":
         const updatedHomefeedAfterDelete = action.payload.posts.filter(
@@ -107,7 +108,6 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload.posts,
-          homeFeed: updatedHomefeedAfterDelete,
           latestPosts: updatedHomefeedAfterDelete,
           trendingPosts: updatedHomefeedAfterDelete,
         };
@@ -121,7 +121,6 @@ const AppProvider = ({ children }) => {
         return {
           ...state,
           allPosts: action.payload.posts,
-          homeFeed: updatedHomefeedAfterEditPost,
           latestPosts: updatedHomefeedAfterEditPost,
           trendingPosts: updatedHomefeedAfterEditPost,
         };
@@ -153,22 +152,20 @@ const AppProvider = ({ children }) => {
       case "SORT_BY_LATEST":
         return {
           ...state,
-          latestPosts: applyFilter(state.homeFeed, "latest"),
+          latestPosts: applyFilter(state.latestPosts, "latest"),
           filter: {
             showTrendingPosts: false,
             showLatestPosts: true,
-            showDefault: false,
           },
         };
 
       case "SORT_BY_TRENDING":
         return {
           ...state,
-          trendingPosts: applyFilter(state.homeFeed, "trending"),
+          trendingPosts: applyFilter(state.latestPosts, "trending"),
           filter: {
             showTrendingPosts: true,
             showLatestPosts: false,
-            showDefault: false,
           },
         };
       default:

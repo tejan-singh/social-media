@@ -12,21 +12,23 @@ const CreatePost = () => {
 
   const createPost = async () => {
     try {
-      const requestBody = { postData: { content: userInput } };
-      const response = await fetch("/api/posts", {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: localStorage.getItem("encodedToken"),
-        },
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
+      if (userInput) {
+        const requestBody = { postData: { content: userInput } };
+        const response = await fetch("/api/posts", {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: localStorage.getItem("encodedToken"),
+          },
+          method: "POST",
+          body: JSON.stringify(requestBody),
+        });
 
-      const data = await response.json();
-      dispatch({ type: "CREATE_POST", payload: data });
-      setUserInput(() => "")
+        const data = await response.json();
+        dispatch({ type: "CREATE_POST", payload: data });
+        setUserInput(() => "");
+      }
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 

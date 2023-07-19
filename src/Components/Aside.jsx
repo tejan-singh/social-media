@@ -38,14 +38,24 @@ const Aside = () => {
               }) =>
                 loggedinUser.username !== username && (
                   <article className={styles.suggestions} key={id}>
-                    <img src={profilePic} alt="" />
-                    <Link to={`/profile/${username}`} className={styles['user-profile']}>
-                      <p
-                        className={styles.title}
-                      >{`${firstName} ${lastName}`}</p>
-                      <p className={styles.username}>{`@${username}`}</p>
-                    </Link>
-                    <button
+                    <div className={styles["user-profile-details"]}>
+                      <img
+                        className={styles.profilePic}
+                        src={profilePic}
+                        alt=""
+                      />
+                      <Link
+                        to={`/profile/${username}`}
+                        className={styles["user-profile"]}
+                      >
+                        <p
+                          className={styles.title}
+                        >{`${firstName} ${lastName}`}</p>
+                        <p className={styles.username}>{`@${username}`}</p>
+                      </Link>
+                    </div>
+
+                    <p className={styles.follow}
                       onClick={
                         followers?.some(({ _id }) => _id === loggedinUser._id)
                           ? () => {
@@ -59,7 +69,7 @@ const Aside = () => {
                       {followers?.some(({ _id }) => _id === loggedinUser._id)
                         ? "Unfollow"
                         : "Follow"}
-                    </button>
+                    </p>
                   </article>
                 )
             )}

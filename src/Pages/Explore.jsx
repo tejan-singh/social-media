@@ -1,19 +1,18 @@
 import React, { useContext } from "react";
 import NavBar from "../Components/NavBar";
 import { AppContext } from "../Context/AppContext";
-import CreatePost from "../Components/CreatePost";
 import Post from "../Components/Post";
 import styles from "./Explore.module.css";
 import Header from "../Components/Header";
 import Aside from "../Components/Aside";
+import Loader from "../Components/Loader";
 
 const Explore = () => {
   const {
-    appState: { allPosts, loading, errorMsg },
+    appState: { allPosts, loading },
   } = useContext(AppContext);
 
-  if (loading) return <p>Loading...</p>;
-  if (errorMsg) return <p>{errorMsg}</p>;
+  if (loading) return <Loader />;
   return (
     <div className={styles.layout}>
       <div className={styles.header}>

@@ -5,14 +5,14 @@ import Post from "../Components/Post";
 import styles from "./Bookmarks.module.css";
 import Header from "../Components/Header";
 import Aside from "../Components/Aside";
+import Loader from "../Components/Loader";
 
 const Bookmarks = () => {
   const {
-    appState: { bookmarks, loading, errorMsg },
+    appState: { bookmarks, loading },
   } = useContext(AppContext);
 
-  if (loading) return <p>Loading...</p>;
-  if (errorMsg) return <p>{errorMsg}</p>;
+  if (loading) return <Loader />;
 
   return (
     <div className={styles.layout}>

@@ -9,19 +9,18 @@ import Landing from "./Landing";
 import styles from "./Home.module.css";
 import Header from "../Components/Header";
 import Aside from "../Components/Aside";
+import Loader from "../Components/Loader";
 
 const Home = () => {
   const {
-    appState: { latestPosts, trendingPosts, filter, loading, errorMsg },
+    appState: { latestPosts, trendingPosts, filter, loading },
   } = useContext(AppContext);
-
 
   const {
     authState: { isLoggedIn },
   } = useContext(AuthContext);
 
-  if (loading) return <p>Loading...</p>;
-  if (errorMsg) return <p>{errorMsg}</p>;
+  if (loading) return <Loader />;
   if (!isLoggedIn) return <Landing />;
   return (
     <div className={styles.layout}>
@@ -34,12 +33,14 @@ const Home = () => {
       <div className={styles.main}>
         <CreatePost />
         <Filter />
-        {filter.showLatestPosts && latestPosts.map((post) => (
-          <Post {...post} key={post._id} fromHomePage />
-        ))}
-        {filter.showTrendingPosts && trendingPosts.map((post) => (
-          <Post {...post} key={post._id} fromHomePage />
-        ))}
+        {filter.showLatestPosts &&
+          latestPosts.map((post) => (
+            <Post {...post} key={post._id} fromHomePage />
+          ))}
+        {filter.showTrendingPosts &&
+          trendingPosts.map((post) => (
+            <Post {...post} key={post._id} fromHomePage />
+          ))}
       </div>
       <div className={styles.aside}>
         <Aside />

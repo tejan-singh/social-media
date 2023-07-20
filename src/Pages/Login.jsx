@@ -85,7 +85,6 @@ const Login = () => {
       <h1 className={styles.heading}>
         Welcome to <span>Circle!</span>
       </h1>
-      <NavBar />
       {isLoggedIn && <p>You are logged in</p>}
       {!isLoggedIn && (
         <div className={styles.login}>

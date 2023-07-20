@@ -7,6 +7,7 @@ import Aside from "../Components/Aside";
 import Post from "../Components/Post";
 import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
 import styles from "./UserProfile.module.css";
+import Loader from "../Components/Loader";
 const UserProfile = () => {
   const { profileName } = useParams();
 
@@ -129,7 +130,7 @@ const UserProfile = () => {
     // profileName dependency is required to replace currenct user data to show loggedin user profile
   }, [allUsers, profileName]);
 
-  if (profileLoading) return <p>Loading...</p>;
+  if (profileLoading) return <Loader/>;
   return (
     <div className={styles.layout}>
       <div className={styles.header}>

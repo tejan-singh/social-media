@@ -11,20 +11,13 @@ import Signup from "./Pages/Signup";
 import Landing from "./Pages/Landing";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
+import ErrorPage from "./Pages/ErrorPage";
 
 function App() {
-
   return (
     <div className="App">
       <Routes>
-        <Route
-          path="/"
-          element={
-            
-              <Home />
-            
-          }
-        />
+        <Route path="/" element={<Home />} />
         <Route path="/mockman" element={<Mockman />} />
         <Route
           path="/bookmarks"
@@ -44,7 +37,7 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<Landing/>}/>
+        <Route path="/" element={<Landing />} />
 
         <Route
           path="/profile/:profileName"
@@ -54,6 +47,7 @@ function App() {
             </RequiresAuth>
           }
         />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );

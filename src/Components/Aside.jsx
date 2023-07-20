@@ -3,7 +3,7 @@ import styles from "./Aside.module.css";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
 import { handleFollowUser } from "../utils/appUtils";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loader from "./Loader";
 import { useState } from "react";
 
@@ -62,9 +62,10 @@ const Aside = () => {
 
                   <p
                     className={styles.follow}
-                    onClick={() => {
-                      isRequested && handleFollowUser(dispatch, _id, setIsRequested);
-                    }}
+                    onClick={() =>
+                      isRequested &&
+                      handleFollowUser(dispatch, _id, setIsRequested)
+                    }
                   >
                     Follow
                   </p>

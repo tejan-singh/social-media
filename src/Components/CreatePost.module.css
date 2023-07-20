@@ -43,3 +43,7 @@
   width: 3rem;
   border-radius: 50%;
 }
+
+.blur {
+  background-color: #ff3b3099;
+}

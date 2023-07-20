@@ -53,7 +53,14 @@ const CreatePost = () => {
           placeholder="write something interesting..."
         />
         <div className={styles["btn-container"]}>
-          <button onClick={createPost} className={styles["input-btn"]}>
+          <button
+            onClick={createPost}
+            className={
+              !userInput
+                ? `${styles["input-btn"]} ${styles["blur"]}`
+                : styles["input-btn"]
+            }
+          >
             Post
           </button>
         </div>

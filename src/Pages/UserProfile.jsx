@@ -2,12 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import NavBar from "../Components/NavBar";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
-import styles from "./UserProfile.module.css";
 import Header from "../Components/Header";
 import Aside from "../Components/Aside";
 import Post from "../Components/Post";
 import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
-
+import styles from "./UserProfile.module.css";
 const UserProfile = () => {
   const { profileName } = useParams();
 
@@ -47,6 +46,13 @@ const UserProfile = () => {
     "https://i.postimg.cc/k405rYZL/SAVE-20230702-183141.jpg",
     "https://i.postimg.cc/y8ZvsDk5/SAVE-20230702-183147.jpg",
   ];
+
+  useEffect(() => {
+    setUserDetails(() => ({
+      bio: bio,
+      portfolio: portfolio,
+    }));
+  }, [bio, portfolio]);
 
   const getUser = async () => {
     try {
@@ -139,12 +145,14 @@ const UserProfile = () => {
         <p className={styles.fullname}>{`${firstName} ${lastName}`}</p>
         <p className={styles.username}>@{username}</p>
 
-        {(!showEditPic && loggedinUser.username === username) && (
+        {!showEditPic && loggedinUser.username === username && (
           <button onClick={() => setShowEditPic(!showEditPic)}>
             Change picture
           </button>
         )}
-        {(!editProfile && loggedinUser.username === username ) && <button onClick={handleEdit}>Edit profile</button>}
+        {!editProfile && loggedinUser.username === username && (
+          <button onClick={handleEdit}>Edit profile</button>
+        )}
         {showEditPic && (
           <section className={styles["popup-box"]}>
             <div className={styles["box"]}>

@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { createContext, useEffect, useReducer } from "react";
+import { AuthContext } from "./AuthContext";
 
 export const AppContext = createContext();
 
@@ -20,6 +22,7 @@ const AppProvider = ({ children }) => {
     loggedinUser: {
       ...JSON.parse(localStorage.getItem("loggedInUserDetails")),
     },
+    userSuggestions: [],
   };
 
   const reducerFun = (state, action) => {
@@ -137,7 +140,8 @@ const AppProvider = ({ children }) => {
       case "SET_ALL_USERS":
         return {
           ...state,
-          allUsers: action.payload,
+          allUsers: action.payload.users,
+          suggestedUsers: action.payload.suggestedUsers,
         };
       case "SET_USER":
         return {
@@ -189,7 +193,9 @@ const AppProvider = ({ children }) => {
   };
 
   const [appState, dispatch] = useReducer(reducerFun, initialState);
+
   console.log("appState", appState);
+
   const getPosts = async () => {
     try {
       const response = await fetch("/api/posts");
@@ -207,7 +213,20 @@ const AppProvider = ({ children }) => {
       const response = await fetch("/api/users", { method: "GET" });
       const { users } = await response.json();
 
-      dispatch({ type: "SET_ALL_USERS", payload: users });
+      // if user is present in following user array then return false and do not store in suggested users
+      const suggestedUsers = users.filter((eachUser) => {
+        return (
+          appState.loggedinUser._id !== eachUser._id &&
+          !appState.loggedinUser.following.some((followingUser) => {
+            return followingUser._id === eachUser._id;
+          })
+        );
+      });
+
+      dispatch({
+        type: "SET_ALL_USERS",
+        payload: { users: users, suggestedUsers: suggestedUsers },
+      });
     } catch (error) {
       console.error(error);
     } finally {

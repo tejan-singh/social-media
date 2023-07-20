@@ -1,3 +1,5 @@
+@import url("https://circlesocialmedia.netlify.app/styles.css");
+
 .layout {
   display: grid;
   grid-template-areas:

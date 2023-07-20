@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Aside = () => {
   const {
-    appState: { allUsers, loggedinUser },
+    appState: { suggestedUsers, loggedinUser },
     dispatch,
     getAllUsers,
   } = useContext(AppContext);
@@ -26,7 +26,7 @@ const Aside = () => {
         </div>
         {
           <div className={styles["aside-container"]}>
-            {allUsers.map(
+            {suggestedUsers.map(
               ({
                 id,
                 firstName,
@@ -35,43 +35,35 @@ const Aside = () => {
                 profilePic,
                 _id,
                 followers,
-              }) =>
-                loggedinUser.username !== username && (
-                  <article className={styles.suggestions} key={id}>
-                    <div className={styles["user-profile-details"]}>
-                      <img
-                        className={styles.profilePic}
-                        src={profilePic}
-                        alt=""
-                      />
-                      <Link
-                        to={`/profile/${username}`}
-                        className={styles["user-profile"]}
-                      >
-                        <p
-                          className={styles.title}
-                        >{`${firstName} ${lastName}`}</p>
-                        <p className={styles.username}>{`@${username}`}</p>
-                      </Link>
-                    </div>
-
-                    <p className={styles.follow}
-                      onClick={
-                        followers?.some(({ _id }) => _id === loggedinUser._id)
-                          ? () => {
-                              handleUnFollowUser(dispatch, _id);
-                            }
-                          : () => {
-                              handleFollowUser(dispatch, _id);
-                            }
-                      }
+              }) => (
+                <article className={styles.suggestions} key={id}>
+                  <div className={styles["user-profile-details"]}>
+                    <img
+                      className={styles.profilePic}
+                      src={profilePic}
+                      alt=""
+                    />
+                    <Link
+                      to={`/profile/${username}`}
+                      className={styles["user-profile"]}
                     >
-                      {followers?.some(({ _id }) => _id === loggedinUser._id)
-                        ? "Unfollow"
-                        : "Follow"}
-                    </p>
-                  </article>
-                )
+                      <p
+                        className={styles.title}
+                      >{`${firstName} ${lastName}`}</p>
+                      <p className={styles.username}>{`@${username}`}</p>
+                    </Link>
+                  </div>
+
+                  <p
+                    className={styles.follow}
+                    onClick={() => {
+                      handleFollowUser(dispatch, _id);
+                    }}
+                  >
+                    Follow
+                  </p>
+                </article>
+              )
             )}
           </div>
         }

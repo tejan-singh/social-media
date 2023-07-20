@@ -2,12 +2,13 @@ import React from "react";
 import styles from "./Aside.module.css";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
-import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
+import { handleFollowUser } from "../utils/appUtils";
 import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
 const Aside = () => {
   const {
-    appState: { suggestedUsers, loggedinUser },
+    appState: { suggestedUsers, loggedinUser, loading },
     dispatch,
     getAllUsers,
   } = useContext(AppContext);
@@ -15,6 +16,8 @@ const Aside = () => {
   useEffect(() => {
     getAllUsers();
   }, [loggedinUser]);
+
+  if (loading) return <Loader />;
 
   return (
     <aside className={styles.aside}>
@@ -26,7 +29,7 @@ const Aside = () => {
         </div>
         {
           <div className={styles["aside-container"]}>
-            {suggestedUsers.map(
+            {suggestedUsers?.map(
               ({
                 id,
                 firstName,

@@ -210,6 +210,7 @@ const AppProvider = ({ children }) => {
 
   const getAllUsers = async () => {
     try {
+
       const response = await fetch("/api/users", { method: "GET" });
       const { users } = await response.json();
 
@@ -222,11 +223,11 @@ const AppProvider = ({ children }) => {
           })
         );
       });
-
       dispatch({
         type: "SET_ALL_USERS",
         payload: { users: users, suggestedUsers: suggestedUsers },
       });
+
     } catch (error) {
       console.error(error);
     } finally {

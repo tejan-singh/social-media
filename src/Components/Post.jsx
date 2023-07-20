@@ -21,7 +21,7 @@ const Post = ({
   fromHomePage,
   firstName,
   lastName,
-  profilePic
+  profilePic,
 }) => {
   const {
     appState: { allPosts, loggedinUser, bookmarks },
@@ -30,18 +30,20 @@ const Post = ({
 
   const [editId, setEditId] = useState(null);
   const [updatedContent, setUpdatedContent] = useState({ content: "" });
+  const [isRequested, setIsRequested] = useState(true);
 
   const likePost = async (_id) => {
     try {
+      setIsRequested((prev) => !prev);
       const response = await fetch(`/api/posts/like/${_id}`, {
         headers: {
           authorization: localStorage.getItem("encodedToken"),
         },
         method: "POST",
       });
-
       const data = await response.json();
       dispatch({ type: "LIKE_POST", payload: data });
+      setIsRequested((prev) => !prev);
     } catch (error) {
       console.log(error.message);
     }
@@ -49,6 +51,8 @@ const Post = ({
 
   const dislikePost = async (_id) => {
     try {
+      setIsRequested((prev) => !prev);
+
       const response = await fetch(`/api/posts/dislike/${_id}`, {
         headers: {
           authorization: localStorage.getItem("encodedToken"),
@@ -58,6 +62,7 @@ const Post = ({
 
       const data = await response.json();
       dispatch({ type: "DISLIKE_POST", payload: data });
+      setIsRequested((prev) => !prev);
     } catch (error) {
       console.log(error);
     }
@@ -65,6 +70,8 @@ const Post = ({
 
   const deletePost = async (_id) => {
     try {
+      setIsRequested((prev) => !prev);
+
       const response = await fetch(`/api/posts/${_id}`, {
         headers: {
           authorization: localStorage.getItem("encodedToken"),
@@ -74,6 +81,7 @@ const Post = ({
 
       const data = await response.json();
       dispatch({ type: "DELETE_POST", payload: data });
+      setIsRequested((prev) => !prev);
     } catch (error) {
       console.log(error.message);
     }
@@ -96,6 +104,8 @@ const Post = ({
 
   const editPost = async () => {
     try {
+      setIsRequested((prev) => !prev);
+
       const requestBody = { postData: updatedContent };
       const response = await fetch(`/api/posts/edit/${editId}`, {
         method: "POST",
@@ -108,6 +118,7 @@ const Post = ({
       const data = await response.json();
       dispatch({ type: "EDIT_POST", payload: data });
       setEditId(null);
+      setIsRequested((prev) => !prev);
     } catch (error) {
       console.log(error.message);
     }
@@ -115,6 +126,8 @@ const Post = ({
 
   const bookmarkPost = async (_id) => {
     try {
+      setIsRequested((prev) => !prev);
+
       const response = await fetch(`/api/users/bookmark/${_id}`, {
         method: "POST",
         headers: { authorization: localStorage.getItem("encodedToken") },
@@ -125,6 +138,7 @@ const Post = ({
         type: "BOOKMARK_POST",
         payload: { data: bookmarks, id: _id },
       });
+      setIsRequested((prev) => !prev);
     } catch (error) {
       console.error(error.message);
     }
@@ -132,6 +146,8 @@ const Post = ({
 
   const removeBookmark = async (_id) => {
     try {
+      setIsRequested((prev) => !prev);
+
       const response = await fetch(`/api/users/remove-bookmark/${_id}`, {
         method: "POST",
         headers: { authorization: localStorage.getItem("encodedToken") },
@@ -142,6 +158,7 @@ const Post = ({
         type: "REMOVE_BOOKMARK_POST",
         payload: { data: bookmarks, id: _id },
       });
+      setIsRequested((prev) => !prev);
     } catch (error) {
       console.error(error.message);
     }
@@ -183,7 +200,7 @@ const Post = ({
       ) : (
         <>
           <Link to={`/profile/${username}`} className={styles["user-details"]}>
-          <img className={styles.profilePic} src={profilePic} alt="" />
+            <img className={styles.profilePic} src={profilePic} alt="" />
             <p className={styles["full-name"]}>{`${firstName} ${lastName}`}</p>
             <p className={styles.username}>{`@${username}`}</p>
             {/** to get date in proper format call and render the function */}
@@ -197,7 +214,8 @@ const Post = ({
               <>
                 <i
                   onClick={() => {
-                    isLiked ? dislikePost(_id) : likePost(_id);
+                    // isRequested is a loading state set to prevent multiple request sent
+                    isRequested && (isLiked ? dislikePost(_id) : likePost(_id));
                   }}
                 >
                   {isLiked ? (
@@ -218,19 +236,20 @@ const Post = ({
 
             {/*show delete button only for user logged in created posts*/}
             {loggedinUser.username === username && (
-              <i onClick={() => deletePost(_id)}>
+              <i onClick={() => isRequested && deletePost(_id)}>
                 <FontAwesomeIcon icon={faTrash} />
               </i>
             )}
             {loggedinUser.username === username && (
-              <i onClick={() => handleEditPost(_id)}>
+              <i onClick={() => isRequested && handleEditPost(_id)}>
                 <FontAwesomeIcon icon={faFilePen} />
               </i>
             )}
             {loggedinUser.username !== username && (
               <i
                 onClick={() => {
-                  isBookmark ? removeBookmark(_id) : bookmarkPost(_id);
+                  isRequested &&
+                    (isBookmark ? removeBookmark(_id) : bookmarkPost(_id));
                 }}
               >
                 {isBookmark ? (

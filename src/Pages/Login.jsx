@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import NavBar from "../Components/NavBar";
 import styles from "./Login.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
@@ -31,52 +30,60 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify(userCredentials),
-    });
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(userCredentials),
+      });
 
-    const { foundUser, encodedToken } = await response.json();
-    if (foundUser) {
-      localStorage.setItem("encodedToken", encodedToken);
-      localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
-      authDispatch({ type: "USER_LOGIN", payload: foundUser });
-      dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
-      if (!location?.state) {
-        navigate("/");
+      const { foundUser, encodedToken } = await response.json();
+      if (foundUser) {
+        localStorage.setItem("encodedToken", encodedToken);
+        localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
+        authDispatch({ type: "USER_LOGIN", payload: foundUser });
+        dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
+        if (!location?.state) {
+          navigate("/");
+        } else {
+          navigate(location?.state?.from?.pathname);
+        }
       } else {
-        navigate(location?.state?.from?.pathname);
+        console.error("invalid user");
       }
-    } else {
-      console.error("invalid user");
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const handleGuestLogin = async () => {
-    const guestUserCredentials = {
-      username: "tejansingh",
-      password: "tejansingh123",
-    };
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify(guestUserCredentials),
-    });
+    try {
+      const guestUserCredentials = {
+        username: "tejansingh",
+        password: "tejansingh123",
+      };
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(guestUserCredentials),
+      });
 
-    const { foundUser, encodedToken } = await response.json();
-    if (foundUser) {
-      localStorage.setItem("encodedToken", encodedToken);
-      localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
-      authDispatch({ type: "USER_LOGIN", payload: foundUser });
-      dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
+      const { foundUser, encodedToken } = await response.json();
+      if (foundUser) {
+        localStorage.setItem("encodedToken", encodedToken);
+        localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
+        authDispatch({ type: "USER_LOGIN", payload: foundUser });
+        dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
 
-      // if no previous path then state is null then redirect to home else redirect to previous path
-      if (!location?.state) {
-        navigate("/");
+        // if no previous path then state is null then redirect to home else redirect to previous path
+        if (!location?.state) {
+          navigate("/");
+        } else {
+          navigate(location?.state?.from?.pathname);
+        }
       } else {
-        navigate(location?.state?.from?.pathname);
+        console.error("invalid user");
       }
-    } else {
-      console.error("invalid user");
+    } catch (error) {
+      console.error(error);
     }
   };
 

@@ -20,21 +20,26 @@ const Signup = () => {
     const { name, value } = e.target;
     setUserDetails((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSignup = async () => {
-    const response = await fetch("/api/auth/signup", {
-      method: "POST",
-      body: JSON.stringify(userDetails),
-    });
 
-    const data = await response.json();
-    console.log(data);
-    setUserDetails(() => ({
-      firstName: "",
-      lastName: "",
-      email: "",
-      username: "",
-      password: "",
-    }));
+  const handleSignup = async () => {
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify(userDetails),
+      });
+
+      const data = await response.json();
+      console.log(data);
+      setUserDetails(() => ({
+        firstName: "",
+        lastName: "",
+        email: "",
+        username: "",
+        password: "",
+      }));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -56,7 +56,8 @@ const CreatePost = () => {
           <button
             onClick={createPost}
             className={
-              !userInput
+              //trim will check if user has entered any empty space without content
+              !userInput.trim()
                 ? `${styles["input-btn"]} ${styles["blur"]}`
                 : styles["input-btn"]
             }

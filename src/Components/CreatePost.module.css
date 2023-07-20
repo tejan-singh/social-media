@@ -37,6 +37,7 @@
   background-color: var(--primary);
   border: none;
   color: white;
+  cursor: pointer;
 }
 
 .profilePic {
@@ -46,4 +47,5 @@
 
 .blur {
   background-color: #ff3b3099;
+  cursor: not-allowed;
 }

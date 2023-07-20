@@ -15,7 +15,7 @@ const CreatePost = () => {
 
   const createPost = async () => {
     try {
-      if (userInput) {
+      if (userInput.trim()) {
         const requestBody = { postData: { content: userInput } };
         const response = await fetch("/api/posts", {
           headers: {

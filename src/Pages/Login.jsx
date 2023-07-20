@@ -54,8 +54,8 @@ const Login = () => {
 
   const handleGuestLogin = async () => {
     const guestUserCredentials = {
-      username: "adarshbalika",
-      password: "adarshBalika123",
+      username: "tejansingh",
+      password: "tejansingh123",
     };
     const response = await fetch("/api/auth/login", {
       method: "POST",

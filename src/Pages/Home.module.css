@@ -9,14 +9,13 @@
 .navigation {
   grid-area: nav;
   background-color: var(--bg-color);
-  /* position: fixed;
-  height: 100vh; */
 }
 
 .main {
   grid-area: main;
   background-color: var(--bg-color);
   padding-right: 4rem;
+  margin-left: 20rem;
 }
 
 .aside {

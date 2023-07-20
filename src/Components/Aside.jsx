@@ -3,8 +3,9 @@ import styles from "./Aside.module.css";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
 import { handleFollowUser } from "../utils/appUtils";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Loader from "./Loader";
+import { useState } from "react";
 
 const Aside = () => {
   const {
@@ -12,6 +13,8 @@ const Aside = () => {
     dispatch,
     getAllUsers,
   } = useContext(AppContext);
+
+  const [isRequested, setIsRequested] = useState(true);
 
   useEffect(() => {
     getAllUsers();
@@ -60,7 +63,7 @@ const Aside = () => {
                   <p
                     className={styles.follow}
                     onClick={() => {
-                      handleFollowUser(dispatch, _id);
+                      isRequested && handleFollowUser(dispatch, _id, setIsRequested);
                     }}
                   >
                     Follow

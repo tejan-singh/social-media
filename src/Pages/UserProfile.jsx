@@ -48,6 +48,8 @@ const UserProfile = () => {
     "https://i.postimg.cc/y8ZvsDk5/SAVE-20230702-183147.jpg",
   ];
 
+  const [isRequested, setIsRequested] = useState(true);
+
   useEffect(() => {
     setUserDetails(() => ({
       bio: bio,
@@ -130,7 +132,7 @@ const UserProfile = () => {
     // profileName dependency is required to replace currenct user data to show loggedin user profile
   }, [allUsers, profileName]);
 
-  if (profileLoading) return <Loader/>;
+  if (profileLoading) return <Loader />;
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
@@ -213,10 +215,12 @@ const UserProfile = () => {
             onClick={
               isFollowing
                 ? () => {
-                    handleUnFollowUser(dispatch, _id);
+                    isRequested &&
+                      handleUnFollowUser(dispatch, _id, setIsRequested);
                   }
                 : () => {
-                    handleFollowUser(dispatch, _id);
+                    isRequested &&
+                      handleFollowUser(dispatch, _id, setIsRequested);
                   }
             }
           >

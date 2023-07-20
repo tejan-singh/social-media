@@ -8,7 +8,6 @@ import Post from "../Components/Post";
 import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
 import styles from "./UserProfile.module.css";
 import Loader from "../Components/Loader";
-import ErrorPage from "./ErrorPage";
 const UserProfile = () => {
   const { profileName } = useParams();
 

@@ -19,6 +19,8 @@ const Login = () => {
     password: "",
   });
 
+  const [errMsg, setErrMsg] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
@@ -48,7 +50,10 @@ const Login = () => {
           navigate(location?.state?.from?.pathname);
         }
       } else {
-        console.error("invalid user");
+        setErrMsg(() => true);
+        setTimeout(() => {
+          setErrMsg(() => false);
+        }, 3000);
       }
     } catch (error) {
       console.error(error);
@@ -96,6 +101,9 @@ const Login = () => {
       {!isLoggedIn && (
         <div className={styles.login}>
           <h3>Login</h3>
+          <div className={styles.errorMsg}>
+            {errMsg && <p>Sorry, we could not find your account.</p>}
+          </div>
           <label htmlFor="email" className={styles["login-label"]}>
             Username:
           </label>

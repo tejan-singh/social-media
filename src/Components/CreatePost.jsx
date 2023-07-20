@@ -3,7 +3,10 @@ import { AppContext } from "../Context/AppContext";
 import styles from "./CreatePost.module.css";
 
 const CreatePost = () => {
-  const { dispatch } = useContext(AppContext);
+  const {
+    appState: { loggedinUser },
+    dispatch,
+  } = useContext(AppContext);
   const [userInput, setUserInput] = useState("");
 
   const handleChange = (e) => {
@@ -33,17 +36,28 @@ const CreatePost = () => {
   };
 
   return (
-    <div className={styles["input-form"]}>
-      <textarea
-        type="text"
-        onChange={handleChange}
-        className={styles["input-field"]}
-        value={userInput}
-        placeholder="write something interesting..."
-      />
-      <button onClick={createPost} className={styles["input-btn"]}>
-        Post
-      </button>
+    <div className={styles["input-form-main"]}>
+      <div>
+        <img
+          className={styles.profilePic}
+          src={loggedinUser.profilePic}
+          alt="user-profile-pic"
+        />
+      </div>
+      <div className={styles["input-form"]}>
+        <textarea
+          type="text"
+          onChange={handleChange}
+          className={styles["input-field"]}
+          value={userInput}
+          placeholder="write something interesting..."
+        />
+        <div className={styles["btn-container"]}>
+          <button onClick={createPost} className={styles["input-btn"]}>
+            Post
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

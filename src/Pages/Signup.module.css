@@ -1,7 +1,6 @@
 .main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   align-items: center;
   justify-content: center;
   background-color: var(--bg-color);
@@ -39,22 +38,26 @@
 }
 
 .login-input {
-  margin-bottom: 16px;
   padding: 0.5rem;
   border: 1px solid #cccccc;
   border-radius: 5px;
   width: 100%;
+}
+
+.password-field {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding-right: 0.5rem;
+}
+
+.password-input {
+  border: none;
 }
 
 .login-input:focus {
-  outline: none;
-}
-
-.login-input input {
-  width: 100%;
-  border: none;
   outline: none;
 }
 
@@ -62,11 +65,11 @@
   box-sizing: border-box;
   background-color: var(--primary);
   color: var(--seconday);
-  display: block;
   padding: 1rem;
-  text-decoration: none;
   width: 100%;
   text-align: center;
+  margin: 0;
+  border: none;
 }
 
 .message {
@@ -75,4 +78,26 @@
   margin: 8px 0;
   color: var(--primary);
   text-decoration: none;
+}
+
+.input-container {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.errorMsg {
+  color: rgb(177, 2, 2);
+  font-size: 0.7rem;
+  display: none;
+}
+
+/* this will only work when required is specified in input field */
+/* this checks if input is invalid and selectedFieldValue is true then show error. HTML checks for pattern attribute for condition to satisfy */
+.login-input:invalid[selectedFieldValue="true"] ~ .errorMsg {
+  display: block;
+}
+
+.password-field:has(.password-input:invalid[selectedFieldValue="true"])
+  ~ .errorMsg {
+  display: block;
 }

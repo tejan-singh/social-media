@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-regular-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const [userDetails, setUserDetails] = useState({
@@ -26,8 +28,18 @@ const Signup = () => {
     confirmPassword: false,
   });
 
-  const passRef = useRef(null);
-  const userRef = useRef(null);
+  const showAlert = (message) => {
+    toast.warn(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +55,11 @@ const Signup = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      console.log(data)
+      if (data.errors.length > 0) {
+        showAlert("username already present");
+        return;
+      }
       setUserDetails(() => ({
         firstName: "",
         lastName: "",
@@ -52,15 +68,19 @@ const Signup = () => {
         password: "",
         confirmPassword: "",
       }));
+
+      setSelectedField(() => ({
+        firstName: false,
+        lastName: false,
+        email: false,
+        username: false,
+        password: false,
+        confirmPassword: false,
+      }));
     } catch (error) {
       console.error(error);
     }
   };
-
-  console.log({
-    passRef: passRef.current?.validity,
-    userRef: userRef.current?.validity,
-  });
 
   return (
     <section className={styles.main}>
@@ -75,7 +95,6 @@ const Signup = () => {
             First name:
           </label>
           <input
-            ref={userRef}
             className={styles["login-input"]}
             type="text"
             name="firstName"
@@ -169,14 +188,13 @@ const Signup = () => {
           </label>
           <div className={styles["password-field"]}>
             <input
-              ref={passRef}
               className={`${styles["login-input"]} ${styles["password-input"]}`}
               type={showPassword ? "text" : "password"}
               name="password"
               onChange={handleChange}
               value={userDetails.password}
               placeholder="enter your password"
-              pattern="^[a-zA-Z]+(?:(?:|['_\. ])([a-zA-Z]*(\.\s)?[a-zA-Z])+)*$"
+              pattern="^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
               required
               onBlur={() =>
                 setSelectedField((prev) => ({ ...prev, password: true }))
@@ -225,6 +243,7 @@ const Signup = () => {
           Already have an account ? Login in!
         </Link>
       </form>
+      <ToastContainer />
     </section>
   );
 };

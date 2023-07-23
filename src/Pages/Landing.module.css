@@ -62,3 +62,16 @@
   color: var(--primary);
   align-self: center;
 }
+
+@media (max-width: 1024px) {
+  .landing {
+    margin: 2rem;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner {
+    display: none;
+  }
+}

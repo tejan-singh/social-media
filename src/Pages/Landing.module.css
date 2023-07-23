@@ -72,7 +72,7 @@
 
 @media (max-width: 768px) {
   .landing {
-    height: 0;
+    min-height: max-content;
     margin: 0 2rem;
   }
 

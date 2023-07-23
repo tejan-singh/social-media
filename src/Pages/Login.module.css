@@ -91,3 +91,17 @@
   text-align: center;
   border-radius: 0.5rem;
 }
+
+
+@media (max-width: 768px){
+  .login{
+    margin: 2rem;
+    padding: 2rem;
+    width: 90%;
+
+  }
+
+  .main{
+    height: 80vh;
+  }
+}

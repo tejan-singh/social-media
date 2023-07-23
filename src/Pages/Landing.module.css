@@ -71,9 +71,12 @@
 }
 
 @media (max-width: 768px) {
-  .banner {
-    display: none;
+  .landing {
     height: 0;
     margin: 0 2rem;
+  }
+
+  .banner {
+    display: none;
   }
 }

@@ -30,3 +30,16 @@
 .header {
   grid-area: header;
 }
+
+@media (max-width: 1024px){
+  .aside {
+    display: none;
+  }
+}
+
+@media (max-width: 768px){
+  .main{
+    padding: 1rem;
+    margin:0;
+  }
+}

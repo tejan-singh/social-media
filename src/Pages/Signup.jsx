@@ -29,7 +29,20 @@ const Signup = () => {
   });
 
   const showAlert = (message) => {
-    toast.warn(message, {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const showSuccess = (message) => {
+    toast.success(message, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -55,28 +68,32 @@ const Signup = () => {
       });
 
       const data = await response.json();
-      console.log(data)
-      if (data.errors.length > 0) {
-        showAlert("username already present");
+      console.log(data);
+      if (data.errors === undefined) {
+        setUserDetails(() => ({
+          firstName: "",
+          lastName: "",
+          email: "",
+          username: "",
+          password: "",
+          confirmPassword: "",
+        }));
+
+        setSelectedField(() => ({
+          firstName: false,
+          lastName: false,
+          email: false,
+          username: false,
+          password: false,
+          confirmPassword: false,
+        }));
+
+        showSuccess("Your account has been created");
         return;
       }
-      setUserDetails(() => ({
-        firstName: "",
-        lastName: "",
-        email: "",
-        username: "",
-        password: "",
-        confirmPassword: "",
-      }));
-
-      setSelectedField(() => ({
-        firstName: false,
-        lastName: false,
-        email: false,
-        username: false,
-        password: false,
-        confirmPassword: false,
-      }));
+      if (data.errors.length > 0) {
+        return showAlert("username already present");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -108,7 +125,7 @@ const Signup = () => {
               setSelectedField((prev) => ({ ...prev, firstName: true }))
             }
             // add a new custom attribute and set a string value
-            selectedFieldValue={selectedField.firstName.toString()}
+            selectedfieldValue={selectedField.firstName.toString()}
           />
           <span className={styles.errorMsg}>
             * First name should not contain and number or special character
@@ -131,7 +148,7 @@ const Signup = () => {
             onBlur={() =>
               setSelectedField((prev) => ({ ...prev, lastName: true }))
             }
-            selectedFieldValue={selectedField.lastName.toString()}
+            selectedfieldValue={selectedField.lastName.toString()}
           />
           <span className={styles.errorMsg}>
             * Last name should not contain and number or special character
@@ -154,7 +171,7 @@ const Signup = () => {
             onBlur={() =>
               setSelectedField((prev) => ({ ...prev, username: true }))
             }
-            selectedFieldValue={selectedField.username.toString()}
+            selectedfieldValue={selectedField.username.toString()}
           />
           <span className={styles.errorMsg}>
             * Username can contain letters, digits, _ and .
@@ -176,7 +193,7 @@ const Signup = () => {
             onBlur={() =>
               setSelectedField((prev) => ({ ...prev, email: true }))
             }
-            selectedFieldValue={selectedField.email.toString()}
+            selectedfieldValue={selectedField.email.toString()}
           />
           <span className={styles.errorMsg}>* Please enter valid email</span>
         </div>
@@ -199,7 +216,7 @@ const Signup = () => {
               onBlur={() =>
                 setSelectedField((prev) => ({ ...prev, password: true }))
               }
-              selectedFieldValue={selectedField.password.toString()}
+              selectedfieldValue={selectedField.password.toString()}
             />
             <FontAwesomeIcon
               icon={showPassword ? faEye : faEyeSlash}
@@ -230,7 +247,7 @@ const Signup = () => {
               onBlur={() =>
                 setSelectedField((prev) => ({ ...prev, confirmPassword: true }))
               }
-              selectedFieldValue={selectedField.confirmPassword.toString()}
+              selectedfieldValue={selectedField.confirmPassword.toString()}
             />
           </div>
           <span className={styles.errorMsg}>* Password don't match</span>

@@ -97,7 +97,7 @@
   display: block;
 }
 
-.password-field:has(.password-input:invalid[selectedFieldValue="true"])
+.password-field:has(.password-input:invalid[selectedfieldValue="true"])
   ~ .errorMsg {
   display: block;
 }

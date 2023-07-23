@@ -5,6 +5,8 @@ import { AuthContext } from "../Context/AuthContext";
 import { AppContext } from "../Context/AppContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faEye } from "@fortawesome/free-regular-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const {
@@ -19,12 +21,23 @@ const Login = () => {
     password: "",
   });
 
-  const [errMsg, setErrMsg] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const showAlert = (message) => {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,10 +63,7 @@ const Login = () => {
           navigate(location?.state?.from?.pathname);
         }
       } else {
-        setErrMsg(() => true);
-        setTimeout(() => {
-          setErrMsg(() => false);
-        }, 3000);
+        showAlert("invalid username or password");
       }
     } catch (error) {
       console.error(error);
@@ -101,9 +111,6 @@ const Login = () => {
       {!isLoggedIn && (
         <div className={styles.login}>
           <h3>Login</h3>
-          <div className={styles.errorMsg}>
-            {errMsg && <p>Sorry, we could not find your account.</p>}
-          </div>
           <label htmlFor="email" className={styles["login-label"]}>
             Username:
           </label>
@@ -151,6 +158,7 @@ const Login = () => {
           </Link>
         </div>
       )}
+      <ToastContainer />
     </section>
   );
 };

@@ -9,7 +9,7 @@ import {
   faRocket,
   faUser,
   faBookmark,
-  faArrowCircleLeft
+  faArrowCircleLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
@@ -38,7 +38,7 @@ const NavBar = () => {
           <i>
             <FontAwesomeIcon icon={faHouse} />
           </i>
-          Home
+          <span>Home</span>
         </NavLink>
       )}
       {isLoggedIn && (
@@ -50,7 +50,7 @@ const NavBar = () => {
           <i>
             <FontAwesomeIcon icon={faRocket} rotation={270} />
           </i>
-          Explore
+          <span>Explore</span>
         </NavLink>
       )}
       {isLoggedIn && (
@@ -62,7 +62,7 @@ const NavBar = () => {
           <i>
             <FontAwesomeIcon icon={faBookmark} />
           </i>
-          Bookmarks
+          <span>Bookmarks</span>
         </NavLink>
       )}
       {isLoggedIn && (
@@ -74,7 +74,7 @@ const NavBar = () => {
           <i>
             <FontAwesomeIcon icon={faUser} />
           </i>
-          My Profile
+          <span>My Profile</span>
         </NavLink>
       )}
       {isLoggedIn && (
@@ -82,7 +82,7 @@ const NavBar = () => {
           <i>
             <FontAwesomeIcon icon={faArrowCircleLeft} />
           </i>
-          Logout
+          <span>Logout</span>
         </NavLink>
       )}
     </nav>

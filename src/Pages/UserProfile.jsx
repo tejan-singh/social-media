@@ -8,6 +8,7 @@ import Post from "../Components/Post";
 import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
 import styles from "./UserProfile.module.css";
 import Loader from "../Components/Loader";
+import ErrorPage from "../Pages/ErrorPage";
 const UserProfile = () => {
   const { profileName } = useParams();
 
@@ -49,6 +50,7 @@ const UserProfile = () => {
   ];
 
   const [isRequested, setIsRequested] = useState(true);
+  const [showErrorPage, setShowErrorPage] = useState(false);
 
   useEffect(() => {
     setUserDetails(() => ({
@@ -66,7 +68,9 @@ const UserProfile = () => {
       dispatch({ type: "SET_USER", payload: user });
       setProfileLoading(false);
     } catch (error) {
+      setProfileLoading(false);
       console.error(error);
+      setShowErrorPage(true);
     }
   };
 
@@ -133,6 +137,7 @@ const UserProfile = () => {
   }, [allUsers, profileName]);
 
   if (profileLoading) return <Loader />;
+  if (showErrorPage) return <ErrorPage />;
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
@@ -181,7 +186,7 @@ const UserProfile = () => {
         )}
 
         <p>{bio}</p>
-        <p>{portfolio}</p>
+        <a href={portfolio}>{portfolio}</a>
 
         {editProfile && (
           <div className={styles["popup-box"]}>

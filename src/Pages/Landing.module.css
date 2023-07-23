@@ -72,8 +72,8 @@
 
 @media (max-width: 768px) {
   .landing {
-    min-height: max-content;
     margin: 0 2rem;
+    height: 90vh;
   }
 
   .banner {

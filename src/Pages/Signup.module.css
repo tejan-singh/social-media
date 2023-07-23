@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--bg-color);
+  height: 100vh;
 }
 
 .login {
@@ -100,4 +101,16 @@
 .password-field:has(.password-input:invalid[selectedfieldValue="true"])
   ~ .errorMsg {
   display: block;
+}
+
+@media (max-width: 768px) {
+  .login {
+    padding: 2rem;
+    width: 90%;
+  }
+
+  .main {
+    height: 80vh;
+    margin-top: 2rem;
+  }
 }

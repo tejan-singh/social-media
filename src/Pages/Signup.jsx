@@ -68,7 +68,6 @@ const Signup = () => {
       });
 
       const data = await response.json();
-      console.log(data);
       if (data.errors === undefined) {
         setUserDetails(() => ({
           firstName: "",

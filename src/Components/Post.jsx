@@ -45,7 +45,7 @@ const Post = ({
       dispatch({ type: "LIKE_POST", payload: data });
       setIsRequested((prev) => !prev);
     } catch (error) {
-      console.log(error.message);
+      console.error(error);
     }
   };
 
@@ -83,7 +83,7 @@ const Post = ({
       dispatch({ type: "DELETE_POST", payload: data });
       setIsRequested((prev) => !prev);
     } catch (error) {
-      console.log(error.message);
+      console.error(error);
     }
   };
 

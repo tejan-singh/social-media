@@ -46,7 +46,7 @@ const Login = () => {
   };
 
   const handleLogin = async (e) => {
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
     try {
       const response = await fetch("/api/auth/login", {
@@ -68,7 +68,7 @@ const Login = () => {
       } else {
         showAlert("invalid username or password");
       }
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -81,7 +81,7 @@ const Login = () => {
       </h1>
       {isLoggedIn && <p>You are logged in</p>}
       {!isLoggedIn && (
-        <form className={styles.login} onSubmit={handleLogin}>
+        <form className={styles.login} onSubmit={!loading && handleLogin}>
           <h3>Login</h3>
           <label htmlFor="email" className={styles["login-label"]}>
             Username:
@@ -94,6 +94,7 @@ const Login = () => {
             onChange={handleChange}
             value={userCredentials.username}
             placeholder="Enter your username"
+            required
           />
 
           <label className={styles["login-label"]} htmlFor="password">
@@ -106,6 +107,7 @@ const Login = () => {
               onChange={handleChange}
               value={userCredentials.password}
               placeholder="Enter your password"
+              required
             />
             <FontAwesomeIcon
               icon={showPassword ? faEye : faEyeSlash}
@@ -117,7 +119,7 @@ const Login = () => {
             className={`${styles["link-primary"]} ${styles["login-button"]}`}
             type="submit"
           >
-            Login
+            {loading ? "Logging in " : "Login"}
           </button>
           <button
             className={`${styles["link-primary"]} ${styles["login-button"]}`}

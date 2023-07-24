@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { createContext, useEffect, useReducer } from "react";
-import { AuthContext } from "./AuthContext";
 
 export const AppContext = createContext();
 
@@ -22,7 +20,7 @@ const AppProvider = ({ children }) => {
     loggedinUser: {
       ...JSON.parse(localStorage.getItem("loggedInUserDetails")),
     },
-    userSuggestions: [],
+    suggestedUsers: [],
   };
 
   const reducerFun = (state, action) => {
@@ -225,7 +223,9 @@ const AppProvider = ({ children }) => {
       });
       dispatch({
         type: "SET_ALL_USERS",
-        payload: { users: users, suggestedUsers: suggestedUsers },
+
+        //slice will show first 3 users only from all users array.
+        payload: { users: users, suggestedUsers: suggestedUsers.slice(0,3) },
       });
 
     } catch (error) {

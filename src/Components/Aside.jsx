@@ -32,7 +32,7 @@ const Aside = () => {
         </div>
         {
           <div className={styles["aside-container"]}>
-            {suggestedUsers?.map(
+            {suggestedUsers.length > 0 && suggestedUsers?.map(
               ({
                 id,
                 firstName,
@@ -40,7 +40,6 @@ const Aside = () => {
                 username,
                 profilePic,
                 _id,
-                followers,
               }) => (
                 <article className={styles.suggestions} key={id}>
                   <div className={styles["user-profile-details"]}>
@@ -72,6 +71,9 @@ const Aside = () => {
                 </article>
               )
             )}
+            {suggestedUsers.length <= 0 && <article className={styles.suggestions}>
+              <p>No more suggestions</p>
+            </article>}
           </div>
         }
       </div>

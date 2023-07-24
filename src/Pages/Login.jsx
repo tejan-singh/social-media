@@ -44,7 +44,8 @@ const Login = () => {
     setUserCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -70,38 +71,6 @@ const Login = () => {
     }
   };
 
-  const handleGuestLogin = async () => {
-    try {
-      const guestUserCredentials = {
-        username: "tejansingh",
-        password: "tejansingh123",
-      };
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify(guestUserCredentials),
-      });
-
-      const { foundUser, encodedToken } = await response.json();
-      if (foundUser) {
-        localStorage.setItem("encodedToken", encodedToken);
-        localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
-        authDispatch({ type: "USER_LOGIN", payload: foundUser });
-        dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
-
-        // if no previous path then state is null then redirect to home else redirect to previous path
-        if (!location?.state) {
-          navigate("/");
-        } else {
-          navigate(location?.state?.from?.pathname);
-        }
-      } else {
-        console.error("invalid user");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <section className={styles.main}>
       <h1 className={styles.heading}>
@@ -109,7 +78,7 @@ const Login = () => {
       </h1>
       {isLoggedIn && <p>You are logged in</p>}
       {!isLoggedIn && (
-        <form className={styles.login}>
+        <form className={styles.login} onSubmit={handleLogin}>
           <h3>Login</h3>
           <label htmlFor="email" className={styles["login-label"]}>
             Username:
@@ -141,18 +110,19 @@ const Login = () => {
             />
           </div>
 
-          <Link
+          <button
             className={`${styles["link-primary"]} ${styles["login-button"]}`}
-            onClick={handleLogin}
+            type="submit"
           >
             Login
-          </Link>
-          <Link
+          </button>
+          <button
             className={`${styles["link-primary"]} ${styles["login-button"]}`}
-            onClick={handleGuestLogin}
+            type="submit"
+            onClick={() => setUserCredentials( () => ({username: "tejansingh", password:"tejansingh123"}) )}
           >
             Login as guest
-          </Link>
+          </button>
           <Link className={styles["message"]} to="/signup">
             Don't have an account ? Sign up!
           </Link>

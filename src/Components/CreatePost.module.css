@@ -46,7 +46,7 @@
 }
 
 .blur {
-  background-color: #ff3b3099;
+  background-color: var(--blur);
   cursor: not-allowed;
 }
 

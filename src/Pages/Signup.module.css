@@ -72,6 +72,11 @@
   text-align: center;
   margin: 0;
   border: none;
+  cursor: pointer;
+}
+
+.link-primary:hover {
+  background-color: var(--blur);
 }
 
 .message {

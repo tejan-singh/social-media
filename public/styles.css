@@ -8,7 +8,7 @@ html {
   font-family: "Open Sans";
 }
 
-body{
+body {
   background-color: var(--bg-color);
 }
 
@@ -16,4 +16,5 @@ body{
   --primary: #ff3b30;
   --bg-color: #f7f7f7;
   --grey-color-text: #999;
+  --blur: #ff3b3099;
 }

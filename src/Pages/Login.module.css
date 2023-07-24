@@ -68,6 +68,11 @@
   text-decoration: none;
   width: 100%;
   text-align: center;
+  cursor: pointer;
+}
+
+.link-primary:hover{
+  background-color: var(--blur);
 }
 
 .login-button {

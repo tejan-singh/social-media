@@ -22,6 +22,7 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,6 +46,7 @@ const Login = () => {
   };
 
   const handleLogin = async (e) => {
+    setLoading(true)
     e.preventDefault();
     try {
       const response = await fetch("/api/auth/login", {
@@ -66,6 +68,7 @@ const Login = () => {
       } else {
         showAlert("invalid username or password");
       }
+      setLoading(false)
     } catch (error) {
       console.error(error);
     }
@@ -119,7 +122,12 @@ const Login = () => {
           <button
             className={`${styles["link-primary"]} ${styles["login-button"]}`}
             type="submit"
-            onClick={() => setUserCredentials( () => ({username: "tejansingh", password:"tejansingh123"}) )}
+            onClick={() =>
+              setUserCredentials(() => ({
+                username: "tejansingh",
+                password: "tejansingh123",
+              }))
+            }
           >
             Login as guest
           </button>

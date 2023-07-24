@@ -22,7 +22,6 @@ const AppProvider = ({ children }) => {
 
   const getAllUsers = async () => {
     try {
-
       const response = await fetch("/api/users", { method: "GET" });
       const { users } = await response.json();
 
@@ -39,9 +38,8 @@ const AppProvider = ({ children }) => {
         type: "SET_ALL_USERS",
 
         //slice will show first 3 users only from all users array.
-        payload: { users: users, suggestedUsers: suggestedUsers.slice(0,3) },
+        payload: { users: users, suggestedUsers: suggestedUsers.slice(0, 3) },
       });
-
     } catch (error) {
       console.error(error);
     } finally {
@@ -67,6 +65,41 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const handleFollowUser = async (dispatch, _id, setIsRequested) => {
+    try {
+      setIsRequested((prev) => !prev);
+      const response = await fetch(`/api/users/follow/${_id}`, {
+        method: "POST",
+        headers: {
+          authorization: localStorage.getItem("encodedToken"),
+        },
+      });
+      const { user } = await response.json();
+      dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
+      setIsRequested((prev) => !prev);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUnFollowUser = async (dispatch, _id, setIsRequested) => {
+    try {
+      setIsRequested((prev) => !prev);
+
+      const response = await fetch(`/api/users/unfollow/${_id}`, {
+        method: "POST",
+        headers: {
+          authorization: localStorage.getItem("encodedToken"),
+        },
+      });
+      const { user } = await response.json();
+      dispatch({ type: "UPDATE_LOGGEDIN_USER_DETAILS", payload: user });
+      setIsRequested((prev) => !prev);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getAllUsers();
   }, [appState.loggedinUser]);
@@ -80,7 +113,15 @@ const AppProvider = ({ children }) => {
   }, [appState.bookmarks]);
 
   return (
-    <AppContext.Provider value={{ appState, dispatch, getAllUsers }}>
+    <AppContext.Provider
+      value={{
+        appState,
+        dispatch,
+        getAllUsers,
+        handleFollowUser,
+        handleUnFollowUser,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

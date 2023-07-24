@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Aside.module.css";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
-import { handleFollowUser } from "../utils/appUtils";
 import { Link } from "react-router-dom";
 import Loader from "./Loader";
 import { useState } from "react";
@@ -12,6 +11,7 @@ const Aside = () => {
     appState: { suggestedUsers, loggedinUser, loading },
     dispatch,
     getAllUsers,
+    handleFollowUser,
   } = useContext(AppContext);
 
   const [isRequested, setIsRequested] = useState(true);

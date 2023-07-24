@@ -5,7 +5,6 @@ import { AppContext } from "../Context/AppContext";
 import Header from "../Components/Header";
 import Aside from "../Components/Aside";
 import Post from "../Components/Post";
-import { handleFollowUser, handleUnFollowUser } from "../utils/appUtils";
 import styles from "./UserProfile.module.css";
 import Loader from "../Components/Loader";
 import ErrorPage from "../Pages/ErrorPage";
@@ -30,6 +29,8 @@ const UserProfile = () => {
       allPosts,
     },
     dispatch,
+    handleFollowUser,
+    handleUnFollowUser
   } = useContext(AppContext);
 
   const [profileLoading, setProfileLoading] = useState(true);

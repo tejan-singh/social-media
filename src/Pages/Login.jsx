@@ -109,7 +109,7 @@ const Login = () => {
       </h1>
       {isLoggedIn && <p>You are logged in</p>}
       {!isLoggedIn && (
-        <div className={styles.login}>
+        <form className={styles.login}>
           <h3>Login</h3>
           <label htmlFor="email" className={styles["login-label"]}>
             Username:
@@ -156,7 +156,7 @@ const Login = () => {
           <Link className={styles["message"]} to="/signup">
             Don't have an account ? Sign up!
           </Link>
-        </div>
+        </form>
       )}
       <ToastContainer />
     </section>

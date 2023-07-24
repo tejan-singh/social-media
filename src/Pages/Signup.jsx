@@ -18,6 +18,7 @@ const Signup = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [selectedField, setSelectedField] = useState({
     firstName: false,
@@ -60,6 +61,7 @@ const Signup = () => {
   };
 
   const handleSignup = async (e) => {
+    setLoading(() => true);
     e.preventDefault();
     try {
       const response = await fetch("/api/auth/signup", {
@@ -86,13 +88,17 @@ const Signup = () => {
           password: false,
           confirmPassword: false,
         }));
+        setLoading(() => false);
 
         showSuccess("Your account has been created");
         return;
       }
       if (data.errors.length > 0) {
+        setLoading(() => false);
+
         return showAlert("username already present");
       }
+      setLoading(() => false);
     } catch (error) {
       console.error(error);
     }
@@ -103,7 +109,7 @@ const Signup = () => {
       <h2 className={styles.heading}>
         Join in <span>Circle</span>
       </h2>
-      <form className={styles.login} onSubmit={handleSignup}>
+      <form className={styles.login} onSubmit={!loading && handleSignup}>
         <h3>Sign up</h3>
 
         <div className={styles["input-container"]}>
@@ -253,7 +259,7 @@ const Signup = () => {
         </div>
 
         <button className={styles["link-primary"]} type="submit">
-          Create new account
+          {loading ? "Creating account..." : "Create new account"}
         </button>
         <Link className={styles["message"]} to="/login">
           Already have an account ? Login in!

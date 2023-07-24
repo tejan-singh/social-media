@@ -5,34 +5,12 @@ import styles from "./CreatePost.module.css";
 const CreatePost = () => {
   const {
     appState: { loggedinUser },
-    dispatch,
+    createPost
   } = useContext(AppContext);
   const [userInput, setUserInput] = useState("");
 
   const handleChange = (e) => {
     setUserInput(() => e.target.value);
-  };
-
-  const createPost = async () => {
-    try {
-      if (userInput.trim()) {
-        const requestBody = { postData: { content: userInput } };
-        const response = await fetch("/api/posts", {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: localStorage.getItem("encodedToken"),
-          },
-          method: "POST",
-          body: JSON.stringify(requestBody),
-        });
-
-        const data = await response.json();
-        dispatch({ type: "CREATE_POST", payload: data });
-        setUserInput(() => "");
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
   };
 
   return (
@@ -54,7 +32,7 @@ const CreatePost = () => {
         />
         <div className={styles["btn-container"]}>
           <button
-            onClick={createPost}
+            onClick={() => createPost(userInput, setUserInput)}
             className={
               //trim will check if user has entered any empty space without content
               !userInput.trim()

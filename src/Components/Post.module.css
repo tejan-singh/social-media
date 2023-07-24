@@ -80,6 +80,10 @@
   margin: 0 0.5rem;
 }
 
+.hide-likes{
+  opacity: 0;
+}
+
 .content {
   line-height: 1.5;
   text-align: left;

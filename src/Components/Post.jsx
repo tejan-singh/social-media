@@ -231,8 +231,12 @@ const Post = ({
                     <FontAwesomeIcon icon={faHeart} />
                   )}
 
-                  <span className={styles.likes}>
-                    {likes.likeCount > 0 && likes.likeCount}
+                  <span
+                    className={`${styles.likes} ${
+                      likes.likeCount <= 0 && styles["hide-likes"]
+                    }`}
+                  >
+                    {likes.likeCount}
                   </span>
                 </i>
               </>

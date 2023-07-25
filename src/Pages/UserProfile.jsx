@@ -5,6 +5,7 @@ import { AppContext } from "../Context/AppContext";
 import Header from "../Components/Header";
 import Aside from "../Components/Aside";
 import Post from "../Components/Post";
+
 import styles from "./UserProfile.module.css";
 import Loader from "../Components/Loader";
 import ErrorPage from "../Pages/ErrorPage";
@@ -30,7 +31,7 @@ const UserProfile = () => {
     },
     dispatch,
     handleFollowUser,
-    handleUnFollowUser
+    handleUnFollowUser,
   } = useContext(AppContext);
 
   const [profileLoading, setProfileLoading] = useState(true);
@@ -67,9 +68,12 @@ const UserProfile = () => {
       const { user } = await response.json();
       //this will set data in userProfile state which you will get from context and use in jsx
       dispatch({ type: "SET_USER", payload: user });
+      // setShowErrorPage(false);
       setProfileLoading(false);
     } catch (error) {
       console.error(error);
+      // setProfileLoading(false);
+      // setShowErrorPage(true);
     }
   };
 

@@ -104,7 +104,6 @@ button {
   border: 10px solid black;
 }
 
-
 @media (max-width: 1024px) {
   .aside {
     display: none;
@@ -115,5 +114,13 @@ button {
   .main {
     padding: 1rem;
     margin: 0;
+  }
+
+  .box {
+    width: 15rem;
+  }
+
+  .profileAvatar {
+    width: 4rem;
   }
 }

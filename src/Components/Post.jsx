@@ -16,7 +16,6 @@ const Post = ({
   content,
   likes,
   username,
-  createdAt,
   updatedAt,
   fromHomePage,
   firstName,

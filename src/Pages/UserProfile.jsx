@@ -67,12 +67,9 @@ const UserProfile = () => {
       const { user } = await response.json();
       //this will set data in userProfile state which you will get from context and use in jsx
       dispatch({ type: "SET_USER", payload: user });
-      setShowErrorPage(false);
       setProfileLoading(false);
     } catch (error) {
       console.error(error);
-      setProfileLoading(false);
-      setShowErrorPage(true);
     }
   };
 

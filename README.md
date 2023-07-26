@@ -1,5 +1,7 @@
 # Circle - a social media app
 
+> An interactive social media web app offering unique and personalized experience.
+
 ## Features
 
 - User Feed
@@ -61,3 +63,25 @@
     - I can see a login page from where I can log in using my email & password.
 11. Logout
     - I can see a logout button from where I can log out from the app on the header navbar.
+
+## Tech stack used
+- React JS
+- React hooks
+- React Context API and useReducer (for state management)
+- React Router v6
+- Vanilla CSS
+- FontAwesome icons
+- react-toastify
+
+## Installing / Getting started
+Please run following commands to setup and run project locally
+
+```shell
+$ git clone https://github.com/tejan-singh/social-media.git
+$ cd social-media
+$ npm i
+$ npm start
+```
+
+## API reference
+- [Mockbee](https://mockbee.netlify.app/docs/api/apps/social-media) - mock APIs

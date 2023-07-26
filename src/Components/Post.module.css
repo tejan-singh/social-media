@@ -15,7 +15,7 @@
   display: inline-block;
 } */
 
-.buttons-container{
+.buttons-container {
   display: flex;
   justify-content: space-around;
   margin: 1rem 0;
@@ -28,7 +28,6 @@
   display: flex;
   gap: 1rem;
   align-items: flex-start;
-
 }
 
 .full-name {
@@ -80,7 +79,7 @@
   margin: 0 0.5rem;
 }
 
-.hide-likes{
+.hide-likes {
   opacity: 0;
 }
 
@@ -89,8 +88,13 @@
   text-align: left;
 }
 
-.profilePic{
+.profilePic {
   max-width: 3rem;
   border-radius: 50%;
 }
 
+@media (max-width: 768px) {
+  .box {
+    width: 15rem;
+  }
+}

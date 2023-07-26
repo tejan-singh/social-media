@@ -1,4 +1,4 @@
-# Circle - a social media app
+<h1 align = "center">Circle - a social media app</h1>
 
 > An interactive social media web app offering unique and personalized experience.
 

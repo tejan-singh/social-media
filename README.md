@@ -84,4 +84,4 @@ $ npm start
 ```
 
 ## API reference
-- [Mockbee](https://mockbee.netlify.app/docs/api/apps/social-media) - mock APIs
+- [Mockbee](https://mockbee.netlify.app/docs/api/apps/social-media) - mock APIs used to develop the app

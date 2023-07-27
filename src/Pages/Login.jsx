@@ -58,7 +58,10 @@ const Login = () => {
       if (foundUser) {
         localStorage.setItem("encodedToken", encodedToken);
         localStorage.setItem("loggedInUserDetails", JSON.stringify(foundUser));
-        authDispatch({ type: "USER_LOGIN", payload: foundUser });
+        authDispatch({
+          type: "USER_LOGIN",
+          payload: { user: foundUser, token: encodedToken },
+        });
         dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: foundUser });
         if (!location?.state) {
           navigate("/");

@@ -123,11 +123,10 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log("useEffect run");
     getAllUsers();
-  }, [appState.loggedinUser]);
-
-  useEffect(() => {
     getPosts();
+    getBookmarkPosts();
   }, [appState.loggedinUser]);
 
   useEffect(() => {
@@ -142,7 +141,7 @@ const AppProvider = ({ children }) => {
         getAllUsers,
         handleFollowUser,
         handleUnFollowUser,
-        createPost
+        createPost,
       }}
     >
       {children}

@@ -8,23 +8,22 @@ const AuthProvider = ({ children }) => {
     isLoggedIn: localStorage.getItem("encodedToken") ? true : false,
 
     // inside local storage value is stored as json string. Convert it to object
-    loggedinUser:JSON.parse(localStorage.getItem("loggedInUserDetails")),
+    loggedinUser: JSON.parse(localStorage.getItem("loggedInUserDetails")),
   };
 
   const authReducer = (state, action) => {
     switch (action.type) {
       case "USER_LOGIN":
-
         return {
           ...state,
           isLoggedIn: true,
-          loggedinUser: action.payload,
+          loggedinUser: action.payload.user,
         };
       case "USER_LOGOUT":
         return {
           ...state,
           isLoggedIn: false,
-          loggedinUser:{}
+          loggedinUser: {},
         };
       default:
         return state;

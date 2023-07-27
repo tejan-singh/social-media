@@ -13,26 +13,23 @@ const UserProfile = () => {
   const { profileName } = useParams();
 
   const {
-    appState: {
-      allUsers,
-      userProfile: {
-        _id,
-        username,
-        firstName,
-        lastName,
-        followers,
-        following,
-        profilePic,
-        bio,
-        portfolio,
-      },
-      loggedinUser,
-      allPosts,
-    },
+    appState: { allUsers, userProfile, loggedinUser, allPosts },
     dispatch,
     handleFollowUser,
     handleUnFollowUser,
   } = useContext(AppContext);
+
+  const {
+    _id,
+    username,
+    firstName,
+    lastName,
+    followers,
+    following,
+    profilePic,
+    bio,
+    portfolio,
+  } = userProfile || {};
 
   const [profileLoading, setProfileLoading] = useState(true);
   const [editProfile, setEditProfile] = useState(false);
@@ -63,17 +60,25 @@ const UserProfile = () => {
 
   const getUser = async () => {
     try {
-      const { _id } = allUsers.find((user) => user.username === profileName);
-      const response = await fetch(`/api/users/${_id}`, { method: "GET" });
+      // const { _id } = allUsers?.find((user) => user.username === profileName);
+      const response = await fetch(`/api/users/${profileName}`, {
+        method: "GET",
+      });
       const { user } = await response.json();
-      //this will set data in userProfile state which you will get from context and use in jsx
-      dispatch({ type: "SET_USER", payload: user });
-      // setShowErrorPage(false);
-      setProfileLoading(false);
+      if (user) {
+        console.log(user);
+        //this will set data in userProfile state which you will get from context and use in jsx
+        dispatch({ type: "SET_USER", payload: user });
+        setProfileLoading(false);
+        setShowErrorPage(false);
+      } else {
+        setProfileLoading(false);
+        setShowErrorPage(true);
+      }
     } catch (error) {
       console.error(error);
-      // setProfileLoading(false);
-      // setShowErrorPage(true);
+      setProfileLoading(false);
+      setShowErrorPage(true);
     }
   };
 
@@ -105,7 +110,8 @@ const UserProfile = () => {
       body: JSON.stringify({ userData: userData }),
     });
     const { user } = await response.json();
-    dispatch({ type: "SET_USER", payload: user });
+    dispatch({ type: "SET_LOGGEDIN_USERPROFILE", payload: user });
+    // localStorage.setItem("loggedInUserDetails", JSON.stringify(user));
 
     if (hasEdited === "bio") {
       setEditProfile(!editProfile);

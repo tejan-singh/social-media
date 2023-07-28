@@ -51,7 +51,7 @@ const CreatePost = () => {
           value={userInput}
           placeholder="write something interesting..."
         />
-        <input type="file" onChange={(e) => uploadImage(e.target.files[0])} />
+        {/* <input type="file" onChange={(e) => uploadImage(e.target.files[0])} /> */}
         <div className={styles["btn-container"]}>
           <button
             onClick={() => createPost(userInput, setUserInput, selectedImageUrl)}

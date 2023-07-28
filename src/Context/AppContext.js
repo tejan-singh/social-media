@@ -100,10 +100,10 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const createPost = async (userInput, setUserInput) => {
+  const createPost = async (userInput, setUserInput, selectedImageUrl) => {
     try {
       if (userInput.trim()) {
-        const requestBody = { postData: { content: userInput } };
+        const requestBody = { postData: { content: userInput, selectedImageUrl } };
         const response = await fetch("/api/posts", {
           headers: {
             "Content-Type": "application/json",

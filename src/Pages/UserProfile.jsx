@@ -66,7 +66,6 @@ const UserProfile = () => {
       });
       const { user } = await response.json();
       if (user) {
-        console.log(user);
         //this will set data in userProfile state which you will get from context and use in jsx
         dispatch({ type: "SET_USER", payload: user });
         setProfileLoading(false);
@@ -174,8 +173,9 @@ const UserProfile = () => {
           <section className={styles["popup-box"]}>
             <div className={styles["box"]}>
               <div className={styles.avatars}>
-                {profileAvatars.map((avatar) => (
+                {profileAvatars.map((avatar, index) => (
                   <img
+                    key={index}
                     src={avatar}
                     alt="avatar"
                     onClick={() => {
@@ -214,6 +214,7 @@ const UserProfile = () => {
                 name="portfolio"
                 onChange={handleChange}
               />
+              
               <button onClick={() => handleSave("bio")}>Save</button>
               <button onClick={handleCancelEdit}>Cancel</button>
             </div>

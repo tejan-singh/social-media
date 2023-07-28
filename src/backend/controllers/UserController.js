@@ -22,6 +22,7 @@ export const getAllUsersHandler = function () {
 export const getUserHandler = function (schema, request) {
   const userId = request.params.userId;
   try {
+    //replaced _id with username
     const user = schema.users.findBy({ username: userId }).attrs;
     return new Response(200, {}, { user });
   } catch (error) {
@@ -152,7 +153,7 @@ export const bookmarkPostHandler = function (schema, request) {
       updatedAt: post.updatedAt,
       firstName: post.firstName,
       lastName: post.lastName,
-      profilePic: post.profilePic
+      profilePic: post.profilePic,
     });
     // this.db.users.update(
     //   { _id: user._id },

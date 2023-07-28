@@ -2,15 +2,36 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import styles from "./CreatePost.module.css";
 
+
 const CreatePost = () => {
   const {
     appState: { loggedinUser },
-    createPost
+    createPost,
   } = useContext(AppContext);
   const [userInput, setUserInput] = useState("");
+  const [selectedImageUrl, setSelectedImageUrl] = useState("");
 
   const handleChange = (e) => {
     setUserInput(() => e.target.value);
+  };
+
+  const uploadImage = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "s51lvs9t");
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/dg1rsn2vy/auto/upload`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const { secure_url } = await response.json();
+
+    console.log(secure_url);
+    setSelectedImageUrl(() => secure_url);
   };
 
   return (
@@ -30,9 +51,10 @@ const CreatePost = () => {
           value={userInput}
           placeholder="write something interesting..."
         />
+        <input type="file" onChange={(e) => uploadImage(e.target.files[0])} />
         <div className={styles["btn-container"]}>
           <button
-            onClick={() => createPost(userInput, setUserInput)}
+            onClick={() => createPost(userInput, setUserInput, selectedImageUrl)}
             className={
               //trim will check if user has entered any empty space without content
               !userInput.trim()

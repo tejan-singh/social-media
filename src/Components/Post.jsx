@@ -10,6 +10,7 @@ import {
   faFilePen,
   faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { Image } from "cloudinary-react";
 const Post = ({
   _id,
   id,
@@ -21,6 +22,7 @@ const Post = ({
   firstName,
   lastName,
   profilePic,
+  selectedImageUrl,
 }) => {
   const {
     appState: { allPosts, loggedinUser, bookmarks },
@@ -199,7 +201,16 @@ const Post = ({
       ) : (
         <>
           <Link to={`/profile/${username}`} className={styles["user-details"]}>
-            <img className={styles.profilePic} src={profilePic} alt="" />
+            {/** for loggedin user, to get updated profile picture on each post, get the latest pic from loggedinUser state and for rest, use posts data */}
+            <img
+              className={styles.profilePic}
+              src={
+                loggedinUser.username === username
+                  ? loggedinUser.profilePic
+                  : profilePic
+              }
+              alt=""
+            />
             <div>
               <p
                 className={styles["full-name"]}
@@ -209,7 +220,13 @@ const Post = ({
             {/** to get date in proper format call and render the function */}
             <p>{getFormattedDate()}</p>
           </Link>
-
+          {selectedImageUrl && (
+            <Image
+              cloudName="dg1rsn2vy"
+              publicId={selectedImageUrl}
+              className={styles["uploaded-img"]}
+            />
+          )}
           <p className={styles.content}>{content}</p>
 
           <div className={styles["buttons-container"]}>

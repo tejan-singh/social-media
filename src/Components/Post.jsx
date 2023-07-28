@@ -10,7 +10,7 @@ import {
   faFilePen,
   faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { Image } from "cloudinary-react";
+
 const Post = ({
   _id,
   id,
@@ -221,9 +221,9 @@ const Post = ({
             <p>{getFormattedDate()}</p>
           </Link>
           {selectedImageUrl && (
-            <Image
-              cloudName="dg1rsn2vy"
-              publicId={selectedImageUrl}
+            <img
+              alt="uploaded"
+              scr={selectedImageUrl}
               className={styles["uploaded-img"]}
             />
           )}
